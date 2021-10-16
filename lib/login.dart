@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/signup.dart';
+import 'package:private_lesson_app/constants/size_const.dart';
 
 class LoginPageWidget extends StatefulWidget {
   LoginPageWidget({Key? key}) : super(key: key);
@@ -12,7 +13,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   late TextEditingController textController1;
   late TextEditingController textController2;
   late bool passwordVisibility;
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -39,7 +39,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       backgroundColor: Color(0xFFF5F5F5),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(30, 40, 30, 0),
+          padding: EdgeInsetsDirectional.fromSTEB(0,0,0,0),
           child: Center(
             child: Flexible(
               fit: FlexFit.tight,
@@ -71,31 +71,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(15, 30, 15, 0),
+                      Padding(//------------Email--------------------------
+                        padding: EdgeInsetsDirectional.fromSTEB(constLeft, constTop, constRight, constBottom),
                         child: TextFormField(
                           controller: textController1,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
+                            border: const OutlineInputBorder(),
                             prefixIcon: Icon(
                               Icons.alternate_email,
                             ),
@@ -103,31 +86,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(15, 30, 15, 0),
+                      Padding(//------------Password--------------------------
+                        padding: EdgeInsetsDirectional.fromSTEB(constLeft, constTop, constRight, constBottom),
                         child: TextFormField(
                           controller: textController2,
                           obscureText: !passwordVisibility,
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
+                            border: const OutlineInputBorder(),
                             prefixIcon: Icon(
                               Icons.lock_outline_rounded,
                             ),
@@ -146,8 +112,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 40, 20, 50),
+                      Padding(//------------Login Button--------------------------
+                        padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn, constTopBtn, constRightBtn, constBottomBtn),
                         child: SizedBox(
                           
                           width: double.infinity,

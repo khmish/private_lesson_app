@@ -57,7 +57,7 @@ class _SignupWidgetState extends State<SignupWidget> {
           "password": passwordController.text,
           "gender": _genderSelectedValue,
           "phone": phoneController.text,
-          "city_id": _citySelectedValue
+          "city_id": _citySelectedValue.toString()
         },
         // headers: <String, String>{
         //   'Accept': 'application/json',
@@ -218,6 +218,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             constLeft, constTop, constRight, constBottom),
                         child: TextFormField(
+                          keyboardType:TextInputType.number,
                           controller: phoneController,
                           obscureText: false,
                           decoration: InputDecoration(

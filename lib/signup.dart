@@ -80,14 +80,13 @@ class _SignupWidgetState extends State<SignupWidget> {
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: Color(0xFFF5F5F5),
+      
       body: SafeArea(
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(30, 40, 30, 0),
           child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Color(0xFFEEEEEE),
               borderRadius: BorderRadius.circular(12),
               shape: BoxShape.rectangle,
               border: Border.all(
@@ -115,7 +114,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       labelText: 'Name',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -125,7 +124,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -148,7 +147,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       labelText: 'Email',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -158,7 +157,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -182,7 +181,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       labelText: 'Gender',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -192,7 +191,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -216,7 +215,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       labelText: 'Phone',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -226,7 +225,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -249,7 +248,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       labelText: 'Password',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -259,7 +258,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -294,7 +293,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       labelText: 'City',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -304,7 +303,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0x00000000),
+                          
                           width: 1,
                         ),
                         borderRadius: const BorderRadius.only(
@@ -320,14 +319,18 @@ class _SignupWidgetState extends State<SignupWidget> {
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 20),
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      registed();
-                    },
-                    label: Text('Button'),
-                    icon: Icon(
-                      Icons.login_outlined,
-                      size: 15,
+                  child: SizedBox(
+                    height: 35,
+                    width: MediaQuery.of(context).size.width*.6,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        registed();
+                      },
+                      label: Text('Button'),
+                      icon: Icon(
+                        Icons.login_outlined,
+                        size: 15,
+                      ),
                     ),
                   ),
                 )

@@ -14,7 +14,7 @@ class _CityWidgetState extends State<CityWidget> {
   late TextEditingController countryController;
   bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  
   @override
   void initState() {
     super.initState();

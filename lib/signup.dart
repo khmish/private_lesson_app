@@ -207,7 +207,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             }).toList(),
                             decoration: const InputDecoration(
                               
-                              prefixIcon:Icon(Icons.male),
+                              //prefixIcon:Icon(Icons.male),
                               border: const OutlineInputBorder(),
                             ),
                           ),

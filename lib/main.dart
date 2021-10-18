@@ -7,8 +7,8 @@ import 'login.dart';
 void main() {
   runApp(
     MaterialApp(
-      //home: SignupWidget(),
-      home: LoginPageWidget(),
+      home: SignupWidget(),
+      // home: LoginPageWidget(),
       // home: CityWidget(),
     )
   );

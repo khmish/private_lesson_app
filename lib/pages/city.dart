@@ -10,15 +10,15 @@ class CityWidget extends StatefulWidget {
 }
 
 class _CityWidgetState extends State<CityWidget> {
-  late TextEditingController CnameController;
+  late TextEditingController cityNameController;
   late TextEditingController countryController;
   bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  
+
   @override
   void initState() {
     super.initState();
-    CnameController = TextEditingController();
+    cityNameController = TextEditingController();
     countryController = TextEditingController();
   }
 
@@ -33,7 +33,7 @@ class _CityWidgetState extends State<CityWidget> {
       var response = await http.post(
         url,
         body: {
-          "name": CnameController.text,
+          "name": cityNameController.text,
           "country_name": countryController.text,
         },
         // headers: <String, String>{
@@ -42,7 +42,6 @@ class _CityWidgetState extends State<CityWidget> {
         //   // 'Authorization': 'Bearer $token',
         // },
       );
-
 
       print(response.body);
       if (response.statusCode == 200) {
@@ -75,11 +74,9 @@ class _CityWidgetState extends State<CityWidget> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Color(0xFFEEEEEE),
               borderRadius: BorderRadius.circular(12),
               shape: BoxShape.rectangle,
               border: Border.all(
-                color: Color(0xFFA6A4A4),
                 width: 1,
               ),
             ),
@@ -97,30 +94,10 @@ class _CityWidgetState extends State<CityWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(15, 30, 15, 0),
                   child: TextFormField(
-                    controller: CnameController,
+                    controller: cityNameController,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'CityName',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
                       prefixIcon: Icon(
                         Icons.alternate_email,
                       ),
@@ -134,26 +111,6 @@ class _CityWidgetState extends State<CityWidget> {
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'CountryName',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
                       prefixIcon: Icon(
                         Icons.alternate_email,
                       ),
@@ -161,7 +118,6 @@ class _CityWidgetState extends State<CityWidget> {
                     keyboardType: TextInputType.emailAddress,
                   ),
                 ),
-                
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 20),
                   child: ElevatedButton.icon(

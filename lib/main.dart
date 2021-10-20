@@ -4,15 +4,15 @@ import 'package:private_lesson_app/pages/signup.dart';
 import 'package:private_lesson_app/pages/city.dart';
 import 'pages/login.dart';
 
-
 void main() {
-  runApp(
-    MaterialApp(
-      home: SearchWidget(),
-      // home: SignupWidget(),
-      // home: LoginPageWidget(),
-      // home: CityWidget(),
-    )
-  );
+  runApp(MaterialApp(
+    initialRoute: '/',
+    routes: {
+      // When navigating to the "/" route, build the FirstScreen widget.
+      '/': (context) => SearchWidget(),
+      '/singup': (context) => SignupWidget(),
+      '/login': (context) => LoginPageWidget(),
+      '/city': (context) => CityWidget(),
+    },
+  ));
 }
-

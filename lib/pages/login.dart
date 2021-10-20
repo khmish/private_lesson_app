@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:private_lesson_app/signup.dart';
+import 'package:private_lesson_app/pages/signup.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;

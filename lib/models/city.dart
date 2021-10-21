@@ -3,7 +3,7 @@ class City {
   late String name;
   late String countryName;
 
-  City(this.id, this.name, this.countryName);
+  City({required this.id, required this.name, required this.countryName});
 
   City.fromJson(Map<String, dynamic> json) {
     id = json['id'];

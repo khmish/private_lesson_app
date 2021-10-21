@@ -1,5 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:private_lesson_app/models/city.dart';
+import 'package:private_lesson_app/constants/size_const.dart';
 
 class SearchWidget extends StatefulWidget {
   SearchWidget({Key? key}) : super(key: key);
@@ -9,10 +13,11 @@ class SearchWidget extends StatefulWidget {
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
-  late String dropDownValue1;
-  late String dropDownValue2;
-  late String dropDownValue3;
-  late String dropDownValue4;
+  late String dropDownValue1;  
+  late List<String> _genderList = ['male', 'female'];
+  String _genderSelectedValue = "male";
+  late List<City> _cityList = [];
+  late int _citySelectedValue = 1;
   late TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -20,6 +25,49 @@ class _SearchWidgetState extends State<SearchWidget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+    getCities().then((value) {
+      setState(() {
+        _cityList = value;
+        if (_cityList.length > 0) _citySelectedValue = _cityList[0].id;
+      });
+    });
+    
+  }
+
+  var _baseUrlCities = 'https://privatelesson.herokuapp.com/api/city';
+
+  Future<List<City>> getCities() async {
+    var baseUrl = _baseUrlCities;
+    List<City> cityList = [];
+    try {
+      // if (page > 0) {
+      baseUrl = _baseUrlCities;
+      // }
+      var url = Uri.parse(baseUrl);
+      var response = await http.get(
+        url,
+        // headers: <String, String>{
+        //   'Accept': 'application/json',
+        //   'Content-Type': 'application/json; charset=UTF-8',
+        //   // 'Authorization': 'Bearer $token',
+        // },
+      );
+      // print(response.body);
+      if (response.statusCode == 200) {
+        dynamic body = json.decode(response.body)['data'];
+
+        for (var i = 0; i < body.length; i++) {
+          City city = City.fromJson(body[i]);
+          cityList.add(city);
+        }
+        return cityList;
+      } else {
+        return cityList;
+      }
+    } catch (e) {
+      print(e);
+      return cityList;
+    }
   }
 
   @override
@@ -68,30 +116,31 @@ class _SearchWidgetState extends State<SearchWidget> {
                     scrollDirection: Axis.vertical,
                     children: [
                       DropdownButtonFormField(
-                        value: 'dad',
-                        items: []
-                            .map((e) => DropdownMenuItem(
-                                  child: Text(e),
-                                  value: e,
-                                ))
-                            .toList(),
-                        onChanged: (val) {
-                          setState(() => dropDownValue1 = val.toString());
+                        value: _genderSelectedValue,
+                        items: _genderList.map((String itemList) {
+                            return DropdownMenuItem(
+                              child: Text(itemList),
+                              value: itemList,
+                            );
+                          }).toList(),
+                        onChanged: (newValue) {
+                          setState(() => _genderSelectedValue = newValue.toString());
                         },
                         decoration: const InputDecoration(
                           border: const OutlineInputBorder(),
                         ),
                       ),
                       DropdownButtonFormField(
-                        value: 'dad',
-                        items: []
-                            .map((e) => DropdownMenuItem(
-                                  child: Text(e),
-                                  value: e,
-                                ))
-                            .toList(),
-                        onChanged: (val) {
-                          setState(() => dropDownValue1 = val.toString());
+                        value: _citySelectedValue,
+                        items: _cityList.map((itemList) {
+                            print(itemList);
+                            return DropdownMenuItem(
+                              child: Text(itemList.name),
+                              value: itemList.id,
+                            );
+                          }).toList(),
+                        onChanged: (value) {
+                          setState(() => _citySelectedValue = value as int);
                         },
                         decoration: const InputDecoration(
                           border: const OutlineInputBorder(),

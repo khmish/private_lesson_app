@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
 class SearchPageWidget extends StatefulWidget {
   SearchPageWidget({Key? key}) : super(key: key);
 
@@ -11,7 +12,7 @@ class SearchPageWidget extends StatefulWidget {
 }
 
 class _SearchPageWidgetState extends State<SearchPageWidget> {
- late TextEditingController textController;
+  late TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

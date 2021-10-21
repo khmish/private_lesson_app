@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 
@@ -24,6 +24,7 @@ class _SignupWidgetState extends State<SignupWidget> {
   late bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+
   @override
   void initState() {
     super.initState();
@@ -32,9 +33,9 @@ class _SignupWidgetState extends State<SignupWidget> {
     phoneController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
-    getCities().then((value) {
+    CityAPI.getCities().then((citiesList) {
       setState(() {
-        _cityList = value;
+        _cityList = citiesList;
         if (_cityList.length > 0) _citySelectedValue = _cityList[0].id;
       });
     });
@@ -67,7 +68,6 @@ class _SignupWidgetState extends State<SignupWidget> {
       );
       print(response.body);
       if (response.statusCode == 200) {
-        
       } else {
         print(response.body);
       }
@@ -76,40 +76,7 @@ class _SignupWidgetState extends State<SignupWidget> {
     }
   }
 
-  Future<List<City>> getCities() async {
-    var baseUrl = _baseUrlCities;
-    List<City> cityList = [];
-    try {
-      // if (page > 0) {
-      baseUrl = _baseUrlCities;
-      // }
-      var url = Uri.parse(baseUrl);
-      var response = await http.get(
-        url,
-        // headers: <String, String>{
-        //   'Accept': 'application/json',
-        //   'Content-Type': 'application/json; charset=UTF-8',
-        //   // 'Authorization': 'Bearer $token',
-        // },
-      );
-      // print(response.body);
-      if (response.statusCode == 200) {
-        dynamic body = json.decode(response.body)['data'];
-
-        for (var i = 0; i < body.length; i++) {
-          City city = City.fromJson(body[i]);
-          cityList.add(city);
-        }
-        return cityList;
-      } else {
-        return cityList;
-      }
-    } catch (e) {
-      print(e);
-      return cityList;
-    }
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,8 +96,10 @@ class _SignupWidgetState extends State<SignupWidget> {
           child: Center(
             child: FittedBox(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
-                      width: MediaQuery.of(context).size.width>1000?MediaQuery.of(context).size.width*0.6:MediaQuery.of(context).size.width ,
+                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                width: MediaQuery.of(context).size.width > 1000
+                    ? MediaQuery.of(context).size.width * 0.6
+                    : MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   shape: BoxShape.rectangle,
@@ -204,7 +173,6 @@ class _SignupWidgetState extends State<SignupWidget> {
                             );
                           }).toList(),
                           decoration: const InputDecoration(
-                            
                             //prefixIcon:Icon(Icons.male),
                             border: const OutlineInputBorder(),
                           ),
@@ -216,7 +184,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(
                           constLeft, constTop, constRight, constBottom),
                       child: TextFormField(
-                        keyboardType:TextInputType.number,
+                        keyboardType: TextInputType.number,
                         controller: phoneController,
                         obscureText: false,
                         decoration: InputDecoration(
@@ -261,7 +229,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             constLeft, constTop, constRight, constBottom),
                         child: DropdownButtonFormField(
-                          value: _citySelectedValue,
+                          // value: _citySelectedValue,
                           items: _cityList.map((itemList) {
                             print(itemList);
                             return DropdownMenuItem(
@@ -269,14 +237,15 @@ class _SignupWidgetState extends State<SignupWidget> {
                               value: itemList.id,
                             );
                           }).toList(),
-                          onChanged: (value) {
+                          onChanged: (cityId) {
                             // log(value);
+                            print(cityId);
                             setState(() {
-                              _citySelectedValue = value as int;
+                              _citySelectedValue = cityId as int;
                             });
                           },
                           decoration: const InputDecoration(
-                            prefixIcon:Icon(Icons.location_on_rounded),
+                            prefixIcon: Icon(Icons.location_on_rounded),
                             border: const OutlineInputBorder(),
                           ),
                         )),

@@ -1,5 +1,5 @@
 
-import 'package:auto_size_text/auto_size_text.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -40,7 +40,7 @@ class _SearchPageWidgetState extends State<SearchPageWidget> {
                     Align(
                       alignment: AlignmentDirectional(0, -1.56),
                       child: Image.asset(
-                        'assets/images/detailed-illustration-blackboard-private-lessons-260nw-611180963.jpg',
+                        '',
                         width: double.infinity,
                         height: 200,
                         fit: BoxFit.cover,
@@ -184,7 +184,7 @@ class _SearchPageWidgetState extends State<SearchPageWidget> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
-                            'assets/images/profile-male.png',
+                            '',
                             width: 56,
                             height: double.infinity,
                             fit: BoxFit.contain,
@@ -229,7 +229,7 @@ class _SearchPageWidgetState extends State<SearchPageWidget> {
                                             ),
                                           ),
                                           Expanded(
-                                            child: AutoSizeText(
+                                            child: Text(
                                               
                                                 
                                                 '100 ريال',

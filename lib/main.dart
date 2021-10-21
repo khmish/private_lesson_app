@@ -7,7 +7,7 @@ import 'pages/login.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/singup',
+    initialRoute: '/',
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
       '/': (context) => SearchWidget(),

@@ -26,7 +26,6 @@ class UserAPI {
         dynamic body = json.decode(response.body)['data'];
 
         for (var i = 0; i < body.length; i++) {
-          print(body[i]);
           User user = User.fromJson(body[i]);
           userList.add(user);
         }

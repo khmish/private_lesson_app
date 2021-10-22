@@ -26,7 +26,6 @@ class CityAPI {
         dynamic body = json.decode(response.body)['data'];
 
         for (var i = 0; i < body.length; i++) {
-          print(body[i]);
           City city = City.fromJson(body[i]);
           cityList.add(city);
         }

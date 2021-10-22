@@ -20,7 +20,7 @@ class SearchWidget extends StatefulWidget {
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
-  late String dropDownValue1;  
+  late String dropDownValue1;
   late List<String> _genderList = ['male', 'female'];
   String _genderSelectedValue = "male";
   late List<City> _cityList = [];
@@ -52,7 +52,8 @@ class _SearchWidgetState extends State<SearchWidget> {
     LeveleducationAPI.getLeveleducations().then((value) {
       setState(() {
         _leveleducationList = value;
-        if (_leveleducationList.length > 0) _leveleducationSelectedValue = _leveleducationList[0].id;
+        if (_leveleducationList.length > 0)
+          _leveleducationSelectedValue = _leveleducationList[0].id;
       });
     });
     UserAPI.getUsers().then((value) {
@@ -61,7 +62,7 @@ class _SearchWidgetState extends State<SearchWidget> {
       });
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,13 +111,14 @@ class _SearchWidgetState extends State<SearchWidget> {
                       DropdownButtonFormField(
                         value: _genderSelectedValue,
                         items: _genderList.map((String itemList) {
-                            return DropdownMenuItem(
-                              child: Text(itemList),
-                              value: itemList,
-                            );
-                          }).toList(),
+                          return DropdownMenuItem(
+                            child: Text(itemList),
+                            value: itemList,
+                          );
+                        }).toList(),
                         onChanged: (newValue) {
-                          setState(() => _genderSelectedValue = newValue.toString());
+                          setState(
+                              () => _genderSelectedValue = newValue.toString());
                         },
                         decoration: const InputDecoration(
                           border: const OutlineInputBorder(),
@@ -125,12 +127,12 @@ class _SearchWidgetState extends State<SearchWidget> {
                       DropdownButtonFormField(
                         value: _citySelectedValue,
                         items: _cityList.map((itemList) {
-                            print(itemList);
-                            return DropdownMenuItem(
-                              child: Text(itemList.name),
-                              value: itemList.id,
-                            );
-                          }).toList(),
+                          
+                          return DropdownMenuItem(
+                            child: Text(itemList.name),
+                            value: itemList.id,
+                          );
+                        }).toList(),
                         onChanged: (value) {
                           setState(() => _citySelectedValue = value as int);
                         },
@@ -141,12 +143,12 @@ class _SearchWidgetState extends State<SearchWidget> {
                       DropdownButtonFormField(
                         value: _subjectSelectedValue,
                         items: _subjectList.map((itemList) {
-                            print(itemList);
-                            return DropdownMenuItem(
-                              child: Text(itemList.name),
-                              value: itemList.id,
-                            );
-                          }).toList(),
+                          
+                          return DropdownMenuItem(
+                            child: Text(itemList.name),
+                            value: itemList.id,
+                          );
+                        }).toList(),
                         onChanged: (value) {
                           setState(() => _subjectSelectedValue = value as int);
                         },
@@ -154,17 +156,18 @@ class _SearchWidgetState extends State<SearchWidget> {
                           border: const OutlineInputBorder(),
                         ),
                       ),
-                        DropdownButtonFormField(
+                      DropdownButtonFormField(
                         value: _leveleducationSelectedValue,
                         items: _leveleducationList.map((itemList) {
-                            print(itemList);
-                            return DropdownMenuItem(
-                              child: Text(itemList.name),
-                              value: itemList.id,
-                            );
-                          }).toList(),
+                          
+                          return DropdownMenuItem(
+                            child: Text(itemList.name),
+                            value: itemList.id,
+                          );
+                        }).toList(),
                         onChanged: (value) {
-                          setState(() => _leveleducationSelectedValue = value as int);
+                          setState(() =>
+                              _leveleducationSelectedValue = value as int);
                         },
                         decoration: const InputDecoration(
                           border: const OutlineInputBorder(),
@@ -181,16 +184,16 @@ class _SearchWidgetState extends State<SearchWidget> {
                   height: MediaQuery.of(context).size.height * 0.6,
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: MediaQuery.of(context).size.width>1000?3:1,
-                      mainAxisSpacing: 0,
-                      crossAxisSpacing: 2,
-                      mainAxisExtent: 100
-                    ),
+                        crossAxisCount:
+                            MediaQuery.of(context).size.width > 1000 ? 3 : 1,
+                        mainAxisSpacing: 0,
+                        crossAxisSpacing: 2,
+                        mainAxisExtent: 100),
                     // shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: _userList.length,
                     // padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) { 
+                    itemBuilder: (context, index) {
                       return new Column(
                         children: [
                           Row(
@@ -228,12 +231,17 @@ class _SearchWidgetState extends State<SearchWidget> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 15),
-                                      child: Text(
-                                        '${_userList[index].name}'
+                                      child: SizedBox(
+                                        width: 100,
+                                        child: Text(
+                                          '${_userList[index].name}',
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ),
                                     Text(
                                       'id:  ${_userList[index].id}',
+                                      overflow: TextOverflow.ellipsis,
                                     )
                                   ],
                                 ),
@@ -249,6 +257,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                           0, 0, 0, 15),
                                       child: Text(
                                         '100\$ /hour',
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                     Row(
@@ -286,7 +295,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                           // Divider(thickness: 3, height: 10,)
                         ],
                       );
-                     
                     },
                   ),
                 ),

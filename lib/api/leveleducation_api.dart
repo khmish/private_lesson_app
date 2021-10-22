@@ -26,7 +26,6 @@ class LeveleducationAPI {
         dynamic body = json.decode(response.body)['data'];
 
         for (var i = 0; i < body.length; i++) {
-          print(body[i]);
           Leveleducation leveleducation = Leveleducation.fromJson(body[i]);
           leveleducationList.add(leveleducation);
         }

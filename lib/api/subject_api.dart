@@ -26,7 +26,6 @@ class SubjectAPI {
         dynamic body = json.decode(response.body)['data'];
 
         for (var i = 0; i < body.length; i++) {
-          print(body[i]);
           Subject subject = Subject.fromJson(body[i]);
           subjectList.add(subject);
         }

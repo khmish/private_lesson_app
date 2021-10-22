@@ -30,7 +30,6 @@ class _SearchWidgetState extends State<SearchWidget> {
   late List<Leveleducation> _leveleducationList = [];
   late int _leveleducationSelectedValue = 1;
   late List<User> _userList = [];
-  late int _userSelectedValue = 1;
   late TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -59,7 +58,6 @@ class _SearchWidgetState extends State<SearchWidget> {
     UserAPI.getUsers().then((value) {
       setState(() {
         _userList = value;
-        if (_userList.length > 0) _userSelectedValue = _userList[0].id;
       });
     });
   }
@@ -192,8 +190,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                     scrollDirection: Axis.vertical,
                     itemCount: _userList.length,
                     // padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      return Column(
+                    itemBuilder: (context, index) { 
+                      return new Column(
                         children: [
                           Row(
                             mainAxisSize: MainAxisSize.max,
@@ -231,11 +229,11 @@ class _SearchWidgetState extends State<SearchWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 15),
                                       child: Text(
-                                        'Ali Abudllah',
+                                        '${_userList[index].name}'
                                       ),
                                     ),
                                     Text(
-                                      'Primary school',
+                                      'id:  ${_userList[index].id}',
                                     )
                                   ],
                                 ),
@@ -288,6 +286,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                           // Divider(thickness: 3, height: 10,)
                         ],
                       );
+                     
                     },
                   ),
                 ),

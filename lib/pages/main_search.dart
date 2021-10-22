@@ -252,18 +252,30 @@ class _SearchWidgetState extends State<SearchWidget> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Padding(
+                                    IconButton(
+                                      icon: new Icon(Icons.edit),
+                                      alignment: Alignment.center,
+                                      padding: new EdgeInsets.all(0.0),
+                                      onPressed: () {},
+                                      ),
+                                    /*Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 15),
                                       child: Text(
                                         '100\$ /hour',
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
+                                    ),*/
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Icon(
+                                        IconButton(
+                                          icon: new Icon(Icons.delete),
+                                          alignment: Alignment.center,
+                                          padding: new EdgeInsets.all(0.0),
+                                          onPressed: () {},
+                                          ),
+                                       /* Icon(
                                           Icons.star_rounded,
                                           size: 20,
                                         ),
@@ -284,7 +296,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                           Icons.star_rounded,
                                           color: Colors.black,
                                           size: 20,
-                                        )
+                                        )*/
                                       ],
                                     ),
                                   ],

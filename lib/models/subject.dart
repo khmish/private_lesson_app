@@ -1,7 +1,6 @@
 class Subject {
   late int id;
   late String name;
-  late String countryName;
 
   Subject({required this.id, required this.name});
 

@@ -11,6 +11,7 @@ import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
+import 'package:private_lesson_app/pages/main_search.dart';
 
 class UserprofileWidget extends StatefulWidget {
   UserprofileWidget({Key? key}) : super(key: key);
@@ -64,6 +65,7 @@ class _UserprofileWidgetState extends State<UserprofileWidget> {
   
   @override
   Widget build(BuildContext context) {
+    final _userList = ModalRoute.of(context)!.settings.arguments as User;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(

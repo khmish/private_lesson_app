@@ -10,7 +10,9 @@ import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
+import 'package:private_lesson_app/pages/userprofile.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
+import 'package:private_lesson_app/pages/userprofile.dart';
 
 class SearchWidget extends StatefulWidget {
   SearchWidget({Key? key}) : super(key: key);
@@ -193,7 +195,15 @@ class _SearchWidgetState extends State<SearchWidget> {
                     itemBuilder: (context, index) {
                       return new Column(
                         children: [
-                          Row(
+                          Expanded(
+                            child: ElevatedButton(onPressed: () {
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => DetailScreen(),
+                              settings: RouteSettings(arguments: _userList[index])),
+                            );
+                            },
+                          child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               ClipRect(
@@ -251,30 +261,18 @@ class _SearchWidgetState extends State<SearchWidget> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    IconButton(
-                                      icon: new Icon(Icons.edit),
-                                      alignment: Alignment.center,
-                                      padding: new EdgeInsets.all(0.0),
-                                      onPressed: () {},
-                                    ),
-                                    /*Padding(
+                                    Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 15),
                                       child: Text(
                                         '100\$ /hour',
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),*/
+                                    ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        IconButton(
-                                          icon: new Icon(Icons.delete),
-                                          alignment: Alignment.center,
-                                          padding: new EdgeInsets.all(0.0),
-                                          onPressed: () {},
-                                        ),
-                                        /* Icon(
+                                        Icon(
                                           Icons.star_rounded,
                                           size: 20,
                                         ),
@@ -295,7 +293,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                           Icons.star_rounded,
                                           color: Colors.black,
                                           size: 20,
-                                        )*/
+                                        )
                                       ],
                                     ),
                                   ],
@@ -304,6 +302,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                             ],
                           ),
                           // Divider(thickness: 3, height: 10,)
+                            ),),
                         ],
                       );
                     },

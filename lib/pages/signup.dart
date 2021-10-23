@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
@@ -42,7 +41,6 @@ class _SignupWidgetState extends State<SignupWidget> {
   }
 
   var _baseUrlRegisterUser = 'https://privatelesson.herokuapp.com/api/user';
-  var _baseUrlCities = 'https://privatelesson.herokuapp.com/api/city';
   Future<void> registed() async {
     var baseUrl = _baseUrlRegisterUser;
     try {

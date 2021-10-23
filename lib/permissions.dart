@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class permissions extends StatefulWidget {
-  const permissions({Key? key}) : super(key: key);
+class Permissions extends StatefulWidget {
+  const Permissions({Key? key}) : super(key: key);
 
   @override
-  _permissionsState createState() => _permissionsState();
+  _PermissionsState createState() => _PermissionsState();
 }
 
-class _permissionsState extends State<permissions> {
+class _PermissionsState extends State<Permissions> {
 
   bool _checkbox = false;
 

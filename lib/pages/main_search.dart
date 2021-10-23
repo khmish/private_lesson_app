@@ -1,7 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/api/subject_api.dart';
@@ -10,8 +8,6 @@ import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
-import 'package:private_lesson_app/pages/userprofile.dart';
-import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/pages/userprofile.dart';
 
 class SearchWidget extends StatefulWidget {
@@ -83,7 +79,7 @@ class _SearchWidgetState extends State<SearchWidget> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            // mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 20),
@@ -98,82 +94,83 @@ class _SearchWidgetState extends State<SearchWidget> {
                   ),
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                  child: GridView(
-                    padding: EdgeInsets.zero,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                child: GridView(
+                  padding: EdgeInsets.zero,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount:
+                          MediaQuery.of(context).size.width > 1000 ? 4 : 2,
+                      mainAxisSpacing: 5,
                       crossAxisSpacing: 10,
-                    ),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      DropdownButtonFormField(
-                        value: _genderSelectedValue,
-                        items: _genderList.map((String itemList) {
-                          return DropdownMenuItem(
-                            child: Text(itemList),
-                            value: itemList,
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          setState(
-                              () => _genderSelectedValue = newValue.toString());
-                        },
-                        decoration: const InputDecoration(
-                          border: const OutlineInputBorder(),
-                        ),
-                      ),
-                      DropdownButtonFormField(
-                        value: _citySelectedValue,
-                        items: _cityList.map((itemList) {
-                          return DropdownMenuItem(
-                            child: Text(itemList.name),
-                            value: itemList.id,
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() => _citySelectedValue = value as int);
-                        },
-                        decoration: const InputDecoration(
-                          border: const OutlineInputBorder(),
-                        ),
-                      ),
-                      DropdownButtonFormField(
-                        value: _subjectSelectedValue,
-                        items: _subjectList.map((itemList) {
-                          return DropdownMenuItem(
-                            child: Text(itemList.name),
-                            value: itemList.id,
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() => _subjectSelectedValue = value as int);
-                        },
-                        decoration: const InputDecoration(
-                          border: const OutlineInputBorder(),
-                        ),
-                      ),
-                      DropdownButtonFormField(
-                        value: _leveleducationSelectedValue,
-                        items: _leveleducationList.map((itemList) {
-                          return DropdownMenuItem(
-                            child: Text(itemList.name),
-                            value: itemList.id,
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() =>
-                              _leveleducationSelectedValue = value as int);
-                        },
-                        decoration: const InputDecoration(
-                          border: const OutlineInputBorder(),
-                        ),
-                      ),
-                    ],
+                      mainAxisExtent: 50
                   ),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  children: [
+                    DropdownButtonFormField(
+                      value: _genderSelectedValue,
+                      items: _genderList.map((String itemList) {
+                        return DropdownMenuItem(
+                          child: Text(itemList),
+                          value: itemList,
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        setState(
+                            () => _genderSelectedValue = newValue.toString());
+                      },
+                      decoration: const InputDecoration(
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                    DropdownButtonFormField(
+                      value: _citySelectedValue,
+                      items: _cityList.map((itemList) {
+                        return DropdownMenuItem(
+                          child: Text(itemList.name),
+                          value: itemList.id,
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() => _citySelectedValue = value as int);
+                      },
+                      decoration: const InputDecoration(
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                    DropdownButtonFormField(
+                      value: _subjectSelectedValue,
+                      items: _subjectList.map((itemList) {
+                        return DropdownMenuItem(
+                          child: Text(itemList.name),
+                          value: itemList.id,
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() => _subjectSelectedValue = value as int);
+                      },
+                      decoration: const InputDecoration(
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                    DropdownButtonFormField(
+                      value: _leveleducationSelectedValue,
+                      items: _leveleducationList.map((itemList) {
+                        return DropdownMenuItem(
+                          child: Text(itemList.name),
+                          value: itemList.id,
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() =>
+                            _leveleducationSelectedValue = value as int);
+                      },
+                      decoration: const InputDecoration(
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
@@ -196,113 +193,119 @@ class _SearchWidgetState extends State<SearchWidget> {
                       return new Column(
                         children: [
                           Expanded(
-                            child: ElevatedButton(onPressed: () {
-                              Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => DetailScreen(),
-                              settings: RouteSettings(arguments: _userList[index])),
-                            );
-                            },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              ClipRect(
-                                child: ImageFiltered(
-                                  imageFilter: ImageFilter.blur(
-                                    sigmaX: 2,
-                                    sigmaY: 2,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailScreen(),
+                                      settings: RouteSettings(
+                                          arguments: _userList[index])),
+                                );
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  ClipRect(
+                                    child: ImageFiltered(
+                                      imageFilter: ImageFilter.blur(
+                                        sigmaX: 2,
+                                        sigmaY: 2,
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5, 5, 5, 5),
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            'https://picsum.photos/seed/305/600',
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: Padding(
+                                  Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 5, 5, 5),
-                                    child: Container(
-                                      width: 80,
-                                      height: 80,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/305/600',
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 15),
-                                      child: ConstrainedBox(
-                                        constraints: BoxConstraints(
-                                          maxWidth: 100,
-                                        ),
-                                        child: Text(
-                                          '${_userList[index].name}',
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'id:  ${_userList[index].id}',
-                                      overflow: TextOverflow.ellipsis,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 15),
-                                      child: Text(
-                                        '100\$ /hour',
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    Row(
+                                        15, 0, 0, 0),
+                                    child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Icon(
-                                          Icons.star_rounded,
-                                          size: 20,
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 15),
+                                          child: ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              maxWidth: 100,
+                                            ),
+                                            child: Text(
+                                              '${_userList[index].name}',
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
                                         ),
-                                        Icon(
-                                          Icons.star_rounded,
-                                          size: 20,
-                                        ),
-                                        Icon(
-                                          Icons.star_rounded,
-                                          size: 20,
-                                        ),
-                                        Icon(
-                                          Icons.star_rounded,
-                                          color: Colors.black,
-                                          size: 20,
-                                        ),
-                                        Icon(
-                                          Icons.star_rounded,
-                                          color: Colors.black,
-                                          size: 20,
+                                        Text(
+                                          'id:  ${_userList[index].id}',
+                                          overflow: TextOverflow.ellipsis,
                                         )
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15, 0, 0, 0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 15),
+                                          child: Text(
+                                            '100\$ /hour',
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Icon(
+                                              Icons.star_rounded,
+                                              size: 20,
+                                            ),
+                                            Icon(
+                                              Icons.star_rounded,
+                                              size: 20,
+                                            ),
+                                            Icon(
+                                              Icons.star_rounded,
+                                              size: 20,
+                                            ),
+                                            Icon(
+                                              Icons.star_rounded,
+                                              color: Colors.black,
+                                              size: 20,
+                                            ),
+                                            Icon(
+                                              Icons.star_rounded,
+                                              color: Colors.black,
+                                              size: 20,
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                              // Divider(thickness: 3, height: 10,)
+                            ),
                           ),
-                          // Divider(thickness: 3, height: 10,)
-                            ),),
                         ],
                       );
                     },

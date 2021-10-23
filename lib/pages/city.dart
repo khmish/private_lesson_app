@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class CityWidget extends StatefulWidget {
@@ -12,7 +11,6 @@ class CityWidget extends StatefulWidget {
 class _CityWidgetState extends State<CityWidget> {
   late TextEditingController cityNameController;
   late TextEditingController countryController;
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -45,7 +43,7 @@ class _CityWidgetState extends State<CityWidget> {
 
       print(response.body);
       if (response.statusCode == 200) {
-        dynamic body = json.decode(response.body)['data'];
+        // dynamic body = json.decode(response.body)['data'];
       } else {
         print(response.body);
       }

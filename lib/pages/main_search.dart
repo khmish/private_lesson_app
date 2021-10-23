@@ -127,7 +127,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                       DropdownButtonFormField(
                         value: _citySelectedValue,
                         items: _cityList.map((itemList) {
-                          
                           return DropdownMenuItem(
                             child: Text(itemList.name),
                             value: itemList.id,
@@ -143,7 +142,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                       DropdownButtonFormField(
                         value: _subjectSelectedValue,
                         items: _subjectList.map((itemList) {
-                          
                           return DropdownMenuItem(
                             child: Text(itemList.name),
                             value: itemList.id,
@@ -159,7 +157,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                       DropdownButtonFormField(
                         value: _leveleducationSelectedValue,
                         items: _leveleducationList.map((itemList) {
-                          
                           return DropdownMenuItem(
                             child: Text(itemList.name),
                             value: itemList.id,
@@ -231,8 +228,10 @@ class _SearchWidgetState extends State<SearchWidget> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 15),
-                                      child: SizedBox(
-                                        width: 100,
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          maxWidth: 100,
+                                        ),
                                         child: Text(
                                           '${_userList[index].name}',
                                           overflow: TextOverflow.ellipsis,
@@ -257,7 +256,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                       alignment: Alignment.center,
                                       padding: new EdgeInsets.all(0.0),
                                       onPressed: () {},
-                                      ),
+                                    ),
                                     /*Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 15),
@@ -274,8 +273,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                                           alignment: Alignment.center,
                                           padding: new EdgeInsets.all(0.0),
                                           onPressed: () {},
-                                          ),
-                                       /* Icon(
+                                        ),
+                                        /* Icon(
                                           Icons.star_rounded,
                                           size: 20,
                                         ),

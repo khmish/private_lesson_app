@@ -1088,11 +1088,10 @@ class userPageWidget extends StatefulWidget {
 
 class _userPageWidgetState extends State<userPageWidget> {
 
+
+
   bool _checkbox = false;
 
-  // late bool switchListTileValue1;
-  // late bool switchListTileValue2;
-  // late bool switchListTileValue3;
 
   bool _lights = false;
 
@@ -1142,7 +1141,14 @@ class _userPageWidgetState extends State<userPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
+
+
+
+
       key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -1370,9 +1376,21 @@ class _userPageWidgetState extends State<userPageWidget> {
 
                                     //here
                                     Row(
+
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
+
+                                        Icon(
+
+                                          Icons.chevron_right_rounded,
+                                          color: Color(0xFF82878C),
+                                          size: 24,
+                                        ),
+
                                         Expanded(
+
+
+
                                           child: Padding(
                                             padding: EdgeInsetsDirectional
                                                 .fromSTEB(0, 4, 4, 0),
@@ -1386,7 +1404,10 @@ class _userPageWidgetState extends State<userPageWidget> {
                                                 });
                                               },
                                               secondary: const Icon(Icons.supervised_user_circle),
+
                                             ),
+
+
 
 
                                           ),

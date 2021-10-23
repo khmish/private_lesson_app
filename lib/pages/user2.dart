@@ -21,11 +21,7 @@ class userPageWidget extends StatefulWidget {
 
 class _userPageWidgetState extends State<userPageWidget> {
 
-  bool _checkbox = false;
-
-  late bool switchListTileValue1;
-  late bool switchListTileValue2;
-  late bool switchListTileValue3;
+  bool _lights = false;
 
   late String dropDownValue1;
   late List<String> _genderList = ['male', 'female'];
@@ -69,8 +65,6 @@ class _userPageWidgetState extends State<userPageWidget> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +72,7 @@ class _userPageWidgetState extends State<userPageWidget> {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text(
-          'Private Lesson',
+          'Users',
         ),
         actions: [],
         centerTitle: true,
@@ -106,102 +100,20 @@ class _userPageWidgetState extends State<userPageWidget> {
                 ),
               ),
 
-
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                  child: GridView(
-                    padding: EdgeInsets.zero,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 10,
-                    ),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      //
-                      // DropdownButtonFormField(
-                      //   value: _genderSelectedValue,
-                      //   items: _genderList.map((String itemList) {
-                      //     return DropdownMenuItem(
-                      //       child: Text(itemList),
-                      //       value: itemList,
-                      //     );
-                      //   }).toList(),
-                      //   onChanged: (newValue) {
-                      //     setState(() => _genderSelectedValue = newValue.toString());
-                      //   },
-                      //   decoration: const InputDecoration(
-                      //     border: const OutlineInputBorder(),
-                      //   ),
-                      // ),
-                      // DropdownButtonFormField(
-                      //   value: _citySelectedValue,
-                      //   items: _cityList.map((itemList) {
-                      //     print(itemList);
-                      //     return DropdownMenuItem(
-                      //       child: Text(itemList.name),
-                      //       value: itemList.id,
-                      //     );
-                      //   }).toList(),
-                      //   onChanged: (value) {
-                      //     setState(() => _citySelectedValue = value as int);
-                      //   },
-                      //   decoration: const InputDecoration(
-                      //     border: const OutlineInputBorder(),
-                      //   ),
-                      // ),
-                      // DropdownButtonFormField(
-                      //   value: _subjectSelectedValue,
-                      //   items: _subjectList.map((itemList) {
-                      //     print(itemList);
-                      //     return DropdownMenuItem(
-                      //       child: Text(itemList.name),
-                      //       value: itemList.id,
-                      //     );
-                      //   }).toList(),
-                      //   onChanged: (value) {
-                      //     setState(() => _subjectSelectedValue = value as int);
-                      //   },
-                      //   decoration: const InputDecoration(
-                      //     border: const OutlineInputBorder(),
-                      //   ),
-                      // ),
-                      // DropdownButtonFormField(
-                      //   value: _leveleducationSelectedValue,
-                      //   items: _leveleducationList.map((itemList) {
-                      //     print(itemList);
-                      //     return DropdownMenuItem(
-                      //       child: Text(itemList.name),
-                      //       value: itemList.id,
-                      //     );
-                      //   }).toList(),
-                      //   onChanged: (value) {
-                      //     setState(() => _leveleducationSelectedValue = value as int);
-                      //   },
-                      //   decoration: const InputDecoration(
-                      //     border: const OutlineInputBorder(),
-                      //   ),
-                      // ),
-
-
-                    ],
-                  ),
-                ),
-              ),
               Padding(
-                // padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                 padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                 child: Container(
+
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.6,
+
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       //3:1 -> 1:1
                         crossAxisCount: MediaQuery.of(context).size.width>1000?1:1,
                         mainAxisSpacing: 0,
                         crossAxisSpacing: 2,
-                        mainAxisExtent: 100
+                        mainAxisExtent: 200,
                     ),
                     // shrinkWrap: true,
                     scrollDirection: Axis.vertical,
@@ -212,166 +124,166 @@ class _userPageWidgetState extends State<userPageWidget> {
                       //
 
                       return new Column(
-                      //return ListTile(
+                        //return ListTile(
                         // 2---- children: [
 
                         children: [
 
 
+
                           Row(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              ClipRect(
-                                child: ImageFiltered(
-                                  imageFilter: ImageFilter.blur(
-                                    sigmaX: 2,
-                                    sigmaY: 2,
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 5, 5, 5),
-                                    child: Container(
-                                      width: 80,
-                                      height: 80,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/305/600',
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              
                               Padding(
-                                padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 15),
-                                      child: Text(
-                                          '${_userList[index].name}'
+                                    Card(
+                                      clipBehavior:
+                                      Clip.antiAliasWithSaveLayer,
+                                      // color: FlutterFlowTheme.primaryColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(50),
                                       ),
-                                    ),
-                                    Text(
-                                      'id:  ${_userList[index].id}',
+                                      child: Padding(
+                                        padding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            2, 2, 2, 2),
+                                        child: Container(
+                                          width: 50,
+                                          height: 50,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+
+                                          child: Image.network(
+                                            'https://picsum.photos/seed/305/600',
+                                          ),
+                                        ),
+                                      ),
                                     )
                                   ],
                                 ),
                               ),
 
-
-                              //permissions
-
-                              Padding(
-                                padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                              Expanded(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
                                   children: [
-
                                     Row(
+                                      mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Checkbox(
-                                          value: _checkbox,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _checkbox = true;
-                                            });
-                                          },
+                                        Text(
+
+                                            'Name: ${_userList[index].name}',
+
                                         ),
-                                        Text('Admin'),
+
+                                        // ),
                                       ],
                                     ),
                                     Row(
+                                      mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Checkbox(
-                                          value: _checkbox,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _checkbox = true;
-                                            });
-                                          },
-                                        ),
-                                        Text('Teacher'),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional
+                                                .fromSTEB(0, 4, 4, 0),
+                                            child: Text(
+
+                                              'id:  ${_userList[index].id}',
+                                              // columnUsersRecord.email,
+
+
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     ),
                                     Row(
+                                      mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Checkbox(
-                                          value: _checkbox,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _checkbox = true;
-                                            });
-                                          },
-                                        ),
-                                        Text('Student'),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional
+                                                .fromSTEB(0, 4, 4, 0),
+
+                                            child: SwitchListTile(
+                                              title: const Text('Admin'),
+                                              value: _lights,
+                                              onChanged: (bool value) {
+                                                setState(() {
+                                                  _lights = value;
+                                                });
+                                              },
+                                              secondary: const Icon(Icons.supervised_user_circle),
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     ),
 
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional
+                                                .fromSTEB(0, 4, 4, 0),
 
+                                            child: SwitchListTile(
+                                              title: const Text('Teacher'),
+                                              value: _lights,
+                                              onChanged: (bool value) {
+                                                setState(() {
+                                                  _lights = value;
+                                                });
+                                              },
+                                              secondary: const Icon(Icons.supervised_user_circle),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
 
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional
+                                                .fromSTEB(0, 4, 4, 0),
 
-                                    // $$$
-                                    // Padding(
-                                    //   padding: EdgeInsetsDirectional.fromSTEB(
-                                    //       0, 0, 0, 15),
-                                    //   child: Text(
-                                    //     '100\$ /hour',
-                                    //   ),
-                                    // ),
-
-
-                                    //permissions
-                                    // Row(
-                                    //   mainAxisSize: MainAxisSize.max,
-                                    //   children: [
-                                    //     Icon(
-                                    //       Icons.star_rounded,
-                                    //       size: 20,
-                                    //     ),
-                                    //     Icon(
-                                    //       Icons.star_rounded,
-                                    //       size: 20,
-                                    //     ),
-                                    //     Icon(
-                                    //       Icons.star_rounded,
-                                    //       size: 20,
-                                    //     ),
-                                    //     Icon(
-                                    //       Icons.star_rounded,
-                                    //       color: Colors.black,
-                                    //       size: 20,
-                                    //     ),
-                                    //     Icon(
-                                    //       Icons.star_rounded,
-                                    //       color: Colors.black,
-                                    //       size: 20,
-                                    //     )
-                                    //   ],
-                                    // ),
-
-
+                                            child: SwitchListTile(
+                                              title: const Text('Student'),
+                                              value: _lights,
+                                              onChanged: (bool value) {
+                                                setState(() {
+                                                  _lights = value;
+                                                });
+                                              },
+                                              secondary: const Icon(Icons.supervised_user_circle),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
                             ],
                           ),
-                          // Divider(thickness: 3, height: 10,)
-
-
                         ],
-
-
                       );
-
                     },
                   ),
                 ),

@@ -4,18 +4,17 @@ import 'package:private_lesson_app/pages/search.dart';
 import 'package:private_lesson_app/pages/signup.dart';
 import 'package:private_lesson_app/pages/city.dart';
 import 'package:private_lesson_app/pages/user3fortest.dart';
+import 'package:private_lesson_app/pages/user_slidable.dart';
 
 import 'pages/login.dart';
 import 'pages/user.dart';
 
 void main() {
   runApp(MaterialApp(
-
-
     // initialRoute: '/',
     //initialRoute: '/user',
 
-    initialRoute: '/user2',
+    initialRoute: '/userSlidable',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
@@ -24,6 +23,7 @@ void main() {
       '/login': (context) => LoginPageWidget(),
       '/city': (context) => CityWidget(),
       '/searchPage': (context) => SearchPageWidget(),
+      '/userSlidable': (context) => UserSlidableWidget(),
 
       //Permissions
       '/user': (context) => userPageWidget(),
@@ -31,10 +31,7 @@ void main() {
       //Drawer
       '/user2': (context) => MyApp2(),
 
-
       // '/permissions': (context) => permissions(),
-
-
     },
   ));
 }

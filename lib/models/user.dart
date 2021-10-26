@@ -4,8 +4,9 @@ class User {
   late String email;
   late int city;
   late String phone;
+  late String gender;
 
-  User({required this.id, required this.name, required this.email, required this.city, required this.phone});
+  User({required this.id, required this.name, required this.email, required this.city, required this.phone,required this.gender});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -13,6 +14,7 @@ class User {
     email = json['email'];
     city = json['city_id'];
     phone = json['phone'];
+    gender = json['gender'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,6 +24,7 @@ class User {
     data['email'] = this.email;
     data['city_id'] = this.city;
     data['phone'] = this.phone;
+    data['gender'] = this.gender;
     return data;
   }
 }

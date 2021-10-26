@@ -10,6 +10,7 @@ import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/pages/user_slidable.dart';
 import 'package:private_lesson_app/pages/userprofile.dart';
+import 'package:private_lesson_app/widget/search_teacher_widget.dart';
 
 import 'city.dart';
 
@@ -186,7 +187,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   ),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  children: [
+                  children: [//************************************ genders ********************/
                     DropdownButtonFormField(
                       value: _genderSelectedValue,
                       items: _genderList.map((String itemList) {
@@ -203,7 +204,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    DropdownButtonFormField(
+                    DropdownButtonFormField(//************************************cities ********************/
                       value: _citySelectedValue,
                       items: _cityList.map((itemList) {
                         return DropdownMenuItem(
@@ -218,7 +219,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    DropdownButtonFormField(
+                    DropdownButtonFormField(//************************************ subjects ********************/
                       value: _subjectSelectedValue,
                       items: _subjectList.map((itemList) {
                         return DropdownMenuItem(
@@ -233,7 +234,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    DropdownButtonFormField(
+                    DropdownButtonFormField(//************************************level educations ********************/
                       value: _leveleducationSelectedValue,
                       items: _leveleducationList.map((itemList) {
                         return DropdownMenuItem(
@@ -252,146 +253,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount:
-                            MediaQuery.of(context).size.width > 1000 ? 3 : 1,
-                        mainAxisSpacing: 0,
-                        crossAxisSpacing: 2,
-                        mainAxisExtent: 100),
-                    // shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: _userList.length,
-                    // padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      return new Column(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailScreen(),
-                                      settings: RouteSettings(
-                                          arguments: _userList[index])),
-                                );
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  ClipRect(
-                                    child: ImageFiltered(
-                                      imageFilter: ImageFilter.blur(
-                                        sigmaX: 2,
-                                        sigmaY: 2,
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5, 5, 5, 5),
-                                        child: Container(
-                                          width: 80,
-                                          height: 80,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Image.network(
-                                            'https://picsum.photos/seed/305/600',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        15, 0, 0, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 15),
-                                          child: ConstrainedBox(
-                                            constraints: BoxConstraints(
-                                              maxWidth: 100,
-                                            ),
-                                            child: Text(
-                                              '${_userList[index].name}',
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          'id:  ${_userList[index].id}',
-                                          overflow: TextOverflow.ellipsis,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        15, 0, 0, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 15),
-                                          child: Text(
-                                            '100\$ /hour',
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Icon(
-                                              Icons.star_rounded,
-                                              size: 20,
-                                            ),
-                                            Icon(
-                                              Icons.star_rounded,
-                                              size: 20,
-                                            ),
-                                            Icon(
-                                              Icons.star_rounded,
-                                              size: 20,
-                                            ),
-                                            Icon(
-                                              Icons.star_rounded,
-                                              color: Colors.black,
-                                              size: 20,
-                                            ),
-                                            Icon(
-                                              Icons.star_rounded,
-                                              color: Colors.black,
-                                              size: 20,
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              // Divider(thickness: 3, height: 10,)
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              )
-            ],
+              SearchTeacherWidget(userList: _userList,),
+              ],
           ),
         ),
       ),

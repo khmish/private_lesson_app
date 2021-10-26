@@ -42,7 +42,8 @@ class _UserSlidableWidgetState extends State<UserSlidableWidget> {
         centerTitle: true,
         elevation: 4,
       ),
-      body: /*SingleChildScrollView(
+      body:
+          /*SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,
@@ -129,8 +130,7 @@ class _UserSlidableWidgetState extends State<UserSlidableWidget> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => edit_user()),
+            MaterialPageRoute(builder: (context) => edit_user()),
           );
         },
       );

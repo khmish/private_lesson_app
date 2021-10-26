@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
@@ -25,7 +27,6 @@ class _edit_userState extends State<edit_user> {
   late bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   @override
   void initState() {
     super.initState();
@@ -37,56 +38,61 @@ class _edit_userState extends State<edit_user> {
 
     passwordVisibility = false;
 
-
     CityAPI.getCities().then((citiesList) {
       setState(() {
         _cityList = citiesList;
         if (_cityList.length > 0) _citySelectedValue = _cityList[0].id;
+        getUser().then((user) {
+          setState(() {
+            nameController.text = user.name;
+            emailController.text = user.email;
+            phoneController.text = user.phone;
+            _genderSelectedValue = user.gender;
+            _citySelectedValue = user.city;
+          });
+        });
       });
     });
 
-    UserAPI.getUsers().then((value) {
-      setState(() {
-        _userList = value;
-      });
-    });
-
+    // UserAPI.getUsers().then((value) {
+    //   setState(() {
+    //     _userList = value;
+    //   });
+    // });
   }
 
-  var _baseUrlRegisterUser = 'https://privatelesson.herokuapp.com/api/user';
-  Future<void> registed() async {
-    var baseUrl = _baseUrlRegisterUser;
+  var _baseUrlGetUser = 'https://privatelesson.herokuapp.com/api/user/1';
+  Future<User> getUser() async {
+    User user =
+        new User(id: -1, name: "", email: "", city: -1, phone: "", gender: "");
+    var baseUrl = _baseUrlGetUser;
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlRegisterUser;
+      baseUrl = _baseUrlGetUser;
       // }
       var url = Uri.parse(baseUrl);
-      var response = await http.post(
+      var response = await http.get(
         url,
-        body: {
-          "name": nameController.text,
-          "email": emailController.text,
-          "password": passwordController.text,
-          "gender": _genderSelectedValue,
-          "phone": phoneController.text,
-          "city_id": _citySelectedValue.toString()
-        },
+
         // headers: <String, String>{
         //   'Accept': 'application/json',
         //   'Content-Type': 'application/json; charset=UTF-8',
         //   // 'Authorization': 'Bearer $token',
         // },
       );
-      print(response.body);
+      // print(response.body);
       if (response.statusCode == 200) {
+        var body = json.decode(response.body)['data'];
+        user = new User.fromJson(body);
+        return user;
       } else {
-        print(response.body);
+        // print(response.body);
       }
     } catch (e) {
       print(e);
     }
+    return user;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -153,11 +159,9 @@ class _edit_userState extends State<edit_user> {
                       child: TextFormField(
                         controller: emailController,
                         obscureText: false,
-
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           labelText: 'Email',
-
                           prefixIcon: Icon(
                             Icons.alternate_email,
                           ),
@@ -224,7 +228,7 @@ class _edit_userState extends State<edit_user> {
                           ),
                           suffixIcon: InkWell(
                             onTap: () => setState(
-                                  () => passwordVisibility = !passwordVisibility,
+                              () => passwordVisibility = !passwordVisibility,
                             ),
                             child: Icon(
                               passwordVisibility
@@ -238,11 +242,11 @@ class _edit_userState extends State<edit_user> {
                       ),
                     ),
                     Padding(
-                      //------------City--------------------------
+                        //------------City--------------------------
                         padding: EdgeInsetsDirectional.fromSTEB(
                             constLeft, constTop, constRight, constBottom),
                         child: DropdownButtonFormField(
-                          // value: _citySelectedValue,
+                          value: _citySelectedValue,
                           items: _cityList.map((itemList) {
                             print(itemList);
                             return DropdownMenuItem(
@@ -271,7 +275,7 @@ class _edit_userState extends State<edit_user> {
                         width: double.infinity,
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            registed();
+                            getUser();
                           },
                           label: Text('save edit'),
                           icon: Icon(

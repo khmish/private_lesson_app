@@ -8,7 +8,10 @@ import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
+import 'package:private_lesson_app/pages/user_slidable.dart';
 import 'package:private_lesson_app/pages/userprofile.dart';
+
+import 'city.dart';
 
 class SearchWidget extends StatefulWidget {
   SearchWidget({Key? key}) : super(key: key);
@@ -30,6 +33,8 @@ class _SearchWidgetState extends State<SearchWidget> {
   late List<User> _userList = [];
   late TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  int _selectedDestination = 0;
 
   @override
   void initState() {
@@ -61,8 +66,11 @@ class _SearchWidgetState extends State<SearchWidget> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+    var textTheme;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -74,6 +82,77 @@ class _SearchWidgetState extends State<SearchWidget> {
         centerTitle: true,
         elevation: 4,
       ),
+
+      //drawer
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Header',
+                //style: textTheme.headline6,
+              ),
+            ),
+            Divider(
+              height: 1,
+              thickness: 1,
+            ),
+
+
+            // ),
+
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Cities Page'),
+                selected: _selectedDestination == 2,
+                // onTap: () => selectDestination(2),
+
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CityWidget()),
+                  );
+                }
+            ),
+
+
+
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Users page'),
+                selected: _selectedDestination == 2,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserSlidableWidget()),
+                  );
+                }
+            ),
+
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Permissions Page'),
+                selected: _selectedDestination == 2,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserSlidableWidget()),
+                  );
+                }
+            ),
+
+          ],
+        ),
+      ),
+
+
+
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -318,4 +397,12 @@ class _SearchWidgetState extends State<SearchWidget> {
       ),
     );
   }
+
+  //for drawer
+  void selectDestination(int index) {
+    setState(() {
+      _selectedDestination = index;
+    });
+  }
+
 }

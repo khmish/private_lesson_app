@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/user.dart';
+import 'package:private_lesson_app/pages/city.dart';
+import 'package:private_lesson_app/pages/edit_user.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
 import 'package:private_lesson_app/pages/utils.dart';
 
@@ -124,6 +126,12 @@ class _UserSlidableWidgetState extends State<UserSlidableWidget> {
             Text(item.email)
           ],
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => edit_user()),
+          );
+        },
       );
 }

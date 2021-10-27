@@ -156,6 +156,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,
+           color: Colors.blueGrey[50],
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             children: [

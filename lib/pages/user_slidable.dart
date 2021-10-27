@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/user.dart';
-import 'package:private_lesson_app/pages/city.dart';
 import 'package:private_lesson_app/pages/edit_user.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
-import 'package:private_lesson_app/pages/utils.dart';
 
 class UserSlidableWidget extends StatefulWidget {
   UserSlidableWidget({Key? key}) : super(key: key);
@@ -92,20 +90,21 @@ class _UserSlidableWidgetState extends State<UserSlidableWidget> {
     });
 
     switch (action) {
-      case SlidableAction.archive:
-        Utils.showSnackBar(context, 'Chat has been archived');
-        break;
-      case SlidableAction.share:
-        Utils.showSnackBar(context, 'Chat has been shared');
-        break;
-      case SlidableAction.more:
-        Utils.showSnackBar(context, 'Selected more');
+      case SlidableAction.edit:
+        showSnackBar(context, 'Chat has been edited');
         break;
       case SlidableAction.delete:
-        Utils.showSnackBar(context, 'Chat has been deleted');
+        showSnackBar(context, 'Chat has been deleted');
         break;
     }
   }
+
+  static void showSnackBar(BuildContext context, String message) =>
+      Scaffold.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(message)),
+        );
 
   Widget buildListTile(User item) => ListTile(
         contentPadding: EdgeInsets.symmetric(

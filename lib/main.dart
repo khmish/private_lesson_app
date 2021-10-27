@@ -16,6 +16,7 @@ void main() {
     //initialRoute: '/user',
     //initialRoute: '/userSlidable',
     //initialRoute: '/edit_user',
+    initialRoute: '/userSlidable',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
@@ -39,7 +40,6 @@ void main() {
 
       //edit page
       '/edituser': (context) => edit_user(),
-
     },
   ));
 }

@@ -129,7 +129,7 @@ class _UserSlidableWidgetState extends State<UserSlidableWidget> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => edit_user()),
+            MaterialPageRoute(builder: (context) => EditUser()),
           );
         },
       );

@@ -3,19 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
-import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/models/user.dart';
 
-class edit_user extends StatefulWidget {
-  const edit_user({Key? key}) : super(key: key);
+class EditUser extends StatefulWidget {
+  const EditUser({Key? key}) : super(key: key);
 
   @override
-  _edit_userState createState() => _edit_userState();
+  _EditUserState createState() => _EditUserState();
 }
 
-class _edit_userState extends State<edit_user> {
+class _EditUserState extends State<EditUser> {
   late TextEditingController nameController;
   late TextEditingController emailController;
   late TextEditingController phoneController;
@@ -34,7 +33,6 @@ class _edit_userState extends State<edit_user> {
     emailController = TextEditingController();
     phoneController = TextEditingController();
     passwordController = TextEditingController();
-    late List<User> _userList = [];
 
     passwordVisibility = false;
 

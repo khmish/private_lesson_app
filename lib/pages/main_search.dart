@@ -1,4 +1,4 @@
-import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
@@ -9,7 +9,6 @@ import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/pages/user_slidable.dart';
-import 'package:private_lesson_app/pages/userprofile.dart';
 import 'package:private_lesson_app/widget/search_teacher_widget.dart';
 
 import 'city.dart';
@@ -71,7 +70,6 @@ class _SearchWidgetState extends State<SearchWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(

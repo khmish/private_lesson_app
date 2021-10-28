@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
@@ -66,8 +65,6 @@ class _SearchWidgetState extends State<SearchWidget> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +97,6 @@ class _SearchWidgetState extends State<SearchWidget> {
               thickness: 1,
             ),
 
-
             // ),
 
             ListTile(
@@ -112,13 +108,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => CityWidget()),
+                    MaterialPageRoute(builder: (context) => CityWidget()),
                   );
-                }
-            ),
-
-
+                }),
 
             ListTile(
                 leading: Icon(Icons.label),
@@ -128,10 +120,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UserSlidableWidget()),
+                        builder: (context) => UserControlWidget()),
                   );
-                }
-            ),
+                }),
 
             ListTile(
                 leading: Icon(Icons.label),
@@ -141,22 +132,18 @@ class _SearchWidgetState extends State<SearchWidget> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UserSlidableWidget()),
+                        builder: (context) => UserControlWidget()),
                   );
-                }
-            ),
-
+                }),
           ],
         ),
       ),
-
-
 
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,
-           color: Colors.blueGrey[50],
+          color: Colors.blueGrey[50],
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             children: [
@@ -178,15 +165,15 @@ class _SearchWidgetState extends State<SearchWidget> {
                 child: GridView(
                   padding: EdgeInsets.zero,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount:
+                      crossAxisCount:
                           MediaQuery.of(context).size.width > 1000 ? 4 : 2,
                       mainAxisSpacing: 5,
                       crossAxisSpacing: 10,
-                      mainAxisExtent: 50
-                  ),
+                      mainAxisExtent: 50),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  children: [//************************************ genders ********************/
+                  children: [
+                    //************************************ genders ********************/
                     DropdownButtonFormField(
                       value: _genderSelectedValue,
                       items: _genderList.map((String itemList) {
@@ -203,7 +190,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    DropdownButtonFormField(//************************************cities ********************/
+                    DropdownButtonFormField(
+                      //************************************cities ********************/
                       value: _citySelectedValue,
                       items: _cityList.map((itemList) {
                         return DropdownMenuItem(
@@ -218,7 +206,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    DropdownButtonFormField(//************************************ subjects ********************/
+                    DropdownButtonFormField(
+                      //************************************ subjects ********************/
                       value: _subjectSelectedValue,
                       items: _subjectList.map((itemList) {
                         return DropdownMenuItem(
@@ -233,7 +222,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    DropdownButtonFormField(//************************************level educations ********************/
+                    DropdownButtonFormField(
+                      //************************************level educations ********************/
                       value: _leveleducationSelectedValue,
                       items: _leveleducationList.map((itemList) {
                         return DropdownMenuItem(
@@ -242,8 +232,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         );
                       }).toList(),
                       onChanged: (value) {
-                        setState(() =>
-                            _leveleducationSelectedValue = value as int);
+                        setState(
+                            () => _leveleducationSelectedValue = value as int);
                       },
                       decoration: const InputDecoration(
                         border: const OutlineInputBorder(),
@@ -252,8 +242,10 @@ class _SearchWidgetState extends State<SearchWidget> {
                   ],
                 ),
               ),
-              SearchTeacherWidget(userList: _userList,),
-              ],
+              SearchTeacherWidget(
+                userList: _userList,
+              ),
+            ],
           ),
         ),
       ),
@@ -266,5 +258,4 @@ class _SearchWidgetState extends State<SearchWidget> {
       _selectedDestination = index;
     });
   }
-
 }

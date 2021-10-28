@@ -1,30 +1,38 @@
-// Users control (Admin page)
+// Cities control (Admin page)
 
 import 'package:flutter/material.dart';
-import 'package:private_lesson_app/api/user_api.dart';
-import 'package:private_lesson_app/models/user.dart';
+import 'package:private_lesson_app/api/city_api.dart';
+import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/pages/edit_user.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
 
-class UserControlWidget extends StatefulWidget {
-  UserControlWidget({Key? key}) : super(key: key);
+class CityControlWidget extends StatefulWidget {
+  CityControlWidget({Key? key}) : super(key: key);
 
   @override
-  _UserControlWidgetState createState() => _UserControlWidgetState();
+  _CityControlWidgetState createState() => _CityControlWidgetState();
 }
 
-class _UserControlWidgetState extends State<UserControlWidget> {
+class _CityControlWidgetState extends State<CityControlWidget> {
   late TextEditingController textController;
-  late List<User> _userList = [];
+  late List<City> _cityList = [];
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  //Show / Hide input field
+  bool _isVisible = false;
+  void showInputfield() {
+    setState(() {
+      _isVisible = !_isVisible;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     textController = TextEditingController();
-    UserAPI.getUsers().then((value) {
+    CityAPI.getCities().then((value) {
       setState(() {
-        _userList = value;
+        _cityList = value;
       });
     });
   }
@@ -69,12 +77,59 @@ class _UserControlWidgetState extends State<UserControlWidget> {
                   children: <Widget>[
                     IconButton(
                       icon: const Icon(Icons.add),
-                      //tooltip: 'Increase user by 1',
-                      onPressed: () {
-                        setState(() {});
-                      },
+                      //tooltip: 'Increase city by 1',
+                      onPressed: showInputfield,
                     ),
-                    Text('Add user')
+                    Text('Add city')
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: _isVisible,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
+                      child: TextFormField(
+                        //controller: cityNameController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Input city name',
+                          prefixIcon: Icon(
+                            Icons.text_fields,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
+                      child: TextFormField(
+                        //controller: cityNameController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Input country name',
+                          prefixIcon: Icon(
+                            Icons.text_fields,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          //registed();
+                        },
+                        label: Text(''),
+                        icon: Icon(
+                          Icons.add,
+                          size: 15,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -84,10 +139,10 @@ class _UserControlWidgetState extends State<UserControlWidget> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.8,
                   child: ListView.separated(
-                    itemCount: _userList.length,
+                    itemCount: _cityList.length,
                     separatorBuilder: (context, index) => Divider(),
                     itemBuilder: (context, index) {
-                      final item = _userList[index];
+                      final item = _cityList[index];
 
                       return SlidableWidget(
                         child: buildListTile(item),
@@ -108,7 +163,7 @@ class _UserControlWidgetState extends State<UserControlWidget> {
   void dismissSlidableItem(
       BuildContext context, int index, SlidableAction action) {
     setState(() {
-      _userList.removeAt(index);
+      _cityList.removeAt(index);
     });
 
     switch (action) {
@@ -128,14 +183,10 @@ class _UserControlWidgetState extends State<UserControlWidget> {
           SnackBar(content: Text(message)),
         );
 
-  Widget buildListTile(User item) => ListTile(
+  Widget buildListTile(City item) => ListTile(
         contentPadding: EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 16,
-        ),
-        leading: CircleAvatar(
-          radius: 28,
-          backgroundImage: NetworkImage('https://picsum.photos/seed/305/600'),
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +196,7 @@ class _UserControlWidgetState extends State<UserControlWidget> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            Text(item.email)
+            Text(item.countryName)
           ],
         ),
         onTap: () {

@@ -5,6 +5,7 @@ import 'package:private_lesson_app/pages/signup.dart';
 import 'package:private_lesson_app/pages/city.dart';
 import 'package:private_lesson_app/pages/side_menu.dart';
 import 'package:private_lesson_app/pages/user_slidable.dart';
+import 'package:private_lesson_app/pages/cities_control.dart';
 
 import 'pages/login.dart';
 
@@ -14,7 +15,7 @@ void main() {
     //initialRoute: '/user',
     //initialRoute: '/userSlidable',
     //initialRoute: '/edit_user',
-    initialRoute: '/',
+    initialRoute: '/cityControl',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
@@ -27,7 +28,9 @@ void main() {
 
       //'/searchPage': (context) => SearchPageWidget(), there is some problem
 
-      '/userSlidable': (context) => UserSlidableWidget(),
+      //************* Admin Pages
+      '/userControl': (context) => UserControlWidget(),
+      '/cityControl': (context) => CityControlWidget(),
 
       // '/permissions': (context) => permissions(),
 

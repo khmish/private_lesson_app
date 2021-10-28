@@ -23,11 +23,16 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
           height: MediaQuery.of(context).size.height * .6,
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:
-                    MediaQuery.of(context).size.width > 1000 ? 3 : MediaQuery.of(context).size.width > 600?2:1,
+                crossAxisCount: 
+                MediaQuery.of(context).size.width > 1000
+                    ? 3
+                    : MediaQuery.of(context).size.width > 600
+                        ? 2
+                        : 
+                        1,
                 mainAxisSpacing: 2,
                 crossAxisSpacing: 2,
-                mainAxisExtent: 165),
+                mainAxisExtent: 200),
             // shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemCount: widget.userList.length,
@@ -51,15 +56,17 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                   },
                   child: Stack(
                     // fit: StackFit.loose,
-                    alignment:Alignment.center ,
+                    // alignment: Alignment.center,
                     overflow: Overflow.visible,
                     children: [
                       // ********************Name *******************************
                       Positioned(
-                        top: -25,
+                        top: 0,
                         left: 0,
                         child: Container(
                           padding:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          margin:
                               EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                           decoration: BoxDecoration(
                             color: Colors.greenAccent[100],
@@ -67,14 +74,13 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                           ),
                           child: ConstrainedBox(
                             constraints: BoxConstraints(
-                              maxWidth: 120,
+                              maxWidth: 140,
                             ),
                             child: Text(
                               '${widget.userList[index].name}',
                               style: TextStyle(
                                 fontSize: 20,
-                                fontWeight: FontWeight.bold
-
+                                fontWeight: FontWeight.bold,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -83,7 +89,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                       ),
                       // ********************Picture *******************************
                       Positioned(
-                        bottom: 0,
+                        bottom: -10,
                         left: 0,
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -97,12 +103,11 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                                 child: Container(
-                                  width: 100,
-                                  height: 100,
+                                  width: 110,
+                                  height: 110,
                                   clipBehavior: Clip.antiAlias,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12)
-                                  ),
+                                      borderRadius: BorderRadius.circular(12)),
                                   child: Image.network(
                                     'https://picsum.photos/seed/305/600',
                                   ),
@@ -114,10 +119,11 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                       ),
                       // ********************Stars *******************************
                       Positioned(
-                        bottom: 0,
-                        right: 0,
+                        bottom: -25,
+                        right: -10,
                         child: Container(
-                          margin:EdgeInsets.symmetric(vertical: 5, horizontal: 5) ,
+                          margin:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                           padding:
                               EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                           decoration: BoxDecoration(
@@ -129,25 +135,25 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                             children: [
                               Icon(
                                 Icons.star_rounded,
-                                size: 20,
+                                size: 24,
                               ),
                               Icon(
                                 Icons.star_rounded,
-                                size: 20,
+                                size: 24,
                               ),
                               Icon(
                                 Icons.star_rounded,
-                                size: 20,
-                              ),
-                              Icon(
-                                Icons.star_rounded,
-                                color: Colors.black,
-                                size: 20,
+                                size: 24,
                               ),
                               Icon(
                                 Icons.star_rounded,
                                 color: Colors.black,
-                                size: 20,
+                                size: 24,
+                              ),
+                              Icon(
+                                Icons.star_rounded,
+                                color: Colors.black,
+                                size: 24,
                               )
                             ],
                           ),
@@ -158,114 +164,144 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                         top: 0,
                         right: 0,
                         child: Container(
-                          margin:EdgeInsets.symmetric(vertical: 5, horizontal: 5) ,
+                          margin:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                           padding:
                               EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                           decoration: BoxDecoration(
+                          decoration: BoxDecoration(
                             color: Colors.redAccent[100],
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
                             '100\$ / hour',
+                             style: TextStyle(
+                                fontSize: 20,
+                              ),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ),
-                    Positioned(
+                      // ********************Subjects *******************************
+                      Positioned(
+                        top: 50,
                         left: 120,
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                              margin:EdgeInsets.symmetric(vertical: 5, horizontal: 5) ,
-                              padding:
-                                  EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                               decoration: BoxDecoration(
-                                color: Colors.blueAccent[100],
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                'Maths',
-                              ),
-                            ),
-                          
-                            Container(
-                              margin:EdgeInsets.symmetric(vertical: 5, horizontal: 5) ,
-                              padding:
-                                  EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                               decoration: BoxDecoration(
-                                color: Colors.blueAccent[100],
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                'Physics',
-                              ),
-                            ),
-                          
-                            Container(
-                              margin:EdgeInsets.symmetric(vertical: 5, horizontal: 5) ,
-                              padding:
-                                  EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                               decoration: BoxDecoration(
-                                color: Colors.blueAccent[100],
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                'Others',
-                              ),
-                            ),
-                          
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  margin:EdgeInsets.symmetric(vertical: 5, horizontal: 5) ,
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                   decoration: BoxDecoration(
-                                    color: Colors.blueAccent[100],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    'Maths',
-                                  ),
+                        child: Container(
+                          width: 200,
+                          height: 77,
+                          child: GridView.builder(
+                            itemCount: 6,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3, mainAxisExtent: 40),
+                            itemBuilder: (context, index) {
+                              return Container(
+                                alignment: Alignment.center,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 2, horizontal: 2),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 2, horizontal: 2),
+                                decoration: BoxDecoration(
+                                  color: Colors.blueAccent[100],
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                              
-                                Container(
-                                  margin:EdgeInsets.symmetric(vertical: 5, horizontal: 5) ,
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                   decoration: BoxDecoration(
-                                    color: Colors.blueAccent[100],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    'Physics',
-                                  ),
+                                child: Text(
+                                  'Maths',
                                 ),
-                              
-                                Container(
-                                  margin:EdgeInsets.symmetric(vertical: 5, horizontal: 5) ,
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                   decoration: BoxDecoration(
-                                    color: Colors.blueAccent[100],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    'Others',
-                                  ),
-                                ),
-                              
-                                
-                              ],
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
+                        //  Column(
+                        //   children: [
+                        //     Row(
+                        //       children: [
+                        //         Container(
+                        //           margin: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           padding: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           decoration: BoxDecoration(
+                        //             color: Colors.blueAccent[100],
+                        //             borderRadius: BorderRadius.circular(10),
+                        //           ),
+                        //           child: Text(
+                        //             'Maths',
+                        //           ),
+                        //         ),
+                        //         Container(
+                        //           margin: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           padding: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           decoration: BoxDecoration(
+                        //             color: Colors.blueAccent[100],
+                        //             borderRadius: BorderRadius.circular(10),
+                        //           ),
+                        //           child: Text(
+                        //             'Physics',
+                        //           ),
+                        //         ),
+                        //         Container(
+                        //           margin: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           padding: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           decoration: BoxDecoration(
+                        //             color: Colors.blueAccent[100],
+                        //             borderRadius: BorderRadius.circular(10),
+                        //           ),
+                        //           child: Text(
+                        //             'Others',
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     Row(
+                        //       children: [
+                        //         Container(
+                        //           margin: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           padding: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           decoration: BoxDecoration(
+                        //             color: Colors.blueAccent[100],
+                        //             borderRadius: BorderRadius.circular(10),
+                        //           ),
+                        //           child: Text(
+                        //             'Maths',
+                        //           ),
+                        //         ),
+                        //         Container(
+                        //           margin: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           padding: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           decoration: BoxDecoration(
+                        //             color: Colors.blueAccent[100],
+                        //             borderRadius: BorderRadius.circular(10),
+                        //           ),
+                        //           child: Text(
+                        //             'Physics',
+                        //           ),
+                        //         ),
+                        //         Container(
+                        //           margin: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           padding: EdgeInsets.symmetric(
+                        //               vertical: 3, horizontal: 3),
+                        //           decoration: BoxDecoration(
+                        //             color: Colors.blueAccent[100],
+                        //             borderRadius: BorderRadius.circular(10),
+                        //           ),
+                        //           child: Text(
+                        //             'Others',
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ],
+                        // ),
                       )
-                    
                     ],
                   ),
                 ),

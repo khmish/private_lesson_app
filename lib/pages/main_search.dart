@@ -188,7 +188,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   scrollDirection: Axis.vertical,
                   children: [//************************************ genders ********************/
                     DropdownButtonFormField(
-                      value: _genderSelectedValue,
+                      // value: _genderSelectedValue,
                       items: _genderList.map((String itemList) {
                         return DropdownMenuItem(
                           child: Text(itemList),
@@ -204,7 +204,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                       ),
                     ),
                     DropdownButtonFormField(//************************************cities ********************/
-                      value: _citySelectedValue,
+                      // value: _citySelectedValue,
                       items: _cityList.map((itemList) {
                         return DropdownMenuItem(
                           child: Text(itemList.name),
@@ -219,7 +219,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                       ),
                     ),
                     DropdownButtonFormField(//************************************ subjects ********************/
-                      value: _subjectSelectedValue,
+                      // value: _subjectSelectedValue,
                       items: _subjectList.map((itemList) {
                         return DropdownMenuItem(
                           child: Text(itemList.name),
@@ -234,7 +234,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                       ),
                     ),
                     DropdownButtonFormField(//************************************level educations ********************/
-                      value: _leveleducationSelectedValue,
+                      // value: _leveleducationSelectedValue,
                       items: _leveleducationList.map((itemList) {
                         return DropdownMenuItem(
                           child: Text(itemList.name),

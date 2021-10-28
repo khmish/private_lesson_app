@@ -190,14 +190,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-<<<<<<< HEAD
-                    DropdownButtonFormField(
-                      //************************************cities ********************/
-                      value: _citySelectedValue,
-=======
                     DropdownButtonFormField(//************************************cities ********************/
                       // value: _citySelectedValue,
->>>>>>> 848c9bdc60d5a67bf48c986c5abbef0593d95c89
                       items: _cityList.map((itemList) {
                         return DropdownMenuItem(
                           child: Text(itemList.name),
@@ -211,14 +205,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-<<<<<<< HEAD
-                    DropdownButtonFormField(
-                      //************************************ subjects ********************/
-                      value: _subjectSelectedValue,
-=======
                     DropdownButtonFormField(//************************************ subjects ********************/
                       // value: _subjectSelectedValue,
->>>>>>> 848c9bdc60d5a67bf48c986c5abbef0593d95c89
                       items: _subjectList.map((itemList) {
                         return DropdownMenuItem(
                           child: Text(itemList.name),
@@ -232,14 +220,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-<<<<<<< HEAD
-                    DropdownButtonFormField(
-                      //************************************level educations ********************/
-                      value: _leveleducationSelectedValue,
-=======
                     DropdownButtonFormField(//************************************level educations ********************/
                       // value: _leveleducationSelectedValue,
->>>>>>> 848c9bdc60d5a67bf48c986c5abbef0593d95c89
                       items: _leveleducationList.map((itemList) {
                         return DropdownMenuItem(
                           child: Text(itemList.name),

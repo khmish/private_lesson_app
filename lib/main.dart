@@ -4,8 +4,8 @@ import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/signup.dart';
 import 'package:private_lesson_app/pages/city.dart';
 import 'package:private_lesson_app/pages/side_menu.dart';
-import 'package:private_lesson_app/pages/user_slidable.dart';
-import 'package:private_lesson_app/pages/cities_control.dart';
+import 'package:private_lesson_app/pages/users_control.dart';
+import 'package:private_lesson_app/pages/admin_control.dart';
 
 import 'pages/login.dart';
 
@@ -30,7 +30,7 @@ void main() {
 
       //************* Admin Pages
       '/userControl': (context) => UserControlWidget(),
-      '/cityControl': (context) => CityControlWidget(),
+      '/cityControl': (context) => AdminControlWidget(),
 
       // '/permissions': (context) => permissions(),
 

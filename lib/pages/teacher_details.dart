@@ -1,5 +1,3 @@
-//Teacher details page
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/models/user.dart';

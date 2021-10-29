@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:private_lesson_app/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:private_lesson_app/pages/userprofile.dart';
+import 'package:private_lesson_app/pages/teacher_details.dart';
 
 class SearchTeacherWidget extends StatefulWidget {
   final List<User> userList;
@@ -23,13 +23,11 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
           height: MediaQuery.of(context).size.height * .6,
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 
-                MediaQuery.of(context).size.width > 1000
+                crossAxisCount: MediaQuery.of(context).size.width > 1000
                     ? 3
                     : MediaQuery.of(context).size.width > 600
                         ? 2
-                        : 
-                        1,
+                        : 1,
                 mainAxisSpacing: 2,
                 crossAxisSpacing: 2,
                 mainAxisExtent: 200),
@@ -174,9 +172,9 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                           ),
                           child: Text(
                             '100\$ / hour',
-                             style: TextStyle(
-                                fontSize: 20,
-                              ),
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),

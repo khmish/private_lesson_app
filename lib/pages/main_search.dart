@@ -7,7 +7,7 @@ import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
-import 'package:private_lesson_app/pages/user_slidable.dart';
+import 'package:private_lesson_app/pages/users_control.dart';
 import 'package:private_lesson_app/widget/search_teacher_widget.dart';
 
 import 'city.dart';
@@ -190,7 +190,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    DropdownButtonFormField(//************************************cities ********************/
+                    DropdownButtonFormField(
+                      //************************************cities ********************/
                       // value: _citySelectedValue,
                       items: _cityList.map((itemList) {
                         return DropdownMenuItem(
@@ -205,7 +206,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    DropdownButtonFormField(//************************************ subjects ********************/
+                    DropdownButtonFormField(
+                      //************************************ subjects ********************/
                       // value: _subjectSelectedValue,
                       items: _subjectList.map((itemList) {
                         return DropdownMenuItem(
@@ -220,7 +222,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    DropdownButtonFormField(//************************************level educations ********************/
+                    DropdownButtonFormField(
+                      //************************************level educations ********************/
                       // value: _leveleducationSelectedValue,
                       items: _leveleducationList.map((itemList) {
                         return DropdownMenuItem(

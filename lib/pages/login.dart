@@ -12,6 +12,9 @@ class LoginPageWidget extends StatefulWidget {
 }
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
+
+
+
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late bool passwordVisibility;
@@ -77,7 +80,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
+
     return Scaffold(
+
+
+
+
+
       key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: true,

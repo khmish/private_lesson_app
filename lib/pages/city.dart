@@ -9,6 +9,7 @@ class CityWidget extends StatefulWidget {
 }
 
 class _CityWidgetState extends State<CityWidget> {
+
   late TextEditingController cityNameController;
   late TextEditingController countryController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -140,4 +141,6 @@ class _CityWidgetState extends State<CityWidget> {
       ),
     );
   }
+
+
 }

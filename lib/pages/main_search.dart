@@ -7,6 +7,8 @@ import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
+import 'package:private_lesson_app/pages/admin_control.dart';
+import 'package:private_lesson_app/pages/myorder_page.dart';
 import 'package:private_lesson_app/pages/users_control.dart';
 import 'package:private_lesson_app/widget/search_teacher_widget.dart';
 
@@ -20,6 +22,32 @@ class SearchWidget extends StatefulWidget {
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
+
+  //Bar
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Search',
+      style: optionStyle,
+    ),
+    Text(
+      'settings',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   late String dropDownValue1;
   late List<String> _genderList = ['male', 'female'];
   String _genderSelectedValue = "male";
@@ -68,6 +96,28 @@ class _SearchWidgetState extends State<SearchWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      //bar
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'settings',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+
       key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -114,7 +164,7 @@ class _SearchWidgetState extends State<SearchWidget> {
 
             ListTile(
                 leading: Icon(Icons.label),
-                title: Text('Users page'),
+                title: Text('Users Page'),
                 selected: _selectedDestination == 2,
                 onTap: () {
                   Navigator.push(
@@ -126,15 +176,27 @@ class _SearchWidgetState extends State<SearchWidget> {
 
             ListTile(
                 leading: Icon(Icons.label),
-                title: Text('Permissions Page'),
+                title: Text('Admin Control Page'),
                 selected: _selectedDestination == 2,
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UserControlWidget()),
+                        builder: (context) => AdminControlWidget()),
                   );
                 }),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('My Order Page'),
+                selected: _selectedDestination == 2,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => myorder_page()),
+                  );
+                }),
+
           ],
         ),
       ),

@@ -8,7 +8,7 @@ class TutorSearch {
       'https://privatelesson.herokuapp.com/api/user/search';
       // 'http://192.168.100.49/privateLesson/public/api/user/search';
   
-  static Future<List<User>> searchForTutorsWithParams([int? leveleducationId ,String? gender="",int? subjectId,int? cityId]) async {
+  static Future<List<User>> searchForTutorsWithParams({int? leveleducationId ,String? gender="",int? subjectId,int? cityId}) async {
     var baseUrl = _baseUrlUsers;
     List<User> userList = [];
     try {

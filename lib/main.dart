@@ -15,7 +15,7 @@ void main() {
     //initialRoute: '/user',
     //initialRoute: '/userSlidable',
     //initialRoute: '/edit_user',
-    initialRoute: '/cityControl',
+    initialRoute: '/',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.

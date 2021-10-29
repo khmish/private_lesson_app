@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
+import 'package:private_lesson_app/api/tutor_search_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/api/subject_api.dart';
 import 'package:private_lesson_app/models/subject.dart';
@@ -30,15 +31,15 @@ class _SearchWidgetState extends State<SearchWidget> {
   late List<Leveleducation> _leveleducationList = [];
   late int _leveleducationSelectedValue = 1;
   late List<User> _userList = [];
-  late TextEditingController textController;
+  late TextEditingController searchController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  bool isSearch = false;
   int _selectedDestination = 0;
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    searchController = TextEditingController();
     CityAPI.getCities().then((value) {
       setState(() {
         _cityList = value;
@@ -58,11 +59,16 @@ class _SearchWidgetState extends State<SearchWidget> {
           _leveleducationSelectedValue = _leveleducationList[0].id;
       });
     });
-    UserAPI.getUsers().then((value) {
+    TutorSearch.searchForTutorsWithParams().then((value) {
       setState(() {
         _userList = value;
       });
     });
+    // UserAPI.getUsers().then((value) {
+    //   setState(() {
+    //     _userList = value;
+    //   });
+    // });
   }
 
   @override
@@ -147,101 +153,197 @@ class _SearchWidgetState extends State<SearchWidget> {
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 20),
-                child: TextFormField(
-                  controller: textController,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    prefixIcon: Icon(
-                      Icons.search,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                child: GridView(
-                  padding: EdgeInsets.zero,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount:
-                          MediaQuery.of(context).size.width > 1000 ? 4 : 2,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 10,
-                      mainAxisExtent: 50),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    //************************************ genders ********************/
-                    DropdownButtonFormField(
-                      // value: _genderSelectedValue,
-                      items: _genderList.map((String itemList) {
-                        return DropdownMenuItem(
-                          child: Text(itemList),
-                          value: itemList,
-                        );
-                      }).toList(),
-                      onChanged: (newValue) {
-                        setState(
-                            () => _genderSelectedValue = newValue.toString());
-                      },
-                      decoration: const InputDecoration(
-                        border: const OutlineInputBorder(),
+              //*********************************** Search *******************/
+              !isSearch
+                  ? Container(
+                    margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                    child: ElevatedButton(
+                        //*********************************** show search *******************/
+                        child: Icon(Icons.arrow_downward),
+                        onPressed: () {
+                          setState(() {
+                            isSearch = true;
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                        ),
+                      ),
+                  )
+                  : Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        children: [
+                          ElevatedButton(
+                            //*********************************** close search *******************/
+                            child: Icon(Icons.close,),
+                            onPressed: () {
+                              setState(() {
+                                isSearch = false;
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              
+                              shape: CircleBorder(),
+                            ),
+                          ),
+                          //*********************************** Search text *******************/
+
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 20, 10, 20),
+                            child: TextFormField(
+                              controller: searchController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                ),
+                              ),
+                            ),
+                          ),
+                          //*********************************** Filters *******************/
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                            child: GridView(
+                              padding: EdgeInsets.zero,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount:
+                                          MediaQuery.of(context).size.width >
+                                                  1000
+                                              ? 4
+                                              : 2,
+                                      mainAxisSpacing: 5,
+                                      crossAxisSpacing: 10,
+                                      mainAxisExtent: 50),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              children: [
+                                //************************************ genders ********************/
+                                DropdownButtonFormField(
+                                  // value: _genderSelectedValue,
+                                  items: _genderList.map((String itemList) {
+                                    return DropdownMenuItem(
+                                      child: Text(itemList),
+                                      value: itemList,
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() => _genderSelectedValue =
+                                        newValue.toString());
+                                  },
+                                  decoration: const InputDecoration(
+                                    labelText: 'gender',
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                ),
+                                DropdownButtonFormField(
+                                  //************************************cities ********************/
+                                  // value: _citySelectedValue,
+                                  items: _cityList.map((itemList) {
+                                    return DropdownMenuItem(
+                                      child: Text(itemList.name),
+                                      value: itemList.id,
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() =>
+                                        _citySelectedValue = value as int);
+                                  },
+                                  decoration: const InputDecoration(
+                                    labelText: 'city',
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                ),
+                                DropdownButtonFormField(
+                                  //************************************ subjects ********************/
+                                  // value: _subjectSelectedValue,
+                                  items: _subjectList.map((itemList) {
+                                    return DropdownMenuItem(
+                                      child: Text(itemList.name),
+                                      value: itemList.id,
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() =>
+                                        _subjectSelectedValue = value as int);
+                                  },
+                                  decoration: const InputDecoration(
+                                    labelText: 'subject',
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                ),
+                                DropdownButtonFormField(
+                                  //************************************level educations ********************/
+                                  // value: _leveleducationSelectedValue,
+                                  items: _leveleducationList.map((itemList) {
+                                    return DropdownMenuItem(
+                                      child: Text(itemList.name),
+                                      value: itemList.id,
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() =>
+                                        _leveleducationSelectedValue =
+                                            value as int);
+                                  },
+                                  decoration: const InputDecoration(
+                                    labelText: 'level education',
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          //*********************************** Button controllers *******************/
+                          Container(
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                //*********************************** *******************/
+                                Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  height: 40,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.red,
+                                      // textStyle: TextStyle(
+                                      //     fontSize: 30, fontWeight: FontWeight.bold)
+                                    ),
+                                    icon: Icon(Icons.cancel),
+                                    label: Text("clear"),
+                                  ),
+                                ),
+                                //*********************************** *******************/
+
+                                Container(
+                                  height: 40,
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 5),
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.search),
+                                    label: Text("search"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    DropdownButtonFormField(
-                      //************************************cities ********************/
-                      // value: _citySelectedValue,
-                      items: _cityList.map((itemList) {
-                        return DropdownMenuItem(
-                          child: Text(itemList.name),
-                          value: itemList.id,
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() => _citySelectedValue = value as int);
-                      },
-                      decoration: const InputDecoration(
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                    DropdownButtonFormField(
-                      //************************************ subjects ********************/
-                      // value: _subjectSelectedValue,
-                      items: _subjectList.map((itemList) {
-                        return DropdownMenuItem(
-                          child: Text(itemList.name),
-                          value: itemList.id,
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() => _subjectSelectedValue = value as int);
-                      },
-                      decoration: const InputDecoration(
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                    DropdownButtonFormField(
-                      //************************************level educations ********************/
-                      // value: _leveleducationSelectedValue,
-                      items: _leveleducationList.map((itemList) {
-                        return DropdownMenuItem(
-                          child: Text(itemList.name),
-                          value: itemList.id,
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(
-                            () => _leveleducationSelectedValue = value as int);
-                      },
-                      decoration: const InputDecoration(
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              //*********************************** Tutors result *******************/
               SearchTeacherWidget(
                 userList: _userList,
               ),

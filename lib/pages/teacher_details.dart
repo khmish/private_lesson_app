@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:private_lesson_app/models/user.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -7,7 +8,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final thisuser = ModalRoute.of(context)!.settings.arguments as User;
+    final thisuser = ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
 
     // Use the Todo to create the UI.
     return Scaffold(

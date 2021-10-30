@@ -1,12 +1,12 @@
 import 'dart:ui';
 
-import 'package:private_lesson_app/models/user.dart';
+import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/pages/teacher_details.dart';
 
 class SearchTeacherWidget extends StatefulWidget {
-  final List<User> userList;
-  SearchTeacherWidget({Key? key, required this.userList}) : super(key: key);
+  final List<TutorSubsLvEd> tutorsList;
+  SearchTeacherWidget({Key? key, required this.tutorsList}) : super(key: key);
 
   @override
   _SearchTeacherWidgetState createState() => _SearchTeacherWidgetState();
@@ -34,7 +34,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                   mainAxisExtent: 200),
               // shrinkWrap: true,
               scrollDirection: Axis.vertical,
-              itemCount: widget.userList.length,
+              itemCount: widget.tutorsList.length,
               // padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 return Container(
@@ -50,7 +50,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                         MaterialPageRoute(
                             builder: (context) => DetailScreen(),
                             settings:
-                                RouteSettings(arguments: widget.userList[index])),
+                                RouteSettings(arguments: widget.tutorsList[index])),
                       );
                     },
                     child: Stack(
@@ -76,7 +76,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                                 maxWidth: 140,
                               ),
                               child: Text(
-                                '${widget.userList[index].name}',
+                                '${widget.tutorsList[index].name}',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -188,11 +188,11 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                             width: 200,
                             height: 77,
                             child: GridView.builder(
-                              itemCount: 6,
+                              itemCount: widget.tutorsList[index].subjects.length>6?6:widget.tutorsList[index].subjects.length,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3, mainAxisExtent: 40),
-                              itemBuilder: (context, index) {
+                              itemBuilder: (context, index1) {
                                 return Container(
                                   alignment: Alignment.center,
                                   margin: EdgeInsets.symmetric(
@@ -204,102 +204,13 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    'Maths',
+                                    "${widget.tutorsList[index].subjects[index1].subject}"
                                   ),
                                 );
                               },
                             ),
                           ),
-                          //  Column(
-                          //   children: [
-                          //     Row(
-                          //       children: [
-                          //         Container(
-                          //           margin: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           padding: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           decoration: BoxDecoration(
-                          //             color: Colors.blueAccent[100],
-                          //             borderRadius: BorderRadius.circular(10),
-                          //           ),
-                          //           child: Text(
-                          //             'Maths',
-                          //           ),
-                          //         ),
-                          //         Container(
-                          //           margin: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           padding: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           decoration: BoxDecoration(
-                          //             color: Colors.blueAccent[100],
-                          //             borderRadius: BorderRadius.circular(10),
-                          //           ),
-                          //           child: Text(
-                          //             'Physics',
-                          //           ),
-                          //         ),
-                          //         Container(
-                          //           margin: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           padding: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           decoration: BoxDecoration(
-                          //             color: Colors.blueAccent[100],
-                          //             borderRadius: BorderRadius.circular(10),
-                          //           ),
-                          //           child: Text(
-                          //             'Others',
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     Row(
-                          //       children: [
-                          //         Container(
-                          //           margin: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           padding: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           decoration: BoxDecoration(
-                          //             color: Colors.blueAccent[100],
-                          //             borderRadius: BorderRadius.circular(10),
-                          //           ),
-                          //           child: Text(
-                          //             'Maths',
-                          //           ),
-                          //         ),
-                          //         Container(
-                          //           margin: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           padding: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           decoration: BoxDecoration(
-                          //             color: Colors.blueAccent[100],
-                          //             borderRadius: BorderRadius.circular(10),
-                          //           ),
-                          //           child: Text(
-                          //             'Physics',
-                          //           ),
-                          //         ),
-                          //         Container(
-                          //           margin: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           padding: EdgeInsets.symmetric(
-                          //               vertical: 3, horizontal: 3),
-                          //           decoration: BoxDecoration(
-                          //             color: Colors.blueAccent[100],
-                          //             borderRadius: BorderRadius.circular(10),
-                          //           ),
-                          //           child: Text(
-                          //             'Others',
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ],
-                          // ),
+                          
                         )
                       ],
                     ),

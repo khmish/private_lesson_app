@@ -5,6 +5,7 @@ import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/api/subject_api.dart';
 import 'package:private_lesson_app/models/subject.dart';
 import 'package:private_lesson_app/api/user_api.dart';
+import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
@@ -57,7 +58,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   late int _subjectSelectedValue = -1;
   late List<Leveleducation> _leveleducationList = [];
   late int _leveleducationSelectedValue = -1;
-  late List<User> _userList = [];
+  late List<TutorSubsLvEd> _tutorsList = [];
   late TextEditingController searchController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isSearch = false;
@@ -96,7 +97,7 @@ class _SearchWidgetState extends State<SearchWidget> {
 
     TutorSearch.searchForTutorsWithParams().then((value) {
       setState(() {
-        _userList = value;
+        _tutorsList = value;
       });
     }).whenComplete(() {
       setState(() {
@@ -431,7 +432,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                       : _subjectSelectedValue)
                                           .then((value) {
                                         setState(() {
-                                          _userList = value;
+                                          _tutorsList = value;
                                         });
                                       }).whenComplete(() {
                                         setState(() {
@@ -453,7 +454,7 @@ class _SearchWidgetState extends State<SearchWidget> {
               isLoading 
                   ? Center(child: LinearProgressIndicator())
                   : SearchTeacherWidget(
-                      userList: _userList,
+                      tutorsList: _tutorsList,
                     ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:private_lesson_app/models/user.dart';
 
 class TutorSearch {
@@ -8,9 +9,9 @@ class TutorSearch {
       'https://privatelesson.herokuapp.com/api/user/search';
       // 'http://192.168.100.49/privateLesson/public/api/user/search';
   
-  static Future<List<User>> searchForTutorsWithParams({int? leveleducationId ,String? gender="",int? subjectId,int? cityId}) async {
+  static Future<List<TutorSubsLvEd>> searchForTutorsWithParams({int? leveleducationId ,String? gender="",int? subjectId,int? cityId}) async {
     var baseUrl = _baseUrlUsers;
-    List<User> userList = [];
+    List<TutorSubsLvEd> tutorsList = [];
     try {
       // if (page > 0) {
       baseUrl = _baseUrlUsers;
@@ -37,16 +38,16 @@ class TutorSearch {
         dynamic body = json.decode(response.body)['data'];
 
         for (var i = 0; i < body.length; i++) {
-          User user = User.fromJson(body[i]);
-          userList.add(user);
+          TutorSubsLvEd tutorSubLvl = TutorSubsLvEd.fromJson(body[i]);
+          tutorsList.add(tutorSubLvl);
         }
-        return userList;
+        return tutorsList;
       } else {
-        return userList;
+        return tutorsList;
       }
     } catch (e) {
       print(e);
-      return userList;
+      return tutorsList;
     }
   }
 }

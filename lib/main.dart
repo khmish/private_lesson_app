@@ -5,6 +5,8 @@ import 'package:private_lesson_app/pages/myorder_page.dart';
 import 'package:private_lesson_app/pages/signup.dart';
 import 'package:private_lesson_app/pages/city.dart';
 import 'package:private_lesson_app/pages/side_menu.dart';
+import 'package:private_lesson_app/pages/signup_teacher.dart';
+import 'package:private_lesson_app/pages/teacher_profile.dart';
 import 'package:private_lesson_app/pages/users_control.dart';
 import 'package:private_lesson_app/pages/admin_control.dart';
 
@@ -20,9 +22,12 @@ void main() {
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
-      //'/': (context) => SearchWidget(),
-
       '/': (context) => SearchWidget(),
+
+      // '/': (context) => Signup_teacherWidget(),
+      // '/': (context) => teacher_profile(),
+
+
       '/singup': (context) => SignupWidget(),
       '/login': (context) => LoginPageWidget(),
       '/city': (context) => CityWidget(),

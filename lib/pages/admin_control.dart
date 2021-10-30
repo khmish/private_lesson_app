@@ -50,6 +50,9 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
   void showUserPage() {
     setState(() {
       _isVisibleUser = !_isVisibleUser;
+      _isVisibleCity = false;
+      _isVisibleLevel = false;
+      _isVisibleSubject = false;
     });
   }
 
@@ -58,6 +61,9 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
   void showCityPage() {
     setState(() {
       _isVisibleCity = !_isVisibleCity;
+      _isVisibleUser = false;
+      _isVisibleLevel = false;
+      _isVisibleSubject = false;
     });
   }
 
@@ -66,6 +72,9 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
   void showLeveleducationPage() {
     setState(() {
       _isVisibleLevel = !_isVisibleLevel;
+      _isVisibleUser = false;
+      _isVisibleCity = false;
+      _isVisibleSubject = false;
     });
   }
 
@@ -74,6 +83,9 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
   void showSubjectPage() {
     setState(() {
       _isVisibleSubject = !_isVisibleSubject;
+      _isVisibleUser = false;
+      _isVisibleCity = false;
+      _isVisibleLevel = false;
     });
   }
 
@@ -829,16 +841,15 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
 
   void dismissSlidableItem(
       BuildContext context, int index, SlidableAction action) {
-    setState(() {
-      _cityList.removeAt(index);
-    });
-
     switch (action) {
       case SlidableAction.edit:
         showSnackBar(context, 'Edited successfully');
         break;
       case SlidableAction.delete:
-        showSnackBar(context, 'Deleted successfully');
+        setState(() {
+          _userList.removeAt(index);
+        });
+        showSnackBar(context, 'Meshal');
         break;
     }
   }

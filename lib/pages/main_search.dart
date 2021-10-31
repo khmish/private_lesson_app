@@ -9,6 +9,8 @@ import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/pages/admin_control.dart';
 import 'package:private_lesson_app/pages/myorder_page.dart';
+import 'package:private_lesson_app/pages/signup_teacher.dart';
+import 'package:private_lesson_app/pages/teacher_profile.dart';
 import 'package:private_lesson_app/pages/users_control.dart';
 import 'package:private_lesson_app/widget/search_teacher_widget.dart';
 
@@ -205,6 +207,27 @@ class _SearchWidgetState extends State<SearchWidget> {
                     MaterialPageRoute(builder: (context) => myorder_page()),
                   );
                 }),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Teacher Signup'),
+                selected: _selectedDestination == 2,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Signup_teacherWidget()),
+                  );
+                }),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Teacher Profile'),
+                selected: _selectedDestination == 2,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => teacher_profile()),
+                  );
+                }),
+
           ],
         ),
       ),

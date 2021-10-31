@@ -1,15 +1,34 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  DetailScreen({Key? key}) : super(key: key);
+
+  Future<bool> checksIfLogIn() async {
+    final storage = await SharedPreferences.getInstance();
+    String token = storage.getString("token").toString();
+    UserAPI.getLoginUser(token).then((value) {
+      return true;
+    });
+
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final thisuser = ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
-
+    final thisuser =
+        ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
+    checksIfLogIn().then((value) {
+      if (value) {
+      } else {
+        Navigator.of(context).pushNamed("login");
+      }
+    });
     // Use the Todo to create the UI.
     return Scaffold(
         appBar: AppBar(

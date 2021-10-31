@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:http/http.dart' as http;
-
 import 'city.dart';
 
 class LoginPageWidget extends StatefulWidget {
@@ -12,14 +15,11 @@ class LoginPageWidget extends StatefulWidget {
 }
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
-
-
-
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  
   @override
   void initState() {
     super.initState();
@@ -29,67 +29,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   }
 
   bool _isLoading = false;
-  var _baseUrlLogin = "https://privatelesson.herokuapp.com/api/user/login";
-  Future<void> login() async {
-    setState(() {
-      _isLoading = true;
-    });
-    var baseUrl = _baseUrlLogin;
-    try {
-      // if (page > 0) {
-      baseUrl = _baseUrlLogin;
-      // }
-      var url = Uri.parse(baseUrl);
-      var response = await http.post(
-        url,
-        body: {
-          "email": emailController.text,
-          "password": passwordController.text,
-        },
-        // headers: <String, String>{
-        //   'Accept': 'application/json',
-        //   'Content-Type': 'application/json; charset=UTF-8',
-        //   // 'Authorization': 'Bearer $token',
-        // },
-      );
-      if (response.statusCode == 200) {
-        print(response.body);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => CityWidget()),
-        );
-      } else {
-        print(response.body);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content:  Text("invlid password or username"),
-            // action: SnackBarAction(
-            //   label: 'Action',
-            //   onPressed: () {
-            //     // Code to execute.
-            //   },
-            // ),
-          ),
-        );
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-
-
-
-
     return Scaffold(
-
-
-
-
-
       key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -111,8 +54,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                 child: Center(
                   child: FittedBox(
                     child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
-                      width: MediaQuery.of(context).size.width>1000?MediaQuery.of(context).size.width*0.6:MediaQuery.of(context).size.width ,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      width: MediaQuery.of(context).size.width > 1000
+                          ? MediaQuery.of(context).size.width * 0.6
+                          : MediaQuery.of(context).size.width,
                       // height: MediaQuery.of(context).size.height * 0.46,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -194,7 +140,24 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               child: ElevatedButton.icon(
                                 label: Text("login"),
                                 onPressed: () {
-                                  login().whenComplete(() {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  UserAPI.login(emailController.text,
+                                          passwordController.text)
+                                      .then((value) {
+                                    if (value) {
+                                      Navigator.of(context).pushNamed("/");
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.red,
+                                          content: Text("error!!"),
+                                        ),
+                                      );
+                                    }
+                                  }).whenComplete(() {
                                     setState(() {
                                       _isLoading = false;
                                     });

@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
+import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
+import 'package:private_lesson_app/models/register.dart';
 
 class SignupWidget extends StatefulWidget {
   SignupWidget({Key? key}) : super(key: key);
@@ -40,65 +42,6 @@ class _SignupWidgetState extends State<SignupWidget> {
         if (_cityList.length > 0) _citySelectedValue = _cityList[0].id;
       });
     });
-  }
-
-  var _baseUrlRegisterUser = 'https://privatelesson.herokuapp.com/api/user';
-  // var _baseUrlRegisterUser = 'http://127.0.0.1:8000/api/user';
-  Future<void> registed() async {
-    var baseUrl = _baseUrlRegisterUser;
-    try {
-      // if (page > 0) {
-      baseUrl = _baseUrlRegisterUser;
-      // }
-      var url = Uri.parse(baseUrl);
-      var response = await http.post(
-        url,
-        body: jsonEncode({
-          "name": nameController.text,
-          "email": emailController.text,
-          "password": passwordController.text,
-          "gender": _genderSelectedValue,
-          "phone": phoneController.text,
-          "city_id": _citySelectedValue.toString(),
-          "role": "student"
-        }),
-        headers: <String, String>{
-          'Accept': 'application/json',
-          'Content-Type': 'application/json; charset=UTF-8',
-          // 'Authorization': 'Bearer $token',
-        },
-      );
-      print(response.body);
-      print(response.statusCode);
-      if (response.statusCode == 201 ) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Saved"),
-            // action: SnackBarAction(
-            //   label: 'Action',
-            //   onPressed: () {
-            //     // Code to execute.
-            //   },
-            // ),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content: Text("error!!"),
-            // action: SnackBarAction(
-            //   label: 'Action',
-            //   onPressed: () {
-            //     // Code to execute.
-            //   },
-            // ),
-          ),
-        );
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   @override
@@ -293,7 +236,34 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   setState(() {
                                     isLoading = true;
                                   });
-                                  registed().whenComplete(() {
+
+                                  UserAPI.registed(new Register(
+                                          name: nameController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                          city: _citySelectedValue,
+                                          phone: phoneController.text,
+                                          gender: _genderSelectedValue,
+                                          role: "student"))
+                                      .then((value) {
+                                    if (value) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.green,
+                                          content: Text("saved!"),
+                                        ),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.red,
+                                          content: Text("error!!"),
+                                        ),
+                                      );
+                                    }
+                                  }).whenComplete(() {
                                     setState(() {
                                       isLoading = false;
                                     });

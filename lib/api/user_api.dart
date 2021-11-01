@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:private_lesson_app/models/register.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAPI {
@@ -143,4 +142,36 @@ class UserAPI {
       return false;
     }
   }
+  
+  static Future<bool> deleteUser(String id) async {
+    var baseUrl = _baseUrlRegisterUser;
+
+    try {
+      // if (page > 0) {
+      baseUrl = _baseUrlRegisterUser+"/$id";
+      // }
+      var url = Uri.parse(baseUrl);
+      var response = await http.delete(
+        url,
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization': 'Bearer $token',
+        },
+      );
+      print(response.body);
+      if (response.statusCode == 204) {
+        // dynamic body = json.decode(response.body)['data'];
+
+        return true;
+      } else {
+        // storage.setString("token", "");
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
 }

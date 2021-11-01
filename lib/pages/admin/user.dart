@@ -52,7 +52,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
       setState(() {
         _userList = usersList;
       });
-    }).whenComplete(() => isLoading=false);
+    }).whenComplete(() => isLoading = false);
   }
 
   //****************Add user
@@ -122,8 +122,9 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
         Visibility(
           visible: isLoading,
           child: Center(
-              child: LinearProgressIndicator(),
-            ),),
+            child: LinearProgressIndicator(),
+          ),
+        ),
         Visibility(
           visible: !isLoading,
           child: Column(
@@ -177,22 +178,22 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           //mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
                                             Padding(
                                               //------------Name--------------------------
-                                              padding: EdgeInsetsDirectional.fromSTEB(
-                                                  constLeft,
-                                                  constTop,
-                                                  constRight,
-                                                  constBottom),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(constLeft, constTop,
+                                                      constRight, constBottom),
                                               child: TextFormField(
                                                 controller: nameController,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
-                                                  border: const OutlineInputBorder(),
+                                                  border:
+                                                      const OutlineInputBorder(),
                                                   labelText: 'Name',
                                                   prefixIcon: Icon(
                                                     Icons.person_outline,
@@ -202,16 +203,15 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                             ),
                                             Padding(
                                               //------------Email--------------------------
-                                              padding: EdgeInsetsDirectional.fromSTEB(
-                                                  constLeft,
-                                                  constTop,
-                                                  constRight,
-                                                  constBottom),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(constLeft, constTop,
+                                                      constRight, constBottom),
                                               child: TextFormField(
                                                 controller: emailController,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
-                                                  border: const OutlineInputBorder(),
+                                                  border:
+                                                      const OutlineInputBorder(),
                                                   labelText: 'Email',
                                                   prefixIcon: Icon(
                                                     Icons.alternate_email,
@@ -223,11 +223,9 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                             ),
                                             Padding(
                                               //------------Gender--------------------------
-                                              padding: EdgeInsetsDirectional.fromSTEB(
-                                                  constLeft,
-                                                  constTop,
-                                                  constRight,
-                                                  constBottom),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(constLeft, constTop,
+                                                      constRight, constBottom),
                                               child: SizedBox(
                                                 width: double.infinity,
                                                 height: 50,
@@ -246,8 +244,10 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                                       value: itemList,
                                                     );
                                                   }).toList(),
-                                                  decoration: const InputDecoration(
-                                                    prefixIcon: Icon(Icons.male),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    prefixIcon:
+                                                        Icon(Icons.male),
                                                     border:
                                                         const OutlineInputBorder(),
                                                   ),
@@ -256,17 +256,17 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                             ),
                                             Padding(
                                               //------------Phone--------------------------
-                                              padding: EdgeInsetsDirectional.fromSTEB(
-                                                  constLeft,
-                                                  constTop,
-                                                  constRight,
-                                                  constBottom),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(constLeft, constTop,
+                                                      constRight, constBottom),
                                               child: TextFormField(
-                                                keyboardType: TextInputType.number,
+                                                keyboardType:
+                                                    TextInputType.number,
                                                 controller: phoneController,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
-                                                  border: const OutlineInputBorder(),
+                                                  border:
+                                                      const OutlineInputBorder(),
                                                   labelText: 'Phone',
                                                   prefixIcon: Icon(
                                                     Icons.phone_android,
@@ -276,16 +276,16 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                             ),
                                             Padding(
                                               //------------Password--------------------------
-                                              padding: EdgeInsetsDirectional.fromSTEB(
-                                                  constLeft,
-                                                  constTop,
-                                                  constRight,
-                                                  constBottom),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(constLeft, constTop,
+                                                      constRight, constBottom),
                                               child: TextFormField(
                                                 controller: passwordController,
-                                                obscureText: !passwordVisibility,
+                                                obscureText:
+                                                    !passwordVisibility,
                                                 decoration: InputDecoration(
-                                                  border: const OutlineInputBorder(),
+                                                  border:
+                                                      const OutlineInputBorder(),
                                                   labelText: 'Password',
                                                   prefixIcon: Icon(
                                                     Icons.lock_outline_rounded,
@@ -297,7 +297,8 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                                     ),
                                                     child: Icon(
                                                       passwordVisibility
-                                                          ? Icons.visibility_outlined
+                                                          ? Icons
+                                                              .visibility_outlined
                                                           : Icons
                                                               .visibility_off_outlined,
                                                       color: Color(0xFF757575),
@@ -309,18 +310,20 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                             ),
                                             Padding(
                                                 //------------City--------------------------
-                                                padding:
-                                                    EdgeInsetsDirectional.fromSTEB(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
                                                         constLeft,
                                                         constTop,
                                                         constRight,
                                                         constBottom),
                                                 child: DropdownButtonFormField(
                                                   // value: _citySelectedValue,
-                                                  items: _cityList.map((itemList) {
+                                                  items:
+                                                      _cityList.map((itemList) {
                                                     print(itemList);
                                                     return DropdownMenuItem(
-                                                      child: Text(itemList.name),
+                                                      child:
+                                                          Text(itemList.name),
                                                       value: itemList.id,
                                                     );
                                                   }).toList(),
@@ -332,20 +335,19 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                                           cityId as int;
                                                     });
                                                   },
-                                                  decoration: const InputDecoration(
-                                                    prefixIcon: Icon(
-                                                        Icons.location_on_rounded),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    prefixIcon: Icon(Icons
+                                                        .location_on_rounded),
                                                     border:
                                                         const OutlineInputBorder(),
                                                   ),
                                                 )),
                                             Padding(
                                               //------------Role--------------------------
-                                              padding: EdgeInsetsDirectional.fromSTEB(
-                                                  constLeft,
-                                                  constTop,
-                                                  constRight,
-                                                  constBottom),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(constLeft, constTop,
+                                                      constRight, constBottom),
                                               child: SizedBox(
                                                 width: double.infinity,
                                                 height: 50,
@@ -364,9 +366,10 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                                       value: itemList,
                                                     );
                                                   }).toList(),
-                                                  decoration: const InputDecoration(
-                                                    prefixIcon: Icon(
-                                                        Icons.admin_panel_settings),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    prefixIcon: Icon(Icons
+                                                        .admin_panel_settings),
                                                     border:
                                                         const OutlineInputBorder(),
                                                   ),
@@ -374,8 +377,8 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(
-                                                  10, 5, 10, 0),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(10, 5, 10, 0),
                                               child: ElevatedButton.icon(
                                                 onPressed: () {
                                                   registed();
@@ -411,7 +414,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                     separatorBuilder: (context, index) => Divider(),
                     itemBuilder: (context, index) {
                       final item = _userList[index];
-        
+
                       return SlidableWidget(
                         child: buildListTileUser(item),
                         onDismissed: (action) =>
@@ -431,14 +434,27 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
   void dismissSlidableItem(
       BuildContext context, int index, SlidableAction action) {
     switch (action) {
-      case SlidableAction.edit:
+      case SlidableAction
+          .edit: //*************************** update USER ***** */
         showSnackBar(context, 'Edited successfully');
         break;
-      case SlidableAction.delete:
-        setState(() {
-          _userList.removeAt(index);
-        });
-        showSnackBar(context, 'Meshal');
+      case SlidableAction
+          .delete: //*************************** delete USER ***** */
+        UserAPI.deleteUser(_userList.elementAt(index).id.toString())
+            .then((value) {
+          if (value) {
+            setState(() {
+              _userList.removeAt(index);
+            });
+            showSnackBar(
+                context, 'Deleted the user ${_userList.elementAt(index).name}');
+          }
+          else{
+            showSnackBar(
+                context, 'something ');
+          }
+        }).whenComplete(() {});
+
         break;
     }
   }

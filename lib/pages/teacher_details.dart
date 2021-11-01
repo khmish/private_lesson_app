@@ -10,13 +10,11 @@ class DetailScreen extends StatelessWidget {
   DetailScreen({Key? key}) : super(key: key);
 
   Future<bool> checksIfLogIn() async {
+    // bool isLogged = false;
     final storage = await SharedPreferences.getInstance();
     String token = storage.getString("token").toString();
-    UserAPI.getLoginUser(token).then((value) {
-      return true;
-    });
-
-    return false;
+    print(token+" ********************* ");
+    return await UserAPI.getLoginUser(token);
   }
 
   @override
@@ -25,8 +23,20 @@ class DetailScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
     checksIfLogIn().then((value) {
       if (value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            content: Text("you arre registered!!"),
+          ),
+        );
       } else {
-        Navigator.of(context).pushNamed("login");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.red,
+            content: Text("register first to get the service!!"),
+          ),
+        );
+        Navigator.of(context).pushNamed("/login");
       }
     });
     // Use the Todo to create the UI.

@@ -18,7 +18,7 @@ void main() {
     //initialRoute: '/user',
     //initialRoute: '/userSlidable',
     //initialRoute: '/edit_user',
-    initialRoute: '/',
+    initialRoute: '/singup',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
@@ -30,6 +30,7 @@ void main() {
 
       '/singup': (context) => SignupWidget(),
       '/login': (context) => LoginPageWidget(),
+      
       '/city': (context) => CityWidget(),
 
       //'/searchPage': (context) => SearchPageWidget(), there is some problem

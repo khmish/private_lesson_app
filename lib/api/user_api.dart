@@ -120,7 +120,7 @@ class UserAPI {
       baseUrl = _baseUrlMe;
       // }
       var url = Uri.parse(baseUrl);
-      var response = await http.get(
+      var response = await http.post(
         url,
         headers: <String, String>{
           'Accept': 'application/json',

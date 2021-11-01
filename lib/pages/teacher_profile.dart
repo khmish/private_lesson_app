@@ -116,159 +116,157 @@ class _SignupWidgetState extends State<teacher_profile> {
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
-          : SafeArea(
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                child: Center(
-                  child: FittedBox(
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                      width: MediaQuery.of(context).size.width > 1000
-                          ? MediaQuery.of(context).size.width * 0.6
-                          : MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: Color(0xFFA6A4A4),
-                          width: 1,
+          : SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+              child: Center(
+                child: Container(
+                  margin:
+                      EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  width: MediaQuery.of(context).size.width > 1000
+                      ? MediaQuery.of(context).size.width * 0.6
+                      : MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Color(0xFFA6A4A4),
+                      width: 1,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                        child: Text(
+                          'Teacher Profile',
                         ),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                            child: Text(
-                              'Teacher Profile',
-                            ),
+                      Padding(
+                        //------------Name--------------------------
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            constLeft, constTop, constRight, constBottom),
+                        child: TextFormField(
+                          controller: nameController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText: 'Your Education',
+                            // prefixIcon: Icon(
+                            //   Icons.person_outline,
+                            // ),
                           ),
-                          Padding(
-                            //------------Name--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: TextFormField(
-                              controller: nameController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: 'Your Education',
-                                // prefixIcon: Icon(
-                                //   Icons.person_outline,
-                                // ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            //------------Email--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: TextFormField(
-                              controller: emailController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: 'price',
-                                // prefixIcon: Icon(
-                                //   Icons.alternate_email,
-                                // ),
-                              ),
-
-                              // change here
-                              //keyboardType: TextInputType.emailAddress,
-                              keyboardType: TextInputType.number,
-                            ),
-                          ),
-
-                          Padding(
-                            //------------Subject--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: TextFormField(
-                              //change here
-                              controller: nameController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: 'Subject',
-                                // prefixIcon: Icon(
-                                //   Icons.person_outline,
-                                // ),
-                              ),
-                            ),
-                          ),
-
-                          Padding(
-
-                              //------------City--------------------------
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  constLeft, constTop, constRight, constBottom),
-
-                              child: DropdownButtonFormField(
-
-                                // value: _citySelectedValue,
-                                items: _cityList.map((itemList) {
-                                  print(itemList);
-                                  return DropdownMenuItem(
-                                    child: Text(itemList.name),
-                                    value: itemList.id,
-                                  );
-                                }).toList(),
-                                onChanged: (cityId) {
-                                  // log(value);
-                                  print(cityId);
-                                  setState(() {
-                                    _citySelectedValue = cityId as int;
-                                  });
-                                },
-                                decoration: const InputDecoration(
-                                  labelText: 'Level Education',
-                                  // prefixIcon: Icon(Icons.location_on_rounded),
-                                  border: const OutlineInputBorder(),
-                                ),
-                              )),
-
-
-                          Padding(
-                            //------------Register Button--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeftBtn,
-                                constTopBtn,
-                                constRightBtn,
-                                constBottomBtn),
-                            child: SizedBox(
-                              height: 40,
-                              width: double.infinity,
-                              child: ElevatedButton.icon(
-                                onPressed: () {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  registed().whenComplete(() {
-                                    setState(() {
-                                      isLoading = false;
-                                    });
-                                  });
-                                },
-                                label: Text('Complete'),
-                                icon: Icon(
-                                  Icons.create,
-                                  size: 15,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      Padding(
+                        //------------Email--------------------------
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            constLeft, constTop, constRight, constBottom),
+                        child: TextFormField(
+                          controller: emailController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText: 'price',
+                            // prefixIcon: Icon(
+                            //   Icons.alternate_email,
+                            // ),
+                          ),
+          
+                          // change here
+                          //keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+          
+                      Padding(
+                        //------------Subject--------------------------
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            constLeft, constTop, constRight, constBottom),
+                        child: TextFormField(
+                          //change here
+                          controller: nameController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText: 'Subject',
+                            // prefixIcon: Icon(
+                            //   Icons.person_outline,
+                            // ),
+                          ),
+                        ),
+                      ),
+          
+                      Padding(
+          
+                          //------------City--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+          
+                          child: DropdownButtonFormField(
+          
+                            // value: _citySelectedValue,
+                            items: _cityList.map((itemList) {
+                              print(itemList);
+                              return DropdownMenuItem(
+                                child: Text(itemList.name),
+                                value: itemList.id,
+                              );
+                            }).toList(),
+                            onChanged: (cityId) {
+                              // log(value);
+                              print(cityId);
+                              setState(() {
+                                _citySelectedValue = cityId as int;
+                              });
+                            },
+                            decoration: const InputDecoration(
+                              labelText: 'Level Education',
+                              // prefixIcon: Icon(Icons.location_on_rounded),
+                              border: const OutlineInputBorder(),
+                            ),
+                          )),
+          
+          
+                      Padding(
+                        //------------Register Button--------------------------
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            constLeftBtn,
+                            constTopBtn,
+                            constRightBtn,
+                            constBottomBtn),
+                        child: SizedBox(
+                          height: 40,
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              registed().whenComplete(() {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              });
+                            },
+                            label: Text('Complete'),
+                            icon: Icon(
+                              Icons.create,
+                              size: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
+          ),
     );
   }
 }

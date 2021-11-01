@@ -56,6 +56,26 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
     }
   }
 
+  // delete city*****************************************************
+  var _baseDeleteURL = 'https://privatelesson.herokuapp.com/api/city';
+  Future<void> deleteCities() async {
+    var baseDeleteUrl = _baseDeleteURL;
+    try {
+      baseDeleteUrl = _baseDeleteURL;
+      var url = Uri.parse(baseDeleteUrl);
+      var response = await http.delete(
+        url,
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+      } else {
+        print(response.body);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -198,9 +218,10 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
         break;
       case SlidableAction.delete:
         setState(() {
+          deleteCities();
           _cityList.removeAt(index);
         });
-        showSnackBar(context, 'Meshal');
+        showSnackBar(context, 'Done ...');
         break;
     }
   }

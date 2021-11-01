@@ -31,6 +31,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
   late List<String> _roleList = ['student', 'teacher', 'admin'];
   String _roleSelectedValue = "student";
 
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -46,11 +47,12 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
         if (_cityList.length > 0) _citySelectedValue = _cityList[0].id;
       });
     });
+    isLoading = true;
     UserAPI.getUsers().then((usersList) {
       setState(() {
         _userList = usersList;
       });
-    });
+    }).whenComplete(() => isLoading=false);
   }
 
   //****************Add user
@@ -116,291 +118,310 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-          child: TextFormField(
-            controller: searchController,
-            obscureText: false,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              prefixIcon: Icon(
-                Icons.search,
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+        Visibility(
+          visible: isLoading,
+          child: Center(
+              child: LinearProgressIndicator(),
+            ),),
+        Visibility(
+          visible: !isLoading,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              RaisedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          content: Stack(
-                            overflow: Overflow.visible,
-                            children: <Widget>[
-                              Positioned(
-                                right: -40.0,
-                                top: -40.0,
-                                child: InkResponse(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: CircleAvatar(
-                                    child: Icon(Icons.close),
-                                    backgroundColor: Colors.red,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                child: TextFormField(
+                  controller: searchController,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    prefixIcon: Icon(
+                      Icons.search,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: SingleChildScrollView(
+                                  child: Stack(
+                                    overflow: Overflow.visible,
+                                    children: <Widget>[
+                                      Positioned(
+                                        right: -40.0,
+                                        top: -40.0,
+                                        child: InkResponse(
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: CircleAvatar(
+                                            child: Icon(Icons.close),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        ),
+                                      ),
+                                      Form(
+                                        //key: _formKey,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          //mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              //------------Name--------------------------
+                                              padding: EdgeInsetsDirectional.fromSTEB(
+                                                  constLeft,
+                                                  constTop,
+                                                  constRight,
+                                                  constBottom),
+                                              child: TextFormField(
+                                                controller: nameController,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  border: const OutlineInputBorder(),
+                                                  labelText: 'Name',
+                                                  prefixIcon: Icon(
+                                                    Icons.person_outline,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              //------------Email--------------------------
+                                              padding: EdgeInsetsDirectional.fromSTEB(
+                                                  constLeft,
+                                                  constTop,
+                                                  constRight,
+                                                  constBottom),
+                                              child: TextFormField(
+                                                controller: emailController,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  border: const OutlineInputBorder(),
+                                                  labelText: 'Email',
+                                                  prefixIcon: Icon(
+                                                    Icons.alternate_email,
+                                                  ),
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.emailAddress,
+                                              ),
+                                            ),
+                                            Padding(
+                                              //------------Gender--------------------------
+                                              padding: EdgeInsetsDirectional.fromSTEB(
+                                                  constLeft,
+                                                  constTop,
+                                                  constRight,
+                                                  constBottom),
+                                              child: SizedBox(
+                                                width: double.infinity,
+                                                height: 50,
+                                                child: DropdownButtonFormField(
+                                                  value: _genderSelectedValue,
+                                                  onChanged: (newValue) {
+                                                    setState(() {
+                                                      _genderSelectedValue =
+                                                          newValue.toString();
+                                                    });
+                                                  },
+                                                  items: _genderList
+                                                      .map((String itemList) {
+                                                    return DropdownMenuItem(
+                                                      child: Text(itemList),
+                                                      value: itemList,
+                                                    );
+                                                  }).toList(),
+                                                  decoration: const InputDecoration(
+                                                    prefixIcon: Icon(Icons.male),
+                                                    border:
+                                                        const OutlineInputBorder(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              //------------Phone--------------------------
+                                              padding: EdgeInsetsDirectional.fromSTEB(
+                                                  constLeft,
+                                                  constTop,
+                                                  constRight,
+                                                  constBottom),
+                                              child: TextFormField(
+                                                keyboardType: TextInputType.number,
+                                                controller: phoneController,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  border: const OutlineInputBorder(),
+                                                  labelText: 'Phone',
+                                                  prefixIcon: Icon(
+                                                    Icons.phone_android,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              //------------Password--------------------------
+                                              padding: EdgeInsetsDirectional.fromSTEB(
+                                                  constLeft,
+                                                  constTop,
+                                                  constRight,
+                                                  constBottom),
+                                              child: TextFormField(
+                                                controller: passwordController,
+                                                obscureText: !passwordVisibility,
+                                                decoration: InputDecoration(
+                                                  border: const OutlineInputBorder(),
+                                                  labelText: 'Password',
+                                                  prefixIcon: Icon(
+                                                    Icons.lock_outline_rounded,
+                                                  ),
+                                                  suffixIcon: InkWell(
+                                                    onTap: () => setState(
+                                                      () => passwordVisibility =
+                                                          !passwordVisibility,
+                                                    ),
+                                                    child: Icon(
+                                                      passwordVisibility
+                                                          ? Icons.visibility_outlined
+                                                          : Icons
+                                                              .visibility_off_outlined,
+                                                      color: Color(0xFF757575),
+                                                      size: 22,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                                //------------City--------------------------
+                                                padding:
+                                                    EdgeInsetsDirectional.fromSTEB(
+                                                        constLeft,
+                                                        constTop,
+                                                        constRight,
+                                                        constBottom),
+                                                child: DropdownButtonFormField(
+                                                  // value: _citySelectedValue,
+                                                  items: _cityList.map((itemList) {
+                                                    print(itemList);
+                                                    return DropdownMenuItem(
+                                                      child: Text(itemList.name),
+                                                      value: itemList.id,
+                                                    );
+                                                  }).toList(),
+                                                  onChanged: (cityId) {
+                                                    // log(value);
+                                                    print(cityId);
+                                                    setState(() {
+                                                      _citySelectedValue =
+                                                          cityId as int;
+                                                    });
+                                                  },
+                                                  decoration: const InputDecoration(
+                                                    prefixIcon: Icon(
+                                                        Icons.location_on_rounded),
+                                                    border:
+                                                        const OutlineInputBorder(),
+                                                  ),
+                                                )),
+                                            Padding(
+                                              //------------Role--------------------------
+                                              padding: EdgeInsetsDirectional.fromSTEB(
+                                                  constLeft,
+                                                  constTop,
+                                                  constRight,
+                                                  constBottom),
+                                              child: SizedBox(
+                                                width: double.infinity,
+                                                height: 50,
+                                                child: DropdownButtonFormField(
+                                                  value: _roleSelectedValue,
+                                                  onChanged: (newValue) {
+                                                    setState(() {
+                                                      _roleSelectedValue =
+                                                          newValue.toString();
+                                                    });
+                                                  },
+                                                  items: _roleList
+                                                      .map((String itemList) {
+                                                    return DropdownMenuItem(
+                                                      child: Text(itemList),
+                                                      value: itemList,
+                                                    );
+                                                  }).toList(),
+                                                  decoration: const InputDecoration(
+                                                    prefixIcon: Icon(
+                                                        Icons.admin_panel_settings),
+                                                    border:
+                                                        const OutlineInputBorder(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(
+                                                  10, 5, 10, 0),
+                                              child: ElevatedButton.icon(
+                                                onPressed: () {
+                                                  registed();
+                                                },
+                                                label: Text('submit'),
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  size: 15,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              Form(
-                                //key: _formKey,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  //mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      //------------Name--------------------------
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          constLeft,
-                                          constTop,
-                                          constRight,
-                                          constBottom),
-                                      child: TextFormField(
-                                        controller: nameController,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          border: const OutlineInputBorder(),
-                                          labelText: 'Name',
-                                          prefixIcon: Icon(
-                                            Icons.person_outline,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      //------------Email--------------------------
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          constLeft,
-                                          constTop,
-                                          constRight,
-                                          constBottom),
-                                      child: TextFormField(
-                                        controller: emailController,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          border: const OutlineInputBorder(),
-                                          labelText: 'Email',
-                                          prefixIcon: Icon(
-                                            Icons.alternate_email,
-                                          ),
-                                        ),
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                      ),
-                                    ),
-                                    Padding(
-                                      //------------Gender--------------------------
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          constLeft,
-                                          constTop,
-                                          constRight,
-                                          constBottom),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        height: 50,
-                                        child: DropdownButtonFormField(
-                                          value: _genderSelectedValue,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              _genderSelectedValue =
-                                                  newValue.toString();
-                                            });
-                                          },
-                                          items: _genderList
-                                              .map((String itemList) {
-                                            return DropdownMenuItem(
-                                              child: Text(itemList),
-                                              value: itemList,
-                                            );
-                                          }).toList(),
-                                          decoration: const InputDecoration(
-                                            prefixIcon: Icon(Icons.male),
-                                            border: const OutlineInputBorder(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      //------------Phone--------------------------
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          constLeft,
-                                          constTop,
-                                          constRight,
-                                          constBottom),
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        controller: phoneController,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          border: const OutlineInputBorder(),
-                                          labelText: 'Phone',
-                                          prefixIcon: Icon(
-                                            Icons.phone_android,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      //------------Password--------------------------
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          constLeft,
-                                          constTop,
-                                          constRight,
-                                          constBottom),
-                                      child: TextFormField(
-                                        controller: passwordController,
-                                        obscureText: !passwordVisibility,
-                                        decoration: InputDecoration(
-                                          border: const OutlineInputBorder(),
-                                          labelText: 'Password',
-                                          prefixIcon: Icon(
-                                            Icons.lock_outline_rounded,
-                                          ),
-                                          suffixIcon: InkWell(
-                                            onTap: () => setState(
-                                              () => passwordVisibility =
-                                                  !passwordVisibility,
-                                            ),
-                                            child: Icon(
-                                              passwordVisibility
-                                                  ? Icons.visibility_outlined
-                                                  : Icons
-                                                      .visibility_off_outlined,
-                                              color: Color(0xFF757575),
-                                              size: 22,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                        //------------City--------------------------
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            constLeft,
-                                            constTop,
-                                            constRight,
-                                            constBottom),
-                                        child: DropdownButtonFormField(
-                                          // value: _citySelectedValue,
-                                          items: _cityList.map((itemList) {
-                                            print(itemList);
-                                            return DropdownMenuItem(
-                                              child: Text(itemList.name),
-                                              value: itemList.id,
-                                            );
-                                          }).toList(),
-                                          onChanged: (cityId) {
-                                            // log(value);
-                                            print(cityId);
-                                            setState(() {
-                                              _citySelectedValue =
-                                                  cityId as int;
-                                            });
-                                          },
-                                          decoration: const InputDecoration(
-                                            prefixIcon:
-                                                Icon(Icons.location_on_rounded),
-                                            border: const OutlineInputBorder(),
-                                          ),
-                                        )),
-                                    Padding(
-                                      //------------Role--------------------------
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          constLeft,
-                                          constTop,
-                                          constRight,
-                                          constBottom),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        height: 50,
-                                        child: DropdownButtonFormField(
-                                          value: _roleSelectedValue,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              _roleSelectedValue =
-                                                  newValue.toString();
-                                            });
-                                          },
-                                          items:
-                                              _roleList.map((String itemList) {
-                                            return DropdownMenuItem(
-                                              child: Text(itemList),
-                                              value: itemList,
-                                            );
-                                          }).toList(),
-                                          decoration: const InputDecoration(
-                                            prefixIcon: Icon(
-                                                Icons.admin_panel_settings),
-                                            border: const OutlineInputBorder(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 5, 10, 0),
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          registed();
-                                        },
-                                        label: Text('submit'),
-                                        icon: Icon(
-                                          Icons.add,
-                                          size: 15,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      });
-                },
-                child: Text("Add user"),
+                              );
+                            });
+                      },
+                      child: Text("Add user"),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  child: ListView.separated(
+                    itemCount: _userList.length,
+                    separatorBuilder: (context, index) => Divider(),
+                    itemBuilder: (context, index) {
+                      final item = _userList[index];
+        
+                      return SlidableWidget(
+                        child: buildListTileUser(item),
+                        onDismissed: (action) =>
+                            dismissSlidableItem(context, index, action),
+                      );
+                    },
+                  ),
+                ),
               ),
             ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.8,
-            child: ListView.separated(
-              itemCount: _userList.length,
-              separatorBuilder: (context, index) => Divider(),
-              itemBuilder: (context, index) {
-                final item = _userList[index];
-
-                return SlidableWidget(
-                  child: buildListTileUser(item),
-                  onDismissed: (action) =>
-                      dismissSlidableItem(context, index, action),
-                );
-              },
-            ),
           ),
         ),
       ],

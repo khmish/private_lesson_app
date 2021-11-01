@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:private_lesson_app/models/register.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +7,6 @@ import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAPI {
-  
   static var _baseUrlUsers = 'https://privatelesson.herokuapp.com/api/user';
   static var _baseUrlMe = 'https://privatelesson.herokuapp.com/api/user/me';
   static var _baseUrlLogin =
@@ -35,7 +33,10 @@ class UserAPI {
       // print(response.body);
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
-
+        for (var i = 0; i < body.length; i++) {
+          User user = User.fromJson(body[i]);
+          userList.add(user);
+        }
         return userList;
       } else {
         return userList;
@@ -69,7 +70,7 @@ class UserAPI {
       if (response.statusCode == 200) {
         print(response.body);
         storage.setString("token", json.decode(response.body)['data']);
-        
+
         return true;
       } else {
         storage.remove("token");

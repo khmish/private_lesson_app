@@ -7,7 +7,6 @@ import 'package:private_lesson_app/pages/city.dart';
 import 'package:private_lesson_app/pages/side_menu.dart';
 import 'package:private_lesson_app/pages/signup_teacher.dart';
 import 'package:private_lesson_app/pages/teacher_profile.dart';
-import 'package:private_lesson_app/pages/users_control.dart';
 import 'package:private_lesson_app/pages/admin_control.dart';
 
 import 'pages/login.dart';
@@ -18,13 +17,13 @@ void main() {
     //initialRoute: '/user',
     //initialRoute: '/userSlidable',
     //initialRoute: '/edit_user',
-    initialRoute: '/singup',
+    initialRoute: '/searchPage',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
-      '/': (context) => SearchWidget(),
+      '/searchPage': (context) => SearchWidget(),
 
-      // '/': (context) => Signup_teacherWidget(),
+      '/singupTeacher': (context) => Signup_teacherWidget(),
       // '/': (context) => teacher_profile(),
 
 
@@ -33,18 +32,13 @@ void main() {
       
       '/city': (context) => CityWidget(),
 
-      //'/searchPage': (context) => SearchPageWidget(), there is some problem
-
+     
       //************* Admin Pages *************//
-      '/userControl': (context) => UserControlWidget(),
-      '/cityControl': (context) => AdminControlWidget(),
+      '/adminControl': (context) => AdminControlWidget(),
 
       //************* Student Pages *************//
       '/myorder_page': (context) => myorder_page(),
 
-
-
-      // '/permissions': (context) => permissions(),
 
       //Drawer
       '/user2': (context) => SideMenu(),

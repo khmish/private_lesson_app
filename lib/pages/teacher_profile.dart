@@ -5,9 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
+import 'package:private_lesson_app/models/user.dart';
+import 'package:private_lesson_app/widget/select_list_widget.dart';
 
 class teacher_profile extends StatefulWidget {
-  teacher_profile({Key? key}) : super(key: key);
+  late User? teacher;
+  teacher_profile({Key? key, this.teacher}) : super(key: key);
 
   @override
   _SignupWidgetState createState() => _SignupWidgetState();
@@ -21,6 +24,7 @@ class _SignupWidgetState extends State<teacher_profile> {
   late List<String> _genderList = ['male', 'female'];
   String _genderSelectedValue = "male";
   late List<City> _cityList = [];
+  late List<dynamic> _testCitiesList = [];
   late int _citySelectedValue = 1;
   late bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -70,7 +74,7 @@ class _SignupWidgetState extends State<teacher_profile> {
       );
       print(response.body);
       print(response.statusCode);
-      if (response.statusCode == 201 ) {
+      if (response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("Saved"),
@@ -117,156 +121,135 @@ class _SignupWidgetState extends State<teacher_profile> {
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-              child: Center(
-                child: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  width: MediaQuery.of(context).size.width > 1000
-                      ? MediaQuery.of(context).size.width * 0.6
-                      : MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Color(0xFFA6A4A4),
-                      width: 1,
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                child: Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                    width: MediaQuery.of(context).size.width > 1000
+                        ? MediaQuery.of(context).size.width * 0.6
+                        : MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Color(0xFFA6A4A4),
+                        width: 1,
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                        child: Text(
-                          'Teacher Profile',
-                        ),
-                      ),
-                      Padding(
-                        //------------Name--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeft, constTop, constRight, constBottom),
-                        child: TextFormField(
-                          controller: nameController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: 'Your Education',
-                            // prefixIcon: Icon(
-                            //   Icons.person_outline,
-                            // ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          child: Text(
+                            'Teacher Profile',
                           ),
                         ),
-                      ),
-                      Padding(
-                        //------------Email--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeft, constTop, constRight, constBottom),
-                        child: TextFormField(
-                          controller: emailController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: 'price',
-                            // prefixIcon: Icon(
-                            //   Icons.alternate_email,
-                            // ),
-                          ),
-          
-                          // change here
-                          //keyboardType: TextInputType.emailAddress,
-                          keyboardType: TextInputType.number,
-                        ),
-                      ),
-          
-                      Padding(
-                        //------------Subject--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeft, constTop, constRight, constBottom),
-                        child: TextFormField(
-                          //change here
-                          controller: nameController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: 'Subject',
-                            // prefixIcon: Icon(
-                            //   Icons.person_outline,
-                            // ),
-                          ),
-                        ),
-                      ),
-          
-                      Padding(
-          
-                          //------------City--------------------------
+                        Padding(
+                          //------------Eudcation--------------------------
                           padding: EdgeInsetsDirectional.fromSTEB(
                               constLeft, constTop, constRight, constBottom),
-          
-                          child: DropdownButtonFormField(
-          
-                            // value: _citySelectedValue,
-                            items: _cityList.map((itemList) {
-                              print(itemList);
-                              return DropdownMenuItem(
-                                child: Text(itemList.name),
-                                value: itemList.id,
-                              );
-                            }).toList(),
-                            onChanged: (cityId) {
-                              // log(value);
-                              print(cityId);
-                              setState(() {
-                                _citySelectedValue = cityId as int;
-                              });
-                            },
-                            decoration: const InputDecoration(
-                              labelText: 'Level Education',
-                              // prefixIcon: Icon(Icons.location_on_rounded),
+                          child: TextFormField(
+                            controller: nameController,
+                            obscureText: false,
+                            decoration: InputDecoration(
                               border: const OutlineInputBorder(),
-                            ),
-                          )),
-          
-          
-                      Padding(
-                        //------------Register Button--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeftBtn,
-                            constTopBtn,
-                            constRightBtn,
-                            constBottomBtn),
-                        child: SizedBox(
-                          height: 40,
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              registed().whenComplete(() {
-                                setState(() {
-                                  isLoading = false;
-                                });
-                              });
-                            },
-                            label: Text('Complete'),
-                            icon: Icon(
-                              Icons.create,
-                              size: 15,
+                              labelText: 'Your Education',
+                              // prefixIcon: Icon(
+                              //   Icons.person_outline,
+                              // ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        Padding(
+                          //------------Price--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+                          child: TextFormField(
+                            controller: emailController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'price',
+                              // prefixIcon: Icon(
+                              //   Icons.alternate_email,
+                              // ),
+                            ),
+
+                            // change here
+                            //keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                        Padding(
+                            //------------Subject--------------------------
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                constLeft, constTop, constRight, constBottom),
+                            child: ElevatedButton.icon(
+                                onPressed: () {},
+                                icon: Icon(Icons.subject),
+                                label: Text("Subjects"))),
+                        Padding(
+                          //------------Level of Education--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SelectListWidget(
+                                      list: _cityList,
+                                      callback: (List<dynamic> paralist) {
+                                        setState(() {
+                                          _testCitiesList = paralist ;
+                                        });
+                                      }),
+                                ),
+                              );
+                            },
+                            icon: Icon(Icons.subject),
+                            label: Text("Level of Educations"),
+                          ),
+                        ),
+                        Padding(
+                          //------------Register Button--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
+                              constTopBtn, constRightBtn, constBottomBtn),
+                          child: SizedBox(
+                            height: 40,
+                            width: double.infinity,
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                for (var item in _testCitiesList) {
+                                  print(item);
+                                }
+                                // setState(() {
+                                //   isLoading = true;
+                                // });
+                                // registed().whenComplete(() {
+                                //   setState(() {
+                                //     isLoading = false;
+                                //   });
+                                // });
+                              },
+                              label: Text('Complete'),
+                              icon: Icon(
+                                Icons.create,
+                                size: 15,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
     );
   }
 }

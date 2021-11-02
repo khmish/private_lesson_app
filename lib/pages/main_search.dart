@@ -11,7 +11,6 @@ import 'package:private_lesson_app/pages/admin_control.dart';
 import 'package:private_lesson_app/pages/myorder_page.dart';
 import 'package:private_lesson_app/pages/signup_teacher.dart';
 import 'package:private_lesson_app/pages/teacher_profile.dart';
-import 'package:private_lesson_app/pages/users_control.dart';
 import 'package:private_lesson_app/widget/search_teacher_widget.dart';
 
 import 'city.dart';
@@ -176,18 +175,6 @@ class _SearchWidgetState extends State<SearchWidget> {
 
             ListTile(
                 leading: Icon(Icons.label),
-                title: Text('Users Page'),
-                selected: _selectedDestination == 2,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => UserControlWidget()),
-                  );
-                }),
-
-            ListTile(
-                leading: Icon(Icons.label),
                 title: Text('Admin Control Page'),
                 selected: _selectedDestination == 2,
                 onTap: () {
@@ -197,26 +184,13 @@ class _SearchWidgetState extends State<SearchWidget> {
                         builder: (context) => AdminControlWidget()),
                   );
                 }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('My Order Page'),
-                selected: _selectedDestination == 2,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => myorder_page()),
-                  );
-                }),
+           
             ListTile(
                 leading: Icon(Icons.label),
                 title: Text('Teacher Signup'),
                 selected: _selectedDestination == 2,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Signup_teacherWidget()),
-                  );
+                  Navigator.of(context).popAndPushNamed('/singupTeacher');
                 }),
             ListTile(
                 leading: Icon(Icons.label),

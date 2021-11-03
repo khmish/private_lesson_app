@@ -15,11 +15,11 @@ class LeveleducationAPI {
       var url = Uri.parse(baseUrl);
       var response = await http.get(
         url,
-        // headers: <String, String>{
-        //   'Accept': 'application/json',
-        //   'Content-Type': 'application/json; charset=UTF-8',
-        //   // 'Authorization': 'Bearer $token',
-        // },
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization': 'Bearer $token',
+        },
       );
       // print(response.body);
       if (response.statusCode == 200) {

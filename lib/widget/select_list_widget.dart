@@ -29,7 +29,7 @@ class _SelectListWidgetState extends State<SelectListWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("city"),
+        title: Text("List"),
       ),
       body: Column(
         children: [
@@ -91,6 +91,7 @@ class _SelectListWidgetState extends State<SelectListWidget> {
             onPressed: () {
               // print(selectedList.join(', '));
               widget.callback(selectedList);
+              Navigator.pop(context);
             },
             icon: Icon(Icons.add),
             label: Text("Save!"),

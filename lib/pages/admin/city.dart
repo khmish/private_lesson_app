@@ -34,31 +34,6 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
     ;
   }
 
-  //****************Add city
-  var _baseURL = 'https://privatelesson.herokuapp.com/api/city';
-  Future<void> addCities() async {
-    var baseUrl = _baseURL;
-    try {
-      baseUrl = _baseURL;
-      var url = Uri.parse(baseUrl);
-      var response = await http.post(
-        url,
-        body: {
-          "name": cityNameController.text,
-          "country_name": countryController.text,
-        },
-      );
-
-      print(response.body);
-      if (response.statusCode == 200) {
-      } else {
-        print(response.body);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -147,7 +122,9 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                           10, 5, 10, 0),
                                       child: ElevatedButton.icon(
                                         onPressed: () {
-                                          addCities();
+                                          CityAPI.addCities(
+                                              cityNameController.text,
+                                              countryController.text);
                                         },
                                         label: Text('submit'),
                                         icon: Icon(
@@ -197,7 +174,89 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
       BuildContext context, int index, SlidableAction action) {
     switch (action) {
       case SlidableAction.edit:
-        showSnackBar(context, 'Edited successfully');
+        countryController.text = _cityList[index].countryName;
+        cityNameController.text = _cityList[index].name;
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Positioned(
+                      right: -40.0,
+                      top: -40.0,
+                      child: InkResponse(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: CircleAvatar(
+                          child: Icon(Icons.close),
+                          backgroundColor: Colors.red,
+                        ),
+                      ),
+                    ),
+                    Form(
+                      //key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        //mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                            child: TextFormField(
+                              controller: cityNameController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Input city name',
+                                prefixIcon: Icon(
+                                  Icons.text_fields,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                            child: TextFormField(
+                              controller: countryController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Input country name',
+                                prefixIcon: Icon(
+                                  Icons.text_fields,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                _cityList[index].countryName =
+                                    countryController.text;
+                                _cityList[index].name = cityNameController.text;
+                                CityAPI.updateACity(_cityList[index]);
+                              },
+                              label: Text('submit'),
+                              icon: Icon(
+                                Icons.add,
+                                size: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            });
+
         break;
       case SlidableAction
           .delete: //*************************** delete City ***** */

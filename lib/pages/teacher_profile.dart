@@ -225,7 +225,7 @@ class _SignupWidgetState extends State<teacher_profile> {
                             child: ElevatedButton.icon(
                               onPressed: () {
                                 for (var item in _testCitiesList) {
-                                  print(item);
+                                  print(item.name);
                                 }
                                 // setState(() {
                                 //   isLoading = true;

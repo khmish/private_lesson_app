@@ -18,17 +18,20 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
   late TextEditingController countryController;
   late List<City> _cityList = [];
 
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
     searchController = TextEditingController();
     cityNameController = TextEditingController();
     countryController = TextEditingController();
+    isLoading = true;
     CityAPI.getCities().then((value) {
       setState(() {
         _cityList = value;
       });
-    });
+    }).whenComplete(() => isLoading = false);
+    ;
   }
 
   //****************Add city
@@ -46,26 +49,6 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
         },
       );
 
-      print(response.body);
-      if (response.statusCode == 200) {
-      } else {
-        print(response.body);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  // delete city*****************************************************
-  var _baseDeleteURL = 'https://privatelesson.herokuapp.com/api/city';
-  Future<void> deleteCities() async {
-    var baseDeleteUrl = _baseDeleteURL;
-    try {
-      baseDeleteUrl = _baseDeleteURL;
-      var url = Uri.parse(baseDeleteUrl);
-      var response = await http.delete(
-        url,
-      );
       print(response.body);
       if (response.statusCode == 200) {
       } else {
@@ -216,12 +199,21 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
       case SlidableAction.edit:
         showSnackBar(context, 'Edited successfully');
         break;
-      case SlidableAction.delete:
-        setState(() {
-          deleteCities();
-          _cityList.removeAt(index);
-        });
-        showSnackBar(context, 'Done ...');
+      case SlidableAction
+          .delete: //*************************** delete City ***** */
+        CityAPI.deleteCity(_cityList.elementAt(index).id.toString())
+            .then((value) {
+          if (value) {
+            setState(() {
+              _cityList.removeAt(index);
+            });
+            showSnackBar(
+                context, 'Deleted the city ${_cityList.elementAt(index).name}');
+          } else {
+            showSnackBar(context, 'something ');
+          }
+        }).whenComplete(() {});
+
         break;
     }
   }

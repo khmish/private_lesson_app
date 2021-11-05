@@ -18,40 +18,18 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
   late TextEditingController leveleducationNameController;
   late List<Leveleducation> _leveleducationList = [];
 
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
     searchController = TextEditingController();
     leveleducationNameController = TextEditingController();
+    isLoading = true;
     LeveleducationAPI.getLeveleducations().then((value) {
       setState(() {
         _leveleducationList = value;
       });
-    });
-  }
-
-  //****************Add level education
-  var _baseURL1 = 'https://privatelesson.herokuapp.com/api/leveleducation';
-  Future<void> addLeveleducations() async {
-    var baseUrl = _baseURL1;
-    try {
-      baseUrl = _baseURL1;
-      var url = Uri.parse(baseUrl);
-      var response = await http.post(
-        url,
-        body: {
-          "name": leveleducationNameController.text,
-        },
-      );
-
-      print(response.body);
-      if (response.statusCode == 200) {
-      } else {
-        print(response.body);
-      }
-    } catch (e) {
-      print(e);
-    }
+    }).whenComplete(() => isLoading = false);
   }
 
   @override
@@ -130,7 +108,9 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
                                           10, 5, 10, 0),
                                       child: ElevatedButton.icon(
                                         onPressed: () {
-                                          addLeveleducations();
+                                          LeveleducationAPI.addLeveleducations(
+                                              leveleducationNameController
+                                                  .text);
                                         },
                                         label: Text('submit'),
                                         icon: Icon(
@@ -179,14 +159,92 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
   void dismissSlidableItem(
       BuildContext context, int index, SlidableAction action) {
     switch (action) {
-      case SlidableAction.edit:
-        showSnackBar(context, 'Edited successfully');
+      case SlidableAction
+          .edit: //*************************** delete Level education ***** */
+        leveleducationNameController.text = _leveleducationList[index].name;
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Positioned(
+                      right: -40.0,
+                      top: -40.0,
+                      child: InkResponse(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: CircleAvatar(
+                          child: Icon(Icons.close),
+                          backgroundColor: Colors.red,
+                        ),
+                      ),
+                    ),
+                    Form(
+                      //key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        //mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                            child: TextFormField(
+                              controller: leveleducationNameController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Input level education name',
+                                prefixIcon: Icon(
+                                  Icons.text_fields,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                _leveleducationList[index].name =
+                                    leveleducationNameController.text;
+                                LeveleducationAPI.updateALeveleducation(
+                                    _leveleducationList[index]);
+                              },
+                              label: Text('submit'),
+                              icon: Icon(
+                                Icons.add,
+                                size: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            });
         break;
-      case SlidableAction.delete:
-        setState(() {
-          _leveleducationList.removeAt(index);
-        });
-        showSnackBar(context, 'Meshal');
+
+      case SlidableAction
+          .delete: //*************************** delete Level education ***** */
+        LeveleducationAPI.deleteLeveleducation(
+                _leveleducationList.elementAt(index).id.toString())
+            .then((value) {
+          if (value) {
+            setState(() {
+              _leveleducationList.removeAt(index);
+            });
+            showSnackBar(context,
+                'Deleted the level education ${_leveleducationList.elementAt(index).name}');
+          } else {
+            showSnackBar(context, 'something ');
+          }
+        }).whenComplete(() {});
         break;
     }
   }

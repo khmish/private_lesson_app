@@ -99,20 +99,21 @@ class CityAPI {
         return city;
       } else {
         // storage.setString("token", "");
-        return new City(countryName: "",name: "",id:-1);
+        return new City(countryName: "", name: "", id: -1);
       }
     } catch (e) {
       print(e);
-      return new City(countryName: "",name: "",id:-1);
+      return new City(countryName: "", name: "", id: -1);
     }
   }
-  // show a city*****************************************************
+
+  // update a city*****************************************************
   static Future<City> updateACity(City city) async {
     var baseUrl = _baseUrlDeleteCity;
 
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlDeleteCity+"/${city.id}" ;
+      baseUrl = _baseUrlDeleteCity + "/${city.id}";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.put(
@@ -136,16 +137,17 @@ class CityAPI {
         return city;
       } else {
         // storage.setString("token", "");
-        return new City(countryName: "",name: "",id:-1);
+        return new City(countryName: "", name: "", id: -1);
       }
     } catch (e) {
       print(e);
-      return new City(countryName: "",name: "",id:-1);
+      return new City(countryName: "", name: "", id: -1);
     }
   }
+
 //****************Add city
   static var _baseURL = 'https://privatelesson.herokuapp.com/api/city';
-  static Future<void> addCities(String cityName,String countryName) async {
+  static Future<void> addCities(String cityName, String countryName) async {
     var baseUrl = _baseURL;
     try {
       baseUrl = _baseURL;
@@ -167,5 +169,4 @@ class CityAPI {
       print(e);
     }
   }
-
 }

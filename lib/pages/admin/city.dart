@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
@@ -31,7 +30,6 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
         _cityList = value;
       });
     }).whenComplete(() => isLoading = false);
-    ;
   }
 
   @override
@@ -173,7 +171,8 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
   void dismissSlidableItem(
       BuildContext context, int index, SlidableAction action) {
     switch (action) {
-      case SlidableAction.edit:
+      case SlidableAction
+          .edit: //*************************** update City ***** */
         countryController.text = _cityList[index].countryName;
         cityNameController.text = _cityList[index].name;
         showDialog(
@@ -256,8 +255,8 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                 ),
               );
             });
-
         break;
+
       case SlidableAction
           .delete: //*************************** delete City ***** */
         CityAPI.deleteCity(_cityList.elementAt(index).id.toString())
@@ -272,7 +271,6 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
             showSnackBar(context, 'something ');
           }
         }).whenComplete(() {});
-
         break;
     }
   }

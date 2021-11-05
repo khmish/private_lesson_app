@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
@@ -160,7 +159,7 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
       BuildContext context, int index, SlidableAction action) {
     switch (action) {
       case SlidableAction
-          .edit: //*************************** delete Level education ***** */
+          .edit: //*************************** update Level education ***** */
         leveleducationNameController.text = _leveleducationList[index].name;
         showDialog(
             context: context,

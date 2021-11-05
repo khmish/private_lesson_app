@@ -81,7 +81,8 @@ class _SearchWidgetState extends State<SearchWidget> {
     SubjectAPI.getSubjects().then((value) {
       setState(() {
         _subjectList = value;
-        _subjectList.add(new Subject(id: -1, name: ""));
+        _subjectList
+            .add(new Subject(id: -1, name: "", pic: "", leveleducation: -1));
         // if (_subjectList.length > 0) _subjectSelectedValue = _subjectList[0].id;
       });
     });
@@ -184,7 +185,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                         builder: (context) => AdminControlWidget()),
                   );
                 }),
-           
+
             ListTile(
                 leading: Icon(Icons.label),
                 title: Text('Teacher Signup'),

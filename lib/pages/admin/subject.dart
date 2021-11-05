@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/api/subject_api.dart';
 import 'package:private_lesson_app/models/subject.dart';
+import 'package:private_lesson_app/api/leveleducation_api.dart';
+import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
 import 'package:private_lesson_app/pages/edit_user.dart';
 
@@ -15,41 +19,65 @@ class SubjectAdminWidget extends StatefulWidget {
 class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
   late TextEditingController searchController;
   late TextEditingController subjectNameController;
+  late TextEditingController subjectPicController;
   late List<Subject> _subjectList = [];
+  late List<Leveleducation> _leveleducationList = [];
+  late int _leveleducationSelectedValue = 1;
 
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
     searchController = TextEditingController();
     subjectNameController = TextEditingController();
+    subjectPicController = TextEditingController();
+    isLoading = true;
+    LeveleducationAPI.getLeveleducations().then((value) {
+      setState(() {
+        _leveleducationList = value;
+        if (_leveleducationList.length > 0)
+          _leveleducationSelectedValue = _leveleducationList[0].id;
+      });
+    });
     SubjectAPI.getSubjects().then((value) {
       setState(() {
         _subjectList = value;
       });
-    });
+    }).whenComplete(() => isLoading = false);
   }
 
-  //****************Add subject
-  var _baseURL2 = 'https://privatelesson.herokuapp.com/api/subject';
-  Future<void> addsubjects() async {
-    var baseUrl = _baseURL2;
+  //*****************************************Add subject */
+  var _baseUrlSubjects = 'https://privatelesson.herokuapp.com/api/subject';
+  Future<bool> addSubjects() async {
+    var baseUrl = _baseUrlSubjects;
     try {
-      baseUrl = _baseURL2;
+      // if (page > 0) {
+      baseUrl = _baseUrlSubjects;
+      // }
       var url = Uri.parse(baseUrl);
       var response = await http.post(
         url,
-        body: {
+        body: jsonEncode({
           "name": subjectNameController.text,
+          "pic": subjectPicController.text,
+          "leveleducation_id": _leveleducationSelectedValue.toString(),
+        }),
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization': 'Bearer $token',
         },
       );
-
       print(response.body);
-      if (response.statusCode == 200) {
+      print(response.statusCode);
+      if (response.statusCode == 201) {
+        return true;
       } else {
-        print(response.body);
+        return false;
       }
     } catch (e) {
       print(e);
+      return false;
     }
   }
 
@@ -109,6 +137,7 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
+                                      //------------name--------------------------
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 10, 0),
                                       child: TextFormField(
@@ -123,11 +152,56 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                                       ),
                                     ),
                                     Padding(
+                                      //------------subject pic--------------------------
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 10, 0),
+                                      child: TextFormField(
+                                        controller: subjectPicController,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelText: 'Input Subject pic',
+                                          prefixIcon: Icon(
+                                            Icons.image,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                        //------------Level education--------------------------
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            constLeft,
+                                            constTop,
+                                            constRight,
+                                            constBottom),
+                                        child: DropdownButtonFormField(
+                                          // value: _citySelectedValue,
+                                          items: _leveleducationList
+                                              .map((itemList) {
+                                            print(itemList);
+                                            return DropdownMenuItem(
+                                              child: Text(itemList.name),
+                                              value: itemList.id,
+                                            );
+                                          }).toList(),
+                                          onChanged: (leveleducationId) {
+                                            // log(value);
+                                            print(leveleducationId);
+                                            setState(() {
+                                              _leveleducationSelectedValue =
+                                                  leveleducationId as int;
+                                            });
+                                          },
+                                          decoration: const InputDecoration(
+                                            prefixIcon: Icon(Icons.list),
+                                            border: const OutlineInputBorder(),
+                                          ),
+                                        )),
+                                    Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 5, 10, 0),
                                       child: ElevatedButton.icon(
                                         onPressed: () {
-                                          addsubjects();
+                                          addSubjects();
                                         },
                                         label: Text('submit'),
                                         icon: Icon(
@@ -176,14 +250,89 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
   void dismissSlidableItem(
       BuildContext context, int index, SlidableAction action) {
     switch (action) {
-      case SlidableAction.edit:
-        showSnackBar(context, 'Edited successfully');
+      case SlidableAction
+          .edit: //*************************** update Subject ***** */
+        subjectNameController.text = _subjectList[index].name;
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Positioned(
+                      right: -40.0,
+                      top: -40.0,
+                      child: InkResponse(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: CircleAvatar(
+                          child: Icon(Icons.close),
+                          backgroundColor: Colors.red,
+                        ),
+                      ),
+                    ),
+                    Form(
+                      //key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        //mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                            child: TextFormField(
+                              controller: subjectNameController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Input level education name',
+                                prefixIcon: Icon(
+                                  Icons.text_fields,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                _subjectList[index].name =
+                                    subjectNameController.text;
+                                SubjectAPI.updateASubject(_subjectList[index]);
+                              },
+                              label: Text('submit'),
+                              icon: Icon(
+                                Icons.add,
+                                size: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            });
         break;
-      case SlidableAction.delete:
-        setState(() {
-          _subjectList.removeAt(index);
-        });
-        showSnackBar(context, 'Meshal');
+      case SlidableAction
+          .delete: //*************************** delete Subject ***** */
+        SubjectAPI.deleteSubject(_subjectList.elementAt(index).id.toString())
+            .then((value) {
+          if (value) {
+            setState(() {
+              _subjectList.removeAt(index);
+            });
+            showSnackBar(context,
+                'Deleted the subject ${_subjectList.elementAt(index).name}');
+          } else {
+            showSnackBar(context, 'something ');
+          }
+        }).whenComplete(() {});
         break;
     }
   }

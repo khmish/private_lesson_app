@@ -142,13 +142,13 @@ class UserAPI {
       return false;
     }
   }
-  
+
   static Future<bool> deleteUser(String id) async {
     var baseUrl = _baseUrlRegisterUser;
 
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlRegisterUser+"/$id";
+      baseUrl = _baseUrlRegisterUser + "/$id";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.delete(
@@ -174,4 +174,38 @@ class UserAPI {
     }
   }
 
+  // update a subject*****************************************************
+  static Future<User> updateUser(User user) async {
+    var baseUrl = _baseUrlUsers;
+
+    try {
+      // if (page > 0) {
+      baseUrl = _baseUrlUsers + "/${user.id}";
+      // }
+      var url = Uri.parse(baseUrl);
+      var response = await http.put(
+        url,
+        body: jsonEncode(user),
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization': 'Bearer $token',
+        },
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        dynamic body = json.decode(response.body)['data'];
+        User user = User.fromJson(body);
+        return user;
+      } else {
+        // storage.setString("token", "");
+        return new User(
+            name: "", email: "", city: -1, phone: "", gender: "", id: -1);
+      }
+    } catch (e) {
+      print(e);
+      return new User(
+          name: "", email: "", city: -1, phone: "", gender: "", id: -1);
+    }
+  }
 }

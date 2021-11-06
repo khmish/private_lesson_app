@@ -436,7 +436,91 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
     switch (action) {
       case SlidableAction
           .edit: //*************************** update USER ***** */
-        showSnackBar(context, 'Edited successfully');
+        nameController.text = _userList[index].name;
+        phoneController.text = _userList[index].phone;
+        //_citySelectedValue = _userList[index].city;
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Positioned(
+                      right: -40.0,
+                      top: -40.0,
+                      child: InkResponse(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: CircleAvatar(
+                          child: Icon(Icons.close),
+                          backgroundColor: Colors.red,
+                        ),
+                      ),
+                    ),
+                    Form(
+                      //key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        //mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                            child: TextFormField(
+                              controller: nameController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Input name',
+                                prefixIcon: Icon(
+                                  Icons.text_fields,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            //------------Phone--------------------------
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                constLeft, constTop, constRight, constBottom),
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              controller: phoneController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                labelText: 'Phone',
+                                prefixIcon: Icon(
+                                  Icons.phone_android,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                _userList[index].name = nameController.text;
+                                _userList[index].phone = phoneController.text;
+                                UserAPI.updateUser(_userList[index]);
+                              },
+                              label: Text('submit'),
+                              icon: Icon(
+                                Icons.add,
+                                size: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            });
         break;
       case SlidableAction
           .delete: //*************************** delete USER ***** */
@@ -448,10 +532,8 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
             });
             showSnackBar(
                 context, 'Deleted the user ${_userList.elementAt(index).name}');
-          }
-          else{
-            showSnackBar(
-                context, 'something ');
+          } else {
+            showSnackBar(context, 'something ');
           }
         }).whenComplete(() {});
 

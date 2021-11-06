@@ -7,7 +7,7 @@ import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
-import 'package:private_lesson_app/pages/edit_user.dart';
+import 'package:private_lesson_app/pages/main_search.dart';
 
 class UserAdminWidget extends StatefulWidget {
   UserAdminWidget({Key? key}) : super(key: key);
@@ -572,7 +572,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => EditUser()),
+            MaterialPageRoute(builder: (context) => SearchWidget()),
           );
         },
       );

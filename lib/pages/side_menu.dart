@@ -1,4 +1,3 @@
-import 'package:private_lesson_app/pages/city.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:flutter/material.dart';
 
@@ -59,18 +58,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               height: 1,
               thickness: 1,
             ),
-            ListTile(//**************************Cities Page ************************/
-                leading: Icon(Icons.label),
-                title: Text('Cities Page'),
-                selected: _selectedDestination == 2,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CityWidget()),
-                  );
-                }),
-
-            ListTile(//**************************Users Page ************************/
+            ListTile(
+                //**************************Users Page ************************/
                 leading: Icon(Icons.label),
                 title: Text('Users page'),
                 selected: _selectedDestination == 2,
@@ -80,12 +69,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     MaterialPageRoute(builder: (context) => SearchWidget()),
                   );
                 }),
-
-            
           ],
         ),
       ),
-      
     );
   }
 }

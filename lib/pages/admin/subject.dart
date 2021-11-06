@@ -7,7 +7,7 @@ import 'package:private_lesson_app/models/subject.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
-import 'package:private_lesson_app/pages/edit_user.dart';
+import 'package:private_lesson_app/pages/main_search.dart';
 
 class SubjectAdminWidget extends StatefulWidget {
   SubjectAdminWidget({Key? key}) : super(key: key);
@@ -362,7 +362,7 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => EditUser()),
+            MaterialPageRoute(builder: (context) => SearchWidget()),
           );
         },
       );

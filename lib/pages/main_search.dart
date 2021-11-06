@@ -13,8 +13,6 @@ import 'package:private_lesson_app/pages/signup_teacher.dart';
 import 'package:private_lesson_app/pages/teacher_profile.dart';
 import 'package:private_lesson_app/widget/search_teacher_widget.dart';
 
-import 'city.dart';
-
 class SearchWidget extends StatefulWidget {
   SearchWidget({Key? key}) : super(key: key);
 
@@ -160,19 +158,6 @@ class _SearchWidgetState extends State<SearchWidget> {
             ),
 
             // ),
-
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Cities Page'),
-                selected: _selectedDestination == 2,
-                // onTap: () => selectDestination(2),
-
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CityWidget()),
-                  );
-                }),
 
             ListTile(
                 leading: Icon(Icons.label),

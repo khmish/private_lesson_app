@@ -1,10 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/api/subject_api.dart';
+import 'package:private_lesson_app/api/tutor_api.dart';
+import 'package:private_lesson_app/api/tutor_leveledu_api.dart';
+import 'package:private_lesson_app/api/tutor_subs_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/models/subject.dart';
+import 'package:private_lesson_app/models/tutor.dart';
+import 'package:private_lesson_app/models/tutor_leveleduction.dart';
+import 'package:private_lesson_app/models/tutor_subs.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/widget/select_list_widget.dart';
 
@@ -32,16 +37,29 @@ class _SignupWidgetState extends State<teacher_profile> {
   @override
   void initState() {
     super.initState();
-
+    setState(() {
+      
+      isLoading = true;
+    });
     SubjectAPI.getSubjects().then((subsList) {
       setState(() {
         _subjectsList = subsList;
       });
+    }).whenComplete(() {
+      setState(() {
+      
+      isLoading = false;
+    });
     });
     LeveleducationAPI.getLeveleducations().then((levelEdList) {
       setState(() {
         _levelEductionsList = levelEdList;
       });
+    }).whenComplete((){
+      setState(() {
+      
+      isLoading = false;
+    });
     });
   }
 
@@ -85,7 +103,8 @@ class _SignupWidgetState extends State<teacher_profile> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: Text(
                               'Teacher Profile',
                             ),
@@ -104,17 +123,14 @@ class _SignupWidgetState extends State<teacher_profile> {
                                 //   Icons.person_outline,
                                 // ),
                               ),
-
                               maxLength: 70,
                               maxLengthEnforced: true,
-
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your Education';
                                 }
                                 return null;
                               },
-
                             ),
                           ),
                           Padding(
@@ -161,14 +177,16 @@ class _SignupWidgetState extends State<teacher_profile> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => SelectListWidget(
-                                              list: _subjectsList,
-                                              callback: (List<dynamic> paralist) {
-                                                setState(() {
-                                                  _selectedSubjectsList =
-                                                      paralist;
-                                                });
-                                              }),
+                                          builder: (context) =>
+                                              SelectListWidget(
+                                                  list: _subjectsList,
+                                                  callback:
+                                                      (List<dynamic> paralist) {
+                                                    setState(() {
+                                                      _selectedSubjectsList =
+                                                          paralist;
+                                                    });
+                                                  }),
                                         ),
                                       );
                                     },
@@ -177,9 +195,9 @@ class _SignupWidgetState extends State<teacher_profile> {
                                   ),
                                 ),
                                 Row(
-                                    children: [
-                                      for (var sub in _selectedSubjectsList)
-                                        Container(
+                                  children: [
+                                    for (var sub in _selectedSubjectsList)
+                                      Container(
                                         margin: EdgeInsets.symmetric(
                                             horizontal: 5, vertical: 2),
                                         child: ElevatedButton(
@@ -191,8 +209,8 @@ class _SignupWidgetState extends State<teacher_profile> {
                                           child: Text(sub.name),
                                         ),
                                       ),
-                                    ],
-                                    )
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -210,14 +228,16 @@ class _SignupWidgetState extends State<teacher_profile> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => SelectListWidget(
-                                              list: _levelEductionsList,
-                                              callback: (List<dynamic> paralist) {
-                                                setState(() {
-                                                  _selectedLevelEductionsList =
-                                                      paralist;
-                                                });
-                                              }),
+                                          builder: (context) =>
+                                              SelectListWidget(
+                                                  list: _levelEductionsList,
+                                                  callback:
+                                                      (List<dynamic> paralist) {
+                                                    setState(() {
+                                                      _selectedLevelEductionsList =
+                                                          paralist;
+                                                    });
+                                                  }),
                                         ),
                                       );
                                     },
@@ -247,21 +267,42 @@ class _SignupWidgetState extends State<teacher_profile> {
                           ),
                           Padding(
                             //------------Register Button--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
-                                constTopBtn, constRightBtn, constBottomBtn),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                constLeftBtn,
+                                constTopBtn,
+                                constRightBtn,
+                                constBottomBtn),
                             child: SizedBox(
                               height: 40,
                               width: double.infinity,
                               child: ElevatedButton.icon(
                                 onPressed: () {
-                                  // setState(() {
-                                  //   isLoading = true;
-                                  // });
-                                  // registed().whenComplete(() {
-                                  //   setState(() {
-                                  //     isLoading = false;
-                                  //   });
-                                  // });
+                                  isLoading = true;
+                                  Tutor tutor = new Tutor(
+                                      userId: widget.teacher!.id,
+                                      titleCert: titleCertController.text,
+                                      price: priceController.text,
+                                      type: "hours");
+                                  TutorAPI.addTutor(tutor).then((tutorValue) {
+                                    if (tutorValue.id != -1) {
+                                      //************************************add level of eductions to tutor**************** */
+                                      for (var lvlEd
+                                          in _selectedLevelEductionsList) {
+                                        TutorLeveleducationAPI
+                                            .addTutorleveleducation(
+                                                new TutorLeveleducation(
+                                                    tutorId: tutorValue.id!,
+                                                    leveleducationId:
+                                                        lvlEd.id));
+                                      }
+                                      //************************************add subject to tutor********************************* */
+                                      for (var sub in _selectedSubjectsList) {
+                                        TutorSubsAPI.addTutorSubs(new TutorSubs(
+                                            tutorId: tutorValue.id!,
+                                            subjectId: sub.id));
+                                      }
+                                    }
+                                  }).whenComplete(() => isLoading=false);
                                 },
                                 label: Text('Complete'),
                                 icon: Icon(

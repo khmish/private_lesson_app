@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:private_lesson_app/api/tutor_leveledu_api.dart';
 import 'package:private_lesson_app/models/tutor.dart';
 
 class TutorAPI {
   static var _baseUrlTutor = 'https://privatelesson.herokuapp.com/api/tutor';
-  
+
   static Future<List<Tutor>> getTutors() async {
     var baseUrl = _baseUrlTutor;
     List<Tutor> tutorList = [];
@@ -38,9 +39,11 @@ class TutorAPI {
       return tutorList;
     }
   }
-  static Future<bool> addTutor(Tutor tutor) async {
+
+  static Future<Tutor> addTutor(Tutor tutor) async {
+    Tutor tutor = new Tutor(id:-1,userId: 0, titleCert: "", price: "", type: "");
     var baseUrl = _baseUrlTutor;
-    
+
     try {
       // if (page > 0) {
       baseUrl = _baseUrlTutor;
@@ -57,22 +60,25 @@ class TutorAPI {
       );
       // print(response.body);
       if (response.statusCode == 201) {
-        
-        return true;
+        dynamic body = json.decode(response.body)['data'];
+        tutor = Tutor.fromJson(body);
+        return tutor;
       } else {
-        return false;
+        return tutor;
       }
     } catch (e) {
       print(e);
-      return false;
+      return tutor;
     }
   }
-  static Future<bool> updateTutor(Tutor tutor) async {
+
+  static Future<Tutor> updateTutor(Tutor tutor) async {
     var baseUrl = _baseUrlTutor;
-    
+    Tutor tutor = new Tutor(id:-1,userId: 0, titleCert: "", price: "", type: "");
+
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlTutor+'/${tutor.id}';
+      baseUrl = _baseUrlTutor + '/${tutor.id}';
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.put(
@@ -86,22 +92,24 @@ class TutorAPI {
       );
       // print(response.body);
       if (response.statusCode == 200) {
-        
-        return true;
+        dynamic body = json.decode(response.body)['data'];
+        tutor = Tutor.fromJson(body);
+        return tutor;
       } else {
-        return false;
+        return tutor;
       }
     } catch (e) {
       print(e);
-      return false;
+      return tutor;
     }
   }
+
   static Future<bool> deleteTutor(String tutorId) async {
     var baseUrl = _baseUrlTutor;
-    
+
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlTutor+'/$tutorId';
+      baseUrl = _baseUrlTutor + '/$tutorId';
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.delete(
@@ -115,7 +123,6 @@ class TutorAPI {
       );
       // print(response.body);
       if (response.statusCode == 204) {
-        
         return true;
       } else {
         return false;
@@ -125,5 +132,4 @@ class TutorAPI {
       return false;
     }
   }
-
 }

@@ -3,24 +3,26 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
+import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
+import 'package:private_lesson_app/models/register.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/pages/teacher_profile.dart';
 
-class Signup_teacherWidget extends StatefulWidget {
-  Signup_teacherWidget({Key? key}) : super(key: key);
+class SignupTeacherWidget extends StatefulWidget {
+  SignupTeacherWidget({Key? key}) : super(key: key);
 
   @override
   _SignupWidgetState createState() => _SignupWidgetState();
 }
 
-class _SignupWidgetState extends State<Signup_teacherWidget> {
+class _SignupWidgetState extends State<SignupTeacherWidget> {
   late TextEditingController nameController;
   late TextEditingController emailController;
   late TextEditingController phoneController;
   late TextEditingController passwordController;
-  User? teacher;
+  late User teacher;
   late List<String> _genderList = ['male', 'female'];
   String _genderSelectedValue = "male";
   late List<City> _cityList = [];
@@ -30,7 +32,6 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
   //final GlobalKey _formKey = GlobalKey<FormState>();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
 
   bool isLoading = false;
   @override
@@ -49,77 +50,7 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
     });
   }
 
-
-
   var _baseUrlRegisterUser = 'https://privatelesson.herokuapp.com/api/user';
-
-  Future<void> registed() async {
-    var baseUrl = _baseUrlRegisterUser;
-    try {
-      // if (page > 0) {
-      baseUrl = _baseUrlRegisterUser;
-      // }
-      var url = Uri.parse(baseUrl);
-      var response = await http.post(
-        url,
-        body: jsonEncode({
-          "name": nameController.text,
-          "email": emailController.text,
-          "password": passwordController.text,
-          "gender": _genderSelectedValue,
-          "phone": phoneController.text,
-          "city_id": _citySelectedValue.toString(),
-          "role": "teacher"
-        }),
-        headers: <String, String>{
-          'Accept': 'application/json',
-          'Content-Type': 'application/json; charset=UTF-8',
-          // 'Authorization': 'Bearer $token',
-        },
-      );
-      print(response.body);
-      print(response.statusCode);
-
-
-
-      if (response.statusCode == 201) {
-        dynamic tachData = response.body;
-        teacher = User.fromJson(tachData);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Saved"),
-          ),
-        );
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => teacher_profile(
-                    teacher: teacher,
-                  )),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content: Text("error!!"),
-            // action: SnackBarAction(
-            //   label: 'Action',
-            //   onPressed: () {
-            //     // Code to execute.
-            //   },
-            // ),
-          ),
-        );
-      }
-
-
-    }
-
-    catch (e) {
-      print(e);
-    }
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,12 +92,12 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: Text(
                               'Sign UP for Teacher ',
                             ),
                           ),
-
                           Padding(
                             //------------Name--------------------------
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -194,7 +125,6 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                               },
                             ),
                           ),
-
                           Padding(
                             //------------Email--------------------------
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -212,7 +142,6 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
 
                               maxLength: 40,
                               maxLengthEnforced: true,
-
 
                               //------------Validate--------------------------
                               validator: (value) {
@@ -233,8 +162,6 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                               keyboardType: TextInputType.emailAddress,
                             ),
                           ),
-
-
                           Padding(
                             //------------Gender--------------------------
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -262,8 +189,6 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                               ),
                             ),
                           ),
-
-
                           Padding(
                             //------------Phone--------------------------
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -279,19 +204,14 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                                   Icons.phone_android,
                                 ),
                               ),
-
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter a valid phone number';
                                 }
                                 return null;
                               },
-
-
                               maxLength: 10,
                               maxLengthEnforced: true,
-
-
                             ),
                           ),
                           Padding(
@@ -299,19 +219,14 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 constLeft, constTop, constRight, constBottom),
                             child: TextFormField(
-
-
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter a valid password';
                                 }
                                 return null;
                               },
-
-
                               maxLength: 20,
                               maxLengthEnforced: true,
-
                               controller: passwordController,
                               obscureText: !passwordVisibility,
                               decoration: InputDecoration(
@@ -322,8 +237,8 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                                 ),
                                 suffixIcon: InkWell(
                                   onTap: () => setState(
-                                    () =>
-                                        passwordVisibility = !passwordVisibility,
+                                    () => passwordVisibility =
+                                        !passwordVisibility,
                                   ),
                                   child: Icon(
                                     passwordVisibility
@@ -361,27 +276,55 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                                   border: const OutlineInputBorder(),
                                 ),
                               )),
-
                           Padding(
                             //------------Register Button--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
-                                constTopBtn, constRightBtn, constBottomBtn),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                constLeftBtn,
+                                constTopBtn,
+                                constRightBtn,
+                                constBottomBtn),
                             child: SizedBox(
                               height: 40,
                               width: double.infinity,
                               child: ElevatedButton.icon(
                                 onPressed: () {
-
-                                if (_formKey.currentState!.validate()) {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  registed().whenComplete(() {
+                                  if (_formKey.currentState!.validate()) {
                                     setState(() {
-                                      isLoading = false;
+                                      isLoading = true;
                                     });
-                                  });
-                                }
+                                    UserAPI.registed(new Register(
+                                            name: nameController.text,
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                            city: _citySelectedValue,
+                                            phone: phoneController.text,
+                                            gender: _genderSelectedValue,
+                                            role: "tutor"))
+                                        .then((value) {
+                                      if (value.id != -1) {
+                                        teacher = value;
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                teacher_profile(
+                                                    teacher: teacher),
+                                          ),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: Colors.green,
+                                            content: Text("Completed!!"),
+                                          ),
+                                        );
+                                      }
+                                    }).whenComplete(() {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    });
+                                  }
 
                                   // setState(() {
                                   //   isLoading = true;
@@ -391,10 +334,7 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                                   //     isLoading = false;
                                   //   });
                                   // });
-
-
                                 },
-
                                 label: Text('Register'),
                                 icon: Icon(
                                   Icons.create,
@@ -403,9 +343,6 @@ class _SignupWidgetState extends State<Signup_teacherWidget> {
                               ),
                             ),
                           ),
-
-
-
                         ],
                       ),
                     ),

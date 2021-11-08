@@ -83,7 +83,9 @@ class UserAPI {
   }
 
   // var _baseUrlRegisterUser = 'http://127.0.0.1:8000/api/user';
-  static Future<bool> registed(Register register) async {
+  static Future<User> registed(Register register) async {
+    User user =
+        new User(id: -1, name: "", email: "", city: 0, phone: "", gender: "");
     var baseUrl = _baseUrlRegisterUser;
     try {
       // if (page > 0) {
@@ -102,13 +104,15 @@ class UserAPI {
       print(response.body);
       print(response.statusCode);
       if (response.statusCode == 201) {
-        return true;
+        dynamic body = json.decode(response.body);
+        user = User.fromJson(body);
+        return user;
       } else {
-        return false;
+        return user;
       }
     } catch (e) {
       print(e);
-      return false;
+      return user;
     }
   }
 

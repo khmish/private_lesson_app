@@ -180,13 +180,10 @@ class _SearchWidgetState extends State<SearchWidget> {
                 }),
             ListTile(
                 leading: Icon(Icons.label),
-                title: Text('Teacher Profile'),
+                title: Text('Signup'),
                 selected: _selectedDestination == 2,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => teacher_profile()),
-                  );
+                  Navigator.of(context).popAndPushNamed('/singup');
                 }),
           ],
         ),

@@ -41,7 +41,7 @@ class TutorAPI {
   }
 
   static Future<Tutor> addTutor(Tutor tutor) async {
-    Tutor tutor = new Tutor(id:-1,userId: 0, titleCert: "", price: "", type: "");
+    // Tutor tutor = new Tutor(id:-1,userId: 0, titleCert: "", price: "", type: "");
     var baseUrl = _baseUrlTutor;
 
     try {

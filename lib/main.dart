@@ -21,7 +21,7 @@ void main() {
       // When navigating to the "/" route, build the FirstScreen widget.
       '/searchPage': (context) => SearchWidget(),
 
-      '/singupTeacher': (context) => Signup_teacherWidget(),
+      '/singupTeacher': (context) => SignupTeacherWidget(),
       // '/': (context) => teacher_profile(),
 
       '/singup': (context) => SignupWidget(),
@@ -34,7 +34,7 @@ void main() {
       '/myorder_page': (context) => myorder_page(),
 
       //************* Teacher Pages *************//
-      '/teacherProfile': (context) => teacher_profile(),
+      // '/teacherProfile': (context) => teacher_profile(),
 
       //Drawer
       '/user2': (context) => SideMenu(),

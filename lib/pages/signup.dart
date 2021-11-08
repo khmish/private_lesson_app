@@ -245,7 +245,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       gender: _genderSelectedValue,
                                       role: "student"))
                                   .then((value) {
-                                if (value) {
+                                if (value.id!=-1) {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(
                                     SnackBar(

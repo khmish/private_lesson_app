@@ -14,8 +14,8 @@ import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/widget/select_list_widget.dart';
 
 class teacher_profile extends StatefulWidget {
-  late User? teacher;
-  teacher_profile({Key? key, this.teacher}) : super(key: key);
+  late User teacher;
+  teacher_profile({Key? key, required this.teacher}) : super(key: key);
 
   @override
   _SignupWidgetState createState() => _SignupWidgetState();
@@ -38,7 +38,15 @@ class _SignupWidgetState extends State<teacher_profile> {
   void initState() {
     super.initState();
     setState(() {
-      
+      // if (widget.teacher == null) {
+      //   widget.teacher = new User(
+      //       id: 104,
+      //       name: "yazan",
+      //       email: "ya@yahoo.com",
+      //       city: 1,
+      //       phone: "055555555",
+      //       gender: "male");
+      // }
       isLoading = true;
     });
     SubjectAPI.getSubjects().then((subsList) {
@@ -47,19 +55,17 @@ class _SignupWidgetState extends State<teacher_profile> {
       });
     }).whenComplete(() {
       setState(() {
-      
-      isLoading = false;
-    });
+        isLoading = false;
+      });
     });
     LeveleducationAPI.getLeveleducations().then((levelEdList) {
       setState(() {
         _levelEductionsList = levelEdList;
       });
-    }).whenComplete((){
+    }).whenComplete(() {
       setState(() {
-      
-      isLoading = false;
-    });
+        isLoading = false;
+      });
     });
   }
 
@@ -279,16 +285,16 @@ class _SignupWidgetState extends State<teacher_profile> {
                                 onPressed: () {
                                   isLoading = true;
                                   Tutor tutor = new Tutor(
-                                      userId: widget.teacher!.id,
+                                      userId: widget.teacher.id!,
                                       titleCert: titleCertController.text,
                                       price: priceController.text,
                                       type: "hours");
-                                  TutorAPI.addTutor(tutor).then((tutorValue) {
+                                  TutorAPI.addTutor(tutor).then((tutorValue) async {
                                     if (tutorValue.id != -1) {
                                       //************************************add level of eductions to tutor**************** */
                                       for (var lvlEd
                                           in _selectedLevelEductionsList) {
-                                        TutorLeveleducationAPI
+                                        await TutorLeveleducationAPI
                                             .addTutorleveleducation(
                                                 new TutorLeveleducation(
                                                     tutorId: tutorValue.id!,
@@ -297,12 +303,17 @@ class _SignupWidgetState extends State<teacher_profile> {
                                       }
                                       //************************************add subject to tutor********************************* */
                                       for (var sub in _selectedSubjectsList) {
-                                        TutorSubsAPI.addTutorSubs(new TutorSubs(
+                                        await TutorSubsAPI.addTutorSubs(new TutorSubs(
                                             tutorId: tutorValue.id!,
                                             subjectId: sub.id));
                                       }
                                     }
-                                  }).whenComplete(() => isLoading=false);
+                                  }).whenComplete(() {
+                                    isLoading = false;
+                                    
+                                    Navigator.of(context)
+                                        .popAndPushNamed('/searchPage');
+                                  });
                                 },
                                 label: Text('Complete'),
                                 icon: Icon(

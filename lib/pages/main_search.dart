@@ -7,7 +7,7 @@ import 'package:private_lesson_app/models/subject.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
-import 'package:private_lesson_app/pages/admin_control.dart';
+import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/myorder_page.dart';
 import 'package:private_lesson_app/pages/signup_teacher.dart';
 import 'package:private_lesson_app/pages/teacher_profile.dart';

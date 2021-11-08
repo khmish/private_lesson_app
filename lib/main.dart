@@ -5,7 +5,7 @@ import 'package:private_lesson_app/pages/signup.dart';
 import 'package:private_lesson_app/pages/side_menu.dart';
 import 'package:private_lesson_app/pages/signup_teacher.dart';
 import 'package:private_lesson_app/pages/teacher_profile.dart';
-import 'package:private_lesson_app/pages/admin_control.dart';
+import 'package:private_lesson_app/pages/admin/admin_control.dart';
 
 import 'pages/login.dart';
 

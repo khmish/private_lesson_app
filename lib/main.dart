@@ -33,6 +33,9 @@ void main() {
       //************* Student Pages *************//
       '/myorder_page': (context) => myorder_page(),
 
+      //************* Teacher Pages *************//
+      '/teacherProfile': (context) => teacher_profile(),
+
       //Drawer
       '/user2': (context) => SideMenu(),
     },

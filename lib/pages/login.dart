@@ -17,7 +17,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late bool passwordVisibility;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // final scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> scaffoldKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      //key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text(
@@ -65,104 +67,158 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         width: 1,
                       ),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                          child: Text(
-                            'Login',
-                            style: TextStyle(fontSize: 30),
-                          ),
-                        ),
-                        Padding(
-                          //------------Email--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              constLeft, constTop, constRight, constBottom),
-                          child: TextFormField(
-                            controller: emailController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'Email',
-                              border: const OutlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.alternate_email,
-                              ),
-                            ),
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                        ),
-                        Padding(
-                          //------------Password--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              constLeft, constTop, constRight, constBottom),
-                          child: TextFormField(
-                            controller: passwordController,
-                            obscureText: !passwordVisibility,
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              border: const OutlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.lock_outline_rounded,
-                              ),
-                              suffixIcon: InkWell(
-                                onTap: () => setState(
-                                  () =>
-                                      passwordVisibility = !passwordVisibility,
-                                ),
-                                child: Icon(
-                                  passwordVisibility
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                  color: Color(0xFF757575),
-                                  size: 22,
-                                ),
-                              ),
+                    child: Form(
+                      key: scaffoldKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                            child: Text(
+                              'Login Page',
+                              style: TextStyle(fontSize: 30),
                             ),
                           ),
-                        ),
-                        Padding(
-                          //------------Login Button--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
-                              constTopBtn, constRightBtn, constBottomBtn),
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: 40,
-                            child: ElevatedButton.icon(
-                              label: Text("login"),
-                              onPressed: () {
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                UserAPI.login(emailController.text,
-                                        passwordController.text)
-                                    .then((value) {
-                                  if (value) {
-                                    Navigator.of(context).pushNamed("/");
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        backgroundColor: Colors.red,
-                                        content: Text("error!!"),
-                                      ),
-                                    );
-                                  }
-                                }).whenComplete(() {
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                });
+                          Padding(
+                            //------------Email--------------------------
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                constLeft, constTop, constRight, constBottom),
+                            child: TextFormField(
+
+                              //add here
+                              maxLength: 70,
+                              maxLengthEnforced: true,
+
+                              //
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your username';
+                                }
+                                return null;
                               },
-                              icon: Icon(
-                                Icons.login_outlined,
-                                size: 15,
+
+                              controller: emailController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Email',
+                                border: const OutlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.alternate_email,
+                                ),
+                              ),
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                          ),
+                          Padding(
+                            //------------Password--------------------------
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                constLeft, constTop, constRight, constBottom),
+                            child: TextFormField(
+
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your password';
+                                }
+                                return null;
+                              },
+                              maxLength: 20,
+                              maxLengthEnforced: true,
+
+                              controller: passwordController,
+                              obscureText: !passwordVisibility,
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                border: const OutlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.lock_outline_rounded,
+                                ),
+                                suffixIcon: InkWell(
+                                  onTap: () => setState(
+                                    () =>
+                                        passwordVisibility = !passwordVisibility,
+                                  ),
+                                  child: Icon(
+                                    passwordVisibility
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
+                                    color: Color(0xFF757575),
+                                    size: 22,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        )
-                      ],
+                          Padding(
+                            //------------Login Button--------------------------
+                            padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
+                                constTopBtn, constRightBtn, constBottomBtn),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: 40,
+                              child: ElevatedButton.icon(
+                                label: Text("login"),
+                                // onPressed: () {
+                                //   setState(() {
+                                //     _isLoading = true;
+                                //   });
+                                //   UserAPI.login(emailController.text,
+                                //           passwordController.text)
+                                //       .then((value) {
+                                //     if (value) {
+                                //       Navigator.of(context).pushNamed("/");
+                                //     } else {
+                                //       ScaffoldMessenger.of(context).showSnackBar(
+                                //         SnackBar(
+                                //           backgroundColor: Colors.red,
+                                //           content: Text("error!!"),
+                                //         ),
+                                //       );
+                                //     }
+                                //   }).whenComplete(() {
+                                //     setState(() {
+                                //       _isLoading = false;
+                                //     });
+                                //   });
+                                // },
+
+                                onPressed: () {
+                                  if (scaffoldKey.currentState!.validate()) {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    UserAPI.login(emailController.text,
+                                            passwordController.text)
+                                        .then((value) {
+                                      if (value) {
+                                        Navigator.of(context).pushNamed("/");
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: Colors.red,
+                                            content: Text("error!!"),
+                                          ),
+                                        );
+                                      }
+                                    }).whenComplete(() {
+                                      setState(() {
+                                        _isLoading = false;
+                                      });
+                                    });
+                                  }
+                                },
+
+                                icon: Icon(
+                                  Icons.login_outlined,
+                                  size: 15,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

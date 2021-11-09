@@ -7,6 +7,8 @@ import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/register.dart';
+import 'package:private_lesson_app/models/user.dart';
+import 'package:private_lesson_app/pages/main_search.dart';
 
 class SignupWidget extends StatefulWidget {
   SignupWidget({Key? key}) : super(key: key);
@@ -20,12 +22,18 @@ class _SignupWidgetState extends State<SignupWidget> {
   late TextEditingController emailController;
   late TextEditingController phoneController;
   late TextEditingController passwordController;
+
+  //add here
+  late User student;
+
   late List<String> _genderList = ['male', 'female'];
   String _genderSelectedValue = "male";
   late List<City> _cityList = [];
   late int _citySelectedValue = 1;
   late bool passwordVisibility;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  //final scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> scaffoldKey = GlobalKey<FormState>();
 
   bool isLoading = false;
   @override
@@ -47,7 +55,7 @@ class _SignupWidgetState extends State<SignupWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+     // key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text(
@@ -77,166 +85,221 @@ class _SignupWidgetState extends State<SignupWidget> {
                       width: 1,
                     ),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                        child: Text(
-                          'Sign UP',
-                        ),
-                      ),
-                      Padding(
-                        //------------Name--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeft, constTop, constRight, constBottom),
-                        child: TextFormField(
-                          controller: nameController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: 'Name',
-                            prefixIcon: Icon(
-                              Icons.person_outline,
-                            ),
+                  child: Form(
+                    key: scaffoldKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          child: Text(
+                            'Sign UP',
                           ),
                         ),
-                      ),
-                      Padding(
-                        //------------Email--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeft, constTop, constRight, constBottom),
-                        child: TextFormField(
-                          controller: emailController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: 'Email',
-                            prefixIcon: Icon(
-                              Icons.alternate_email,
-                            ),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                      ),
-                      Padding(
-                        //------------Gender--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeft, constTop, constRight, constBottom),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: DropdownButtonFormField(
-                            value: _genderSelectedValue,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _genderSelectedValue = newValue.toString();
-                              });
-                            },
-                            items: _genderList.map((String itemList) {
-                              return DropdownMenuItem(
-                                child: Text(itemList),
-                                value: itemList,
-                              );
-                            }).toList(),
-                            decoration: const InputDecoration(
-                              //prefixIcon:Icon(Icons.male),
-                              border: const OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        //------------Phone--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeft, constTop, constRight, constBottom),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: phoneController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: 'Phone',
-                            prefixIcon: Icon(
-                              Icons.phone_android,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        //------------Password--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeft, constTop, constRight, constBottom),
-                        child: TextFormField(
-                          controller: passwordController,
-                          obscureText: !passwordVisibility,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: 'Password',
-                            prefixIcon: Icon(
-                              Icons.lock_outline_rounded,
-                            ),
-                            suffixIcon: InkWell(
-                              onTap: () => setState(
-                                () => passwordVisibility =
-                                    !passwordVisibility,
-                              ),
-                              child: Icon(
-                                passwordVisibility
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined,
-                                color: Color(0xFF757575),
-                                size: 22,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                          //------------City--------------------------
+                        Padding(
+                          //------------Name--------------------------
                           padding: EdgeInsetsDirectional.fromSTEB(
                               constLeft, constTop, constRight, constBottom),
-                          child: DropdownButtonFormField(
-                            // value: _citySelectedValue,
-                            items: _cityList.map((itemList) {
-                              print(itemList);
-                              return DropdownMenuItem(
-                                child: Text(itemList.name),
-                                value: itemList.id,
-                              );
-                            }).toList(),
-                            onChanged: (cityId) {
-                              // log(value);
-                              print(cityId);
-                              setState(() {
-                                _citySelectedValue = cityId as int;
-                              });
+                          child: TextFormField(
+
+                            maxLength: 70,
+                            maxLengthEnforced: true,
+
+                            //
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your name';
+                              }
+                              return null;
                             },
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Icons.location_on_rounded),
+
+                            controller: nameController,
+                            obscureText: false,
+                            decoration: InputDecoration(
                               border: const OutlineInputBorder(),
+                              labelText: 'Name',
+                              prefixIcon: Icon(
+                                Icons.person_outline,
+                              ),
                             ),
-                          )),
-                      Padding(
-                        //------------Register Button--------------------------
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            constLeftBtn,
-                            constTopBtn,
-                            constRightBtn,
-                            constBottomBtn),
-                        child: SizedBox(
-                          height: 40,
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              setState(() {
-                                isLoading = true;
-                              });
-          
-                              UserAPI.registed(new Register(
+                          ),
+                        ),
+                        Padding(
+                          //------------Email--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+                          child: TextFormField(
+
+                            maxLength: 40,
+                            maxLengthEnforced: true,
+
+                            //------------Validate--------------------------
+                            validator: (value) {
+                              // Check if this field is empty
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              }
+
+                              // using regular expression
+                              if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                                return "Please enter a valid email address";
+                              }
+
+                              // the email is valid
+                              return null;
+                            },
+
+                            controller: emailController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'Email',
+                              prefixIcon: Icon(
+                                Icons.alternate_email,
+                              ),
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                        ),
+                        Padding(
+                          //------------Gender--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: DropdownButtonFormField(
+                              value: _genderSelectedValue,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _genderSelectedValue = newValue.toString();
+                                });
+                              },
+                              items: _genderList.map((String itemList) {
+                                return DropdownMenuItem(
+                                  child: Text(itemList),
+                                  value: itemList,
+                                );
+                              }).toList(),
+                              decoration: const InputDecoration(
+                                //prefixIcon:Icon(Icons.male),
+                                border: const OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          //------------Phone--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+                          child: TextFormField(
+
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a valid phone number';
+                              }
+                              return null;
+                            },
+                            maxLength: 10,
+                            maxLengthEnforced: true,
+
+                            keyboardType: TextInputType.number,
+                            controller: phoneController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'Phone',
+                              prefixIcon: Icon(
+                                Icons.phone_android,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          //------------Password--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+                          child: TextFormField(
+
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a valid password';
+                              }
+                              return null;
+                            },
+                            maxLength: 20,
+                            maxLengthEnforced: true,
+
+                            controller: passwordController,
+                            obscureText: !passwordVisibility,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'Password',
+                              prefixIcon: Icon(
+                                Icons.lock_outline_rounded,
+                              ),
+                              suffixIcon: InkWell(
+                                onTap: () => setState(
+                                  () => passwordVisibility =
+                                      !passwordVisibility,
+                                ),
+                                child: Icon(
+                                  passwordVisibility
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                  color: Color(0xFF757575),
+                                  size: 22,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                            //------------City--------------------------
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                constLeft, constTop, constRight, constBottom),
+                            child: DropdownButtonFormField(
+                              value: _citySelectedValue,
+                              items: _cityList.map((itemList) {
+                                print(itemList);
+                                return DropdownMenuItem(
+                                  child: Text(itemList.name),
+                                  value: itemList.id,
+                                );
+                              }).toList(),
+                              onChanged: (cityId) {
+                                // log(value);
+                                print(cityId);
+                                setState(() {
+                                  _citySelectedValue = cityId as int;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.location_on_rounded),
+                                border: const OutlineInputBorder(),
+                              ),
+                            )),
+                        Padding(
+                          //------------Register Button--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeftBtn,
+                              constTopBtn,
+                              constRightBtn,
+                              constBottomBtn),
+                          child: SizedBox(
+                            height: 40,
+                            width: double.infinity,
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                if (scaffoldKey.currentState!.validate()) {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+
+                                  UserAPI.registed(new Register(
                                       name: nameController.text,
                                       email: emailController.text,
                                       password: passwordController.text,
@@ -244,39 +307,62 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       phone: phoneController.text,
                                       gender: _genderSelectedValue,
                                       role: "student"))
-                                  .then((value) {
-                                if (value.id!=-1) {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text("saved!"),
-                                    ),
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.red,
-                                      content: Text("error!!"),
-                                    ),
-                                  );
+                                      .then((value) {
+                                    if (value.id != -1) {
+
+                                      // student = value;
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) =>
+                                      //         SearchWidget(
+                                      //             student: student),
+                                      //   ),
+                                      // );
+                                      // ScaffoldMessenger.of(context)
+                                      //     .showSnackBar(
+                                      //   SnackBar(
+                                      //     backgroundColor: Colors.green,
+                                      //     content: Text("Completed!!"),
+                                      //   ),
+                                      // );
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: Colors.green,
+                                            content: Text("saved!"),
+                                          ),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: Colors.red,
+                                            content: Text("error!!"),
+                                          ),
+                                        );
+                                      }
+
+
+                                  }).whenComplete(() {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                  });
                                 }
-                              }).whenComplete(() {
-                                setState(() {
-                                  isLoading = false;
-                                });
-                              });
-                            },
-                            label: Text('Register'),
-                            icon: Icon(
-                              Icons.create,
-                              size: 15,
+
+                              },
+                              label: Text('Register'),
+                              icon: Icon(
+                                Icons.create,
+                                size: 15,
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

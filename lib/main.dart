@@ -15,7 +15,12 @@ void main() {
     //initialRoute: '/user',
     //initialRoute: '/userSlidable',
     //initialRoute: '/edit_user',
-    initialRoute: '/searchPage',
+
+    //here
+    //initialRoute: '/searchPage',
+
+    //here2
+    initialRoute: '/singupTeacher',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.

@@ -256,7 +256,7 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   constLeft, constTop, constRight, constBottom),
                               child: DropdownButtonFormField(
-                                // value: _citySelectedValue,
+                                value: _citySelectedValue,
                                 items: _cityList.map((itemList) {
                                   print(itemList);
                                   return DropdownMenuItem(

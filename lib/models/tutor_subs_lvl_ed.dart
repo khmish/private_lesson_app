@@ -10,6 +10,8 @@ class TutorSubsLvEd {
   late String? pic;
   late int? cityId;
   late String? city;
+  late String? price;
+  late String? cert;
   late List<Subjects> subjects;
   late List<LevelEductions> levelEductions;
 
@@ -25,6 +27,8 @@ class TutorSubsLvEd {
       this.pic,
       this.cityId,
       this.city,
+      this.price,
+      this.cert,
       required this.subjects,
       required this.levelEductions});
 
@@ -40,6 +44,8 @@ class TutorSubsLvEd {
     pic = json['pic'];
     cityId = json['city_id'];
     city = json['city'];
+    price = json['price'];
+    cert = json['cert'];
     if (json['subjects'] != null) {
       subjects = <Subjects>[];
       json['subjects'].forEach((v) {
@@ -67,6 +73,8 @@ class TutorSubsLvEd {
     data['pic'] = this.pic;
     data['city_id'] = this.cityId;
     data['city'] = this.city;
+    data['price'] = this.price;
+    data['cert'] = this.cert;
     if (this.subjects != null) {
       data['subjects'] = this.subjects.map((v) => v.toJson()).toList();
     }

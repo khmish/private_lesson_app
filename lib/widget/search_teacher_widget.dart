@@ -172,7 +172,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Text(
-                              '100\$ / hour',
+                              '${widget.tutorsList[index].price} / hour',
                               style: TextStyle(
                                 fontSize: 20,
                               ),

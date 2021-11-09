@@ -20,7 +20,7 @@ void main() {
     //initialRoute: '/searchPage',
 
     //here2
-    initialRoute: '/singupTeacher',
+    initialRoute: '/searchPage',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.

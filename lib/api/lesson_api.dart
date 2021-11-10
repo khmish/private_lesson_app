@@ -2,53 +2,53 @@ import 'dart:convert';
 
 import 'package:private_lesson_app/models/city.dart';
 import 'package:http/http.dart' as http;
+import 'package:private_lesson_app/models/lesson.dart';
 
-class CityAPI {
-  static var _baseUrlCities = 'https://privatelesson.herokuapp.com/api/city';
-  
+class LessonAPI {
+  static var _baseUrlLesson = 'http://privatelesson.herokuapp.com/api/lessson';
 
-  // get city*****************************************************
-  static Future<List<City>> getCities() async {
-    var baseUrl = _baseUrlCities;
-    List<City> cityList = [];
+  // get Lesson*****************************************************
+  static Future<List<Lesson>> getLessons() async {
+    var baseUrl = _baseUrlLesson;
+    List<Lesson> LessonList = [];
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlCities;
+      baseUrl = _baseUrlLesson;
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.get(
         url,
-        // headers: <String, String>{
-        //   'Accept': 'application/json',
-        //   'Content-Type': 'application/json; charset=UTF-8',
-        //   // 'Authorization': 'Bearer $token',
-        // },
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization': 'Bearer $token',
+        },
       );
       // print(response.body);
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
 
         for (var i = 0; i < body.length; i++) {
-          City city = City.fromJson(body[i]);
-          cityList.add(city);
+          Lesson lesson = Lesson.fromJson(body[i]);
+          LessonList.add(lesson);
         }
-        return cityList;
+        return LessonList;
       } else {
-        return cityList;
+        return LessonList;
       }
     } catch (e) {
       print(e);
-      return cityList;
+      return LessonList;
     }
   }
 
-  // delete city*****************************************************
-  static Future<bool> deleteCity(String id) async {
-    var baseUrl = _baseUrlCities;
+  // delete Lesson*****************************************************
+  static Future<bool> deleteLesson(String id) async {
+    var baseUrl = _baseUrlLesson;
 
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlCities + "/$id";
+      baseUrl = _baseUrlLesson + "/$id";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.delete(
@@ -74,13 +74,13 @@ class CityAPI {
     }
   }
 
-  // show a city*****************************************************
-  static Future<City> getACity(String id) async {
-    var baseUrl = _baseUrlCities;
+  // show a Lesson*****************************************************
+  static Future<Lesson> getALesson(String id) async {
+    var baseUrl = _baseUrlLesson;
 
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlCities + "/$id";
+      baseUrl = _baseUrlLesson + "/$id";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.get(
@@ -94,35 +94,33 @@ class CityAPI {
       print(response.body);
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
-        City city = City.fromJson(body);
+        Lesson city = Lesson.fromJson(body);
         return city;
       } else {
         // storage.setString("token", "");
-        return new City(countryName: "", name: "", id: -1);
+        dynamic bodyerror;
+        return Lesson.fromJson(bodyerror);
       }
     } catch (e) {
       print(e);
-      return new City(countryName: "", name: "", id: -1);
+      dynamic bodyerror;
+
+      return Lesson.fromJson(bodyerror);
     }
   }
 
-  // update a city*****************************************************
-  static Future<City> updateACity(City city) async {
-    var baseUrl = _baseUrlCities;
+  // update a lesson*****************************************************
+  static Future<Lesson> updateALesson(Lesson lesson) async {
+    var baseUrl = _baseUrlLesson;
 
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlCities + "/${city.id}";
+      baseUrl = _baseUrlLesson + "/${lesson.id}";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.put(
         url,
-        // body: jsonEncode({
-        //   "id":city.id,
-        //   "name":city.name,
-        //   "country_name":city.countryName,
-        // }),
-        body: jsonEncode(city),
+        body: jsonEncode(lesson),
         headers: <String, String>{
           'Accept': 'application/json',
           'Content-Type': 'application/json; charset=UTF-8',
@@ -132,40 +130,49 @@ class CityAPI {
       print(response.body);
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
-        City city = City.fromJson(body);
-        return city;
+        Lesson lesson = Lesson.fromJson(body);
+        return lesson;
       } else {
+        dynamic bodyerror;
         // storage.setString("token", "");
-        return new City(countryName: "", name: "", id: -1);
+        return Lesson.fromJson(bodyerror);
       }
     } catch (e) {
       print(e);
-      return new City(countryName: "", name: "", id: -1);
+      dynamic bodyerror;
+      return Lesson.fromJson(bodyerror);
     }
   }
 
-//****************Add city
-  static var _baseURL = 'https://privatelesson.herokuapp.com/api/city';
-  static Future<void> addCities(String cityName, String countryName) async {
-    var baseUrl = _baseURL;
+//****************Add Lesson
+
+  static Future<Lesson> addLesson(Lesson lesson) async {
+    var baseUrl = _baseUrlLesson;
     try {
-      baseUrl = _baseURL;
+      baseUrl = _baseUrlLesson;
       var url = Uri.parse(baseUrl);
       var response = await http.post(
         url,
-        body: {
-          "name": cityName,
-          "country_name": countryName,
+        body: jsonEncode(lesson),
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization': 'Bearer $token',
         },
       );
 
       print(response.body);
       if (response.statusCode == 200) {
+        dynamic body = json.decode(response.body)['data'];
+        lesson = Lesson.fromJson(body);
+        return lesson;
       } else {
         print(response.body);
+        return lesson;
       }
     } catch (e) {
       print(e);
+      return lesson;
     }
   }
 }

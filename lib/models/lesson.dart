@@ -6,8 +6,8 @@ class Lesson {
   late Student? teacher;
   late Subject? subject;
   late int subjectId;
-  late int dateExecution;
-  late String state;
+  late int? dateExecution;
+  late String? state;
 
   Lesson(
       {this.id,
@@ -17,8 +17,8 @@ class Lesson {
       this.teacher,
       this.subject,
       required this.subjectId,
-      required this.dateExecution,
-      required this.state});
+       this.dateExecution,
+       this.state});
 
   Lesson.fromJson(Map<String, dynamic> json) {
     id = json['id'];

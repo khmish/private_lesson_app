@@ -82,6 +82,41 @@ class UserAPI {
     }
   }
 
+  static Future<User> me(String token) async {
+    
+    var baseUrl = _baseUrlLogin;
+    try {
+      // if (page > 0) {
+      baseUrl = _baseUrlLogin;
+      // }
+      var url = Uri.parse(baseUrl);
+      var response = await http.post(
+        url,
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+      );
+      if (response.statusCode == 200) {
+        print(response.body);
+        dynamic user = json.decode(response.body);
+
+        return User.fromJson(user);
+      } else {
+        
+        print(response.body);
+        dynamic user;
+        return User.fromJson(user);
+      }
+    } catch (e) {
+      print(e);
+        dynamic user;
+
+      return User.fromJson(user);
+    }
+  }
+
   // var _baseUrlRegisterUser = 'http://127.0.0.1:8000/api/user';
   static Future<User> registed(Register register) async {
     User user =

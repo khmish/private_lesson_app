@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/api/lesson_api.dart';
+import 'package:private_lesson_app/models/lesson.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
-
 
 class myorder_page extends StatefulWidget {
   const myorder_page({Key? key}) : super(key: key);
 
   @override
   _myorder_pageState createState() => _myorder_pageState();
-
-
-
 }
 
 class _myorder_pageState extends State<myorder_page> {
-
-
-
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController textController;
 
@@ -29,18 +23,12 @@ class _myorder_pageState extends State<myorder_page> {
   late int _citySelectedValue = 1;
   late bool passwordVisibility;
 
-
   late TextEditingController cityNameController;
   late TextEditingController countryController;
 
-
   late TextEditingController leveleducationNameController;
   late TextEditingController subjectNameController;
-
-
-
-
-
+  late List<Lesson> lessons=[];
   //*********  Show/Hide Level education page
   bool _isVisibleLevel = false;
   void showLeveleducationPage() {
@@ -48,9 +36,6 @@ class _myorder_pageState extends State<myorder_page> {
       _isVisibleLevel = !_isVisibleLevel;
     });
   }
-
-
-
 
   @override
   void initState() {
@@ -63,16 +48,16 @@ class _myorder_pageState extends State<myorder_page> {
     passwordController = TextEditingController();
     passwordVisibility = false;
 
-
+    LessonAPI.getLessons().then((orderlist) {
+      setState(() {
+        
+      lessons = orderlist;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-
-
-
-
-
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -97,7 +82,7 @@ class _myorder_pageState extends State<myorder_page> {
                   padding: EdgeInsets.zero,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount:
-                      MediaQuery.of(context).size.width > 1000 ? 4 : 2,
+                          MediaQuery.of(context).size.width > 1000 ? 4 : 2,
                       mainAxisSpacing: 5,
                       crossAxisSpacing: 10,
                       mainAxisExtent: 50),
@@ -119,9 +104,9 @@ class _myorder_pageState extends State<myorder_page> {
                         // showCityPage();
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SearchWidget()),
+                          MaterialPageRoute(
+                              builder: (context) => SearchWidget()),
                         );
-
                       },
                       label: Text('New'),
                       icon: Icon(
@@ -152,16 +137,11 @@ class _myorder_pageState extends State<myorder_page> {
                   ],
                 ),
               ),
-
-
-
-
               SafeArea(
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(30, 40, 30, 0),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -173,60 +153,83 @@ class _myorder_pageState extends State<myorder_page> {
                             'All orders',
                           ),
                         ),
-
-
-                        Card(
-                          child:Container(
-                            height: 100,
-                            color: Colors.white,
-                            child: Row(
-                              children: [
-                                Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(10),
-                                  ),
-                                ),
-                                Expanded(
-                                  child:Container(
-                                    alignment: Alignment.topLeft,
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                          flex: 5,
-                                          child: ListTile(
-                                            title: Text("Order #1"),
-                                            subtitle: Text("Order state: Accepted"),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 5,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              TextButton(
-                                                child:Text("More details"),
-                                                onPressed: ()
-                                                {},
+                        SafeArea(
+                          child: SingleChildScrollView(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height,
+                              child: GridView.builder(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 1,
+                                          mainAxisSpacing: 2,
+                                          crossAxisSpacing: 2,
+                                          mainAxisExtent: 200),
+                                  itemCount: lessons.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      height: 100,
+                                      color: Colors.white,
+                                      child: Card(
+                                        elevation: 8,
+                                        margin: EdgeInsets.all(10),
+                                        child: Row(
+                                          children: [
+                                            Center(
+                                              child: Padding(
+                                                padding: EdgeInsets.all(10),
                                               ),
-                                              SizedBox(width: 8,),
-                                              // TextButton(
-                                              //   child: Text("ADD TO QUEUE"),
-                                              //   onPressed: (){},
-                                              // ),
-                                              SizedBox(width: 8,)
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  flex:8 ,
-                                ),
-                              ],
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                alignment: Alignment.topLeft,
+                                                child: Column(
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 5,
+                                                      child: ListTile(
+                                                        title: Text(lessons[index].id.toString()),
+                                                        subtitle: Text(
+                                                            "Student name ${lessons[index].student!.name} Teacher name ${lessons[index].teacher!.name}"),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      flex: 5,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          TextButton(
+                                                            child: Text(
+                                                                "More details"),
+                                                            onPressed: () {},
+                                                          ),
+                                                          SizedBox(
+                                                            width: 8,
+                                                          ),
+                                                          // TextButton(
+                                                          //   child: Text("ADD TO QUEUE"),
+                                                          //   onPressed: (){},
+                                                          // ),
+                                                          SizedBox(
+                                                            width: 8,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              flex: 8,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
                             ),
                           ),
-                          elevation: 8,
-                          margin: EdgeInsets.all(10),
                         ),
                       ],
                     ),
@@ -240,10 +243,3 @@ class _myorder_pageState extends State<myorder_page> {
     );
   }
 }
-
-
-
-
-
-
-

@@ -524,14 +524,15 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
         break;
       case SlidableAction
           .delete: //*************************** delete USER ***** */
-        UserAPI.deleteUser(_userList.elementAt(index).id.toString())
+        var tempUser = _userList.elementAt(index);
+        UserAPI.deleteUser(tempUser.id.toString())
             .then((value) {
           if (value) {
             setState(() {
               _userList.removeAt(index);
             });
             showSnackBar(
-                context, 'Deleted the user ${_userList.elementAt(index).name}');
+                context, 'Deleted the user ${tempUser.name}');
           } else {
             showSnackBar(context, 'something ');
           }

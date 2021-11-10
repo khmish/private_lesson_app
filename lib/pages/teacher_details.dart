@@ -9,12 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DetailScreen extends StatelessWidget {
   DetailScreen({Key? key}) : super(key: key);
 
-  Future<bool> checksIfLogIn() async {
+  Future<User> checksIfLogIn() async {
     // bool isLogged = false;
     final storage = await SharedPreferences.getInstance();
     String token = storage.getString("token").toString();
     print(token+" ********************* ");
-    return await UserAPI.getLoginUser(token);
+    return await UserAPI.me(token);
   }
 
   @override
@@ -22,7 +22,7 @@ class DetailScreen extends StatelessWidget {
     final thisuser =
         ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
     checksIfLogIn().then((value) {
-      if (value) {
+      if (value.id!>1) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,

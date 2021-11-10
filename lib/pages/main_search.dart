@@ -185,6 +185,20 @@ class _SearchWidgetState extends State<SearchWidget> {
                 onTap: () {
                   Navigator.of(context).popAndPushNamed('/singup');
                 }),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Login'),
+                selected: _selectedDestination == 2,
+                onTap: () {
+                  Navigator.of(context).popAndPushNamed('/login');
+                }),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('My Profile'),
+                selected: _selectedDestination == 2,
+                onTap: () {
+                  Navigator.of(context).popAndPushNamed('/singup');
+                }),
           ],
         ),
       ),

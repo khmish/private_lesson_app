@@ -6,13 +6,12 @@ import 'package:private_lesson_app/pages/side_menu.dart';
 import 'package:private_lesson_app/pages/signup_teacher.dart';
 import 'package:private_lesson_app/pages/teacher_profile.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
+import 'package:private_lesson_app/pages/myprofile.dart';
 
 import 'pages/login.dart';
 
 void main() {
   runApp(MaterialApp(
-    
-
     //here2
     initialRoute: '/searchPage',
 
@@ -31,6 +30,9 @@ void main() {
 
       //************* Student Pages *************//
       '/myorder_page': (context) => myorder_page(),
+
+      //************* Admin Pages *************//
+      '/myprofile': (context) => MyprofileScreen(),
 
       //************* Teacher Pages *************//
       // '/teacherProfile': (context) => teacher_profile(),

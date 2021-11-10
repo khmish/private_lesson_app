@@ -75,7 +75,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: Text(
                               'Login Page',
                               style: TextStyle(fontSize: 30),
@@ -86,7 +87,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 constLeft, constTop, constRight, constBottom),
                             child: TextFormField(
-
                               //add here
                               maxLength: 70,
                               maxLengthEnforced: true,
@@ -116,7 +116,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 constLeft, constTop, constRight, constBottom),
                             child: TextFormField(
-
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your password';
@@ -125,7 +124,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               },
                               maxLength: 20,
                               maxLengthEnforced: true,
-
                               controller: passwordController,
                               obscureText: !passwordVisibility,
                               decoration: InputDecoration(
@@ -136,8 +134,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 ),
                                 suffixIcon: InkWell(
                                   onTap: () => setState(
-                                    () =>
-                                        passwordVisibility = !passwordVisibility,
+                                    () => passwordVisibility =
+                                        !passwordVisibility,
                                   ),
                                   child: Icon(
                                     passwordVisibility
@@ -152,8 +150,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           ),
                           Padding(
                             //------------Login Button--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
-                                constTopBtn, constRightBtn, constBottomBtn),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                constLeftBtn,
+                                constTopBtn,
+                                constRightBtn,
+                                constBottomBtn),
                             child: SizedBox(
                               width: double.infinity,
                               height: 40,
@@ -192,7 +193,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                             passwordController.text)
                                         .then((value) {
                                       if (value) {
-                                        Navigator.of(context).pushNamed("/");
+                                        Navigator.of(context)
+                                            .pushNamed("/myprofile");
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(

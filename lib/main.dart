@@ -11,13 +11,7 @@ import 'pages/login.dart';
 
 void main() {
   runApp(MaterialApp(
-    // initialRoute: '/',
-    //initialRoute: '/user',
-    //initialRoute: '/userSlidable',
-    //initialRoute: '/edit_user',
-
-    //here
-    //initialRoute: '/searchPage',
+    
 
     //here2
     initialRoute: '/searchPage',

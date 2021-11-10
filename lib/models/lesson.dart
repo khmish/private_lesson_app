@@ -57,17 +57,17 @@ class Lesson {
 }
 
 class Student {
-  late int id;
-  late String name;
-  late String email;
+  late int? id;
+  late String? name;
+  late String? email;
   late String? emailVerifiedAt;
   late int? dateOfBirth;
   late String? exceprience;
-  late String gender;
-  late String phone;
-  late String role;
+  late String? gender;
+  late String? phone;
+  late String? role;
   late String? pic;
-  late int cityId;
+  late int? cityId;
   late String? deletedAt;
   late String? createdAt;
   late String? updatedAt;
@@ -126,9 +126,9 @@ class Student {
 }
 
 class Subject {
-  late int id;
-  late int leveleducationId;
-  late String name;
+  late int? id;
+  late int? leveleducationId;
+  late String? name;
   late String? pic;
   late String? deletedAt;
   late String? createdAt;

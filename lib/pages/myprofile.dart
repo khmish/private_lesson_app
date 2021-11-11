@@ -25,15 +25,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
     setState(() {
       isLoading = true;
     });
-    // UserAPI.me().then((getuser) {
-    //   setState(() {
-    //     _getuser = getuser;
-    //   });
-    // }).whenComplete(() {
-    //   setState(() {
-    //     isLoading = false;
-    //   });
-    // });
   }
 
 // class MyprofileScreen extends StatelessWidget {
@@ -52,24 +43,32 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
     //final myuser = ModalRoute.of(context)!.settings.arguments as User;
     // final thisuser =
     //     ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
+
+    User myuser =
+        new User(id: -1, name: '', email: '', city: -1, phone: '', gender: '');
+
     checksIfLogIn().then((value) {
-      if (value.id! > 1) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.green,
-            content: Text("you arre registered!! ${value.name}"),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content: Text("register first to get the service!!"),
-          ),
-        );
-        Navigator.of(context).pushNamed("/login");
-      }
+      myuser = value;
     });
+    // checksIfLogIn().then((value) {
+    //   if (value.id! > 1) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         backgroundColor: Colors.green,
+    //         content: Text("you are registered!! ${value.name}"),
+    //       ),
+    //     );
+    //   } else {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         backgroundColor: Colors.red,
+    //         content: Text("register first to get the service!!"),
+    //       ),
+    //     );
+    //     Navigator.of(context).pushNamed("/login");
+    //   }
+    // });
+
     // Use the Todo to create the UI.
     return Scaffold(
         appBar: AppBar(
@@ -101,8 +100,8 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                 height: 60,
               ),
               Text(
-                "name: ",
-                // 'Name: ${myuser.name}',
+                // "name: ",
+                'Name: ${myuser.name}',
                 style: TextStyle(
                     fontSize: 25.0,
                     color: Colors.blueGrey,

@@ -7,11 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAPI {
   static var _baseUrlUsers = 'https://privatelesson.herokuapp.com/api/user';
-  static var _baseUrlMe = 'https://privatelesson.herokuapp.com/api/user/me';
-  static var _baseUrlLogin =
-      "https://privatelesson.herokuapp.com/api/user/login";
-  static var _baseUrlRegisterUser =
-      'https://privatelesson.herokuapp.com/api/user';
 
   static Future<List<User>> getUsers() async {
     var baseUrl = _baseUrlUsers;
@@ -48,10 +43,10 @@ class UserAPI {
 
   static Future<bool> login(String email, String password) async {
     final storage = await SharedPreferences.getInstance();
-    var baseUrl = _baseUrlLogin;
+    var baseUrl = _baseUrlUsers+"/login";
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlLogin;
+      baseUrl = _baseUrlUsers+"/login";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.post(
@@ -84,10 +79,10 @@ class UserAPI {
 
   static Future<User> me(String token) async {
     
-    var baseUrl = _baseUrlLogin;
+    var baseUrl = _baseUrlUsers+"/me";
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlLogin;
+      baseUrl = _baseUrlUsers+"/me";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.post(
@@ -121,10 +116,10 @@ class UserAPI {
   static Future<User> registed(Register register) async {
     User user =
         new User(id: -1, name: "", email: "", city: 0, phone: "", gender: "");
-    var baseUrl = _baseUrlRegisterUser;
+    var baseUrl = _baseUrlUsers;
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlRegisterUser;
+      baseUrl = _baseUrlUsers;
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.post(
@@ -152,11 +147,11 @@ class UserAPI {
   }
 
   static Future<bool> getLoginUser(String token) async {
-    var baseUrl = _baseUrlMe;
+    var baseUrl = _baseUrlUsers+"/me";
 
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlMe;
+      baseUrl = _baseUrlUsers+"/me";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.post(
@@ -183,11 +178,11 @@ class UserAPI {
   }
 
   static Future<bool> deleteUser(String id) async {
-    var baseUrl = _baseUrlRegisterUser;
+    var baseUrl = _baseUrlUsers;
 
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlRegisterUser + "/$id";
+      baseUrl = _baseUrlUsers + "/$id";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.delete(

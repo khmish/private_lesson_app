@@ -18,12 +18,18 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool isLoading = false;
-
+User myuser =
+        new User(id: -1, name: '', email: '', city: -1, phone: '', gender: '');
   @override
   void initState() {
     super.initState();
     setState(() {
       isLoading = true;
+    });
+    checksIfLogIn().then((value) {
+      setState(() {
+        myuser = value;
+      });
     });
   }
 
@@ -35,7 +41,8 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
     final storage = await SharedPreferences.getInstance();
     String token = storage.getString("token").toString();
     print(token + " ********************* ");
-    return await UserAPI.me(token);
+    User user= await UserAPI.me(token);
+    return user;
   }
 
   @override
@@ -44,12 +51,9 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
     // final thisuser =
     //     ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
 
-    User myuser =
-        new User(id: -1, name: '', email: '', city: -1, phone: '', gender: '');
+    
 
-    checksIfLogIn().then((value) {
-      myuser = value;
-    });
+    
     // checksIfLogIn().then((value) {
     //   if (value.id! > 1) {
     //     ScaffoldMessenger.of(context).showSnackBar(
@@ -112,8 +116,8 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                 height: 10,
               ),
               Text(
-                'Email*********',
-                // 'Email: ${thisuser.email}',
+                // 'Email*********',
+                'Email: ${myuser.email}',
                 style: TextStyle(
                     fontSize: 18.0,
                     color: Colors.black45,

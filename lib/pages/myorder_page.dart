@@ -28,7 +28,7 @@ class _myorder_pageState extends State<myorder_page> {
 
   late TextEditingController leveleducationNameController;
   late TextEditingController subjectNameController;
-  late List<Lesson> lessons=[];
+  late List<Lesson> lessons = [];
   //*********  Show/Hide Level education page
   bool _isVisibleLevel = false;
   void showLeveleducationPage() {
@@ -50,8 +50,7 @@ class _myorder_pageState extends State<myorder_page> {
 
     LessonAPI.getLessons().then((orderlist) {
       setState(() {
-        
-      lessons = orderlist;
+        lessons = orderlist;
       });
     });
   }
@@ -153,20 +152,22 @@ class _myorder_pageState extends State<myorder_page> {
                             'All orders',
                           ),
                         ),
-                        SafeArea(
-                          child: SingleChildScrollView(
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height,
-                              child: GridView.builder(
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 1,
-                                          mainAxisSpacing: 2,
-                                          crossAxisSpacing: 2,
-                                          mainAxisExtent: 200),
-                                  itemCount: lessons.length,
-                                  itemBuilder: (context, index) {
+                        SingleChildScrollView(
+                          child: Container(
+                            // width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * .7,
+                            child: GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        mainAxisSpacing: 2,
+                                        crossAxisSpacing: 2,
+                                        mainAxisExtent: 150),
+                                itemCount: lessons.length,
+                                itemBuilder: (context, index) {
+                                  if (lessons[index] != null &&
+                                      lessons[index].student != null &&
+                                      lessons[index].teacher != null) {
                                     return Container(
                                       height: 100,
                                       color: Colors.white,
@@ -188,9 +189,12 @@ class _myorder_pageState extends State<myorder_page> {
                                                     Expanded(
                                                       flex: 5,
                                                       child: ListTile(
-                                                        title: Text(lessons[index].id.toString()),
+                                                        title: Text(
+                                                            lessons[index]
+                                                                .id
+                                                                .toString()),
                                                         subtitle: Text(
-                                                            "Student name ${lessons[index].student!.name} Teacher name ${lessons[index].teacher!.name}"),
+                                                            "Student name ${lessons[index].student!.name ?? ''} Teacher name ${lessons[index].teacher!.name ?? ''}"),
                                                       ),
                                                     ),
                                                     Expanded(
@@ -227,8 +231,12 @@ class _myorder_pageState extends State<myorder_page> {
                                         ),
                                       ),
                                     );
-                                  }),
-                            ),
+                                  } else {
+                                    return Container(
+                                      color: Colors.red,
+                                    );
+                                  }
+                                }),
                           ),
                         ),
                       ],

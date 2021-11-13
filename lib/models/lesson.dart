@@ -25,11 +25,11 @@ class Lesson {
     studentId = json['student_id'];
     teacherId = json['teacher_id'];
     student =
-        (json['student'] != null ? new Student.fromJson(json['student']) : null)!;
+        (json['student'] != null ? new Student.fromJson(json['student']) : null);
     teacher =
-        (json['teacher'] != null ? new Student.fromJson(json['teacher']) : null)!;
+        (json['teacher'] != null ? new Student.fromJson(json['teacher']) : null);
     subject =
-        (json['subject'] != null ? new Subject.fromJson(json['subject']) : null)!;
+        (json['subject'] != null ? new Subject.fromJson(json['subject']) : null);
     subjectId = json['subject_id'];
     dateExecution = json['date_execution'];
     state = json['state'];

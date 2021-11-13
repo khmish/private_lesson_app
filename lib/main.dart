@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/pages/home.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myorder_page.dart';
 import 'package:private_lesson_app/pages/signup.dart';
@@ -13,10 +14,12 @@ import 'pages/login.dart';
 void main() {
   runApp(MaterialApp(
     //here2
-    initialRoute: '/myorder_page',
+    initialRoute: '/home',
+    // initialRoute: '/myorder_page',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
+      '/home': (context) => MyHome(),
       '/searchPage': (context) => SearchWidget(),
 
       '/singupTeacher': (context) => SignupTeacherWidget(),
@@ -29,7 +32,7 @@ void main() {
       '/adminControl': (context) => AdminControlWidget(),
 
       //************* Student Pages *************//
-      '/myorder_page': (context) => myorder_page(),
+      '/myorder_page': (context) => MyorderPage(),
 
       //************* Admin Pages *************//
       '/myprofile': (context) => MyprofileScreen(),

@@ -26,38 +26,8 @@ class _SearchWidgetState extends State<SearchWidget> {
   // int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  // start here
-  // static const List<Widget> _widgetOptions = <Widget>[
-  //   Text(
-  //     'Index 0: Home',
-  //     style: optionStyle,
-  //   ),
-  //   Text(
-  //     'Search',
-  //     style: optionStyle,
-  //   ),
-  //   Text(
-  //     'settings',
-  //     style: optionStyle,
-  //   ),
-  // ];
+ 
 
-  int _currentIndex = 0;
-
-  // static const List<Widget> _widgetOptions = <Widget>[
-  final List<Widget> _widgetOptions =[
-    myorder_page(),
-    SearchWidget(),
-    myorder_page(),
-
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      // _selectedIndex = index;
-      _currentIndex = index;
-    });
-  }
 
   late String dropDownValue1;
   late List<String> _genderList = ["", 'male', 'female'];
@@ -72,7 +42,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   late TextEditingController searchController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isSearch = false;
-  int _selectedDestination = 0;
+  
   bool isLoading = true;
 
   @override
@@ -120,113 +90,8 @@ class _SearchWidgetState extends State<SearchWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //bar
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'My order',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'settings',
-          ),
-        ],
-
-
-       onTap: _onItemTapped,
-
-        // onTap: (value) {
-        //   // Respond to item press.
-        //   setState(() => _currentIndex = value);
-        // },
-
-        currentIndex: _currentIndex,
-
-        selectedItemColor: Colors.amber[800],
-
-      ),
-
-      key: scaffoldKey,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Private Lesson',
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 4,
-      ),
-
-      //drawer
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Header',
-                //style: textTheme.headline6,
-              ),
-            ),
-            Divider(
-              height: 1,
-              thickness: 1,
-            ),
-
-            // ),
-
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Admin Control Page'),
-                selected: _selectedDestination == 2,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AdminControlWidget()),
-                  );
-                }),
-
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Teacher Signup'),
-                selected: _selectedDestination == 2,
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singupTeacher');
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Signup'),
-                selected: _selectedDestination == 2,
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singup');
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Login'),
-                selected: _selectedDestination == 2,
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/login');
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('My Profile'),
-                selected: _selectedDestination == 2,
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singup');
-                }),
-          ],
-        ),
-      ),
-
+     
+      
       //body
       body:SafeArea(
 
@@ -486,10 +351,10 @@ class _SearchWidgetState extends State<SearchWidget> {
     );
   }
 
-  //for drawer
-  void selectDestination(int index) {
-    setState(() {
-      _selectedDestination = index;
-    });
-  }
+  // //for drawer
+  // void selectDestination(int index) {
+  //   setState(() {
+  //     _selectedDestination = index;
+  //   });
+  // }
 }

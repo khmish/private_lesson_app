@@ -101,14 +101,12 @@ class UserAPI {
       } else {
         
         print(response.body);
-        dynamic user;
-        return User.fromJson(user);
+        return User(city: -1,id: -1,email: "",gender: "",name: "",phone: "",role: "");
       }
     } catch (e) {
       print(e);
-        dynamic user;
 
-      return User.fromJson(user);
+      return User(city: -1,id: -1,email: "",gender: "",name: "",phone: "",role: "");
     }
   }
 

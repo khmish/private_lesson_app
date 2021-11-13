@@ -3,14 +3,14 @@ import 'package:private_lesson_app/api/lesson_api.dart';
 import 'package:private_lesson_app/models/lesson.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 
-class myorder_page extends StatefulWidget {
-  const myorder_page({Key? key}) : super(key: key);
+class MyorderPage extends StatefulWidget {
+  const MyorderPage({Key? key}) : super(key: key);
 
   @override
-  _myorder_pageState createState() => _myorder_pageState();
+  _MyorderPageState createState() => _MyorderPageState();
 }
 
-class _myorder_pageState extends State<myorder_page> {
+class _MyorderPageState extends State<MyorderPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController textController;
 
@@ -58,16 +58,16 @@ class _myorder_pageState extends State<myorder_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Private Lesson',
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 4,
-      ),
+      // key: scaffoldKey,
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: true,
+      //   title: Text(
+      //     'Private Lesson',
+      //   ),
+      //   actions: [],
+      //   centerTitle: true,
+      //   elevation: 4,
+      // ),
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,

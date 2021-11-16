@@ -436,8 +436,8 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
     switch (action) {
       case SlidableAction
           .edit: //*************************** update USER ***** */
-        nameController.text = _userList[index].name;
-        phoneController.text = _userList[index].phone;
+        nameController.text = _userList[index].name!;
+        phoneController.text = _userList[index].phone!;
         //_citySelectedValue = _userList[index].city;
         showDialog(
             context: context,
@@ -561,11 +561,11 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              item.name,
+              item.name!,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            Text(item.email)
+            Text(item.email!)
           ],
         ),
         onTap: () {

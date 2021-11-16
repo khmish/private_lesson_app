@@ -1,10 +1,10 @@
 class User {
   late int? id;
-  late String name;
-  late String email;
-  late int city;
-  late String phone;
-  late String gender;
+  late String? name;
+  late String? email;
+  late int? city;
+  late String? phone;
+  late String? gender;
   late String? role="student";
 
   User({this.id, required this.name, required this.email, required this.city, required this.phone,required this.gender,this.role});

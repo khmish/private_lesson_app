@@ -175,7 +175,7 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
           .edit: //*************************** update City ***** */
         countryController.text = _cityList[index].countryName;
         cityNameController.text = _cityList[index].name;
-
+        City tempCity = new City(countryName: "", name: "", id: -1);
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -240,8 +240,12 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                 _cityList[index].countryName =
                                     countryController.text;
                                 _cityList[index].name = cityNameController.text;
-                                CityAPI.updateACity(_cityList[index]);
-                                Navigator.pop(context, false);
+                                CityAPI.updateACity(_cityList[index])
+                                    .then((city) {
+                                  tempCity = city;
+                                  Navigator.pop(context, false);
+                                });
+                                
                                 // .then((value) {
                                 //   if (value) {
                                 //     Navigator.pop(context, false);
@@ -266,7 +270,8 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                 ),
               );
             }).then((value) {
-          if (value) {
+              
+          if (tempCity.id == -1) {
             showSnackBar(context, 'wrong something');
           } else {
             showSnackBar(context, 'Updated successfully');

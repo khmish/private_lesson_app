@@ -6,7 +6,7 @@ class Lesson {
   late Student? teacher;
   late Subject? subject;
   late int subjectId;
-  late int? dateExecution;
+  late String? dateExecution;
   late String? state;
 
   Lesson(
@@ -61,7 +61,7 @@ class Student {
   late String? name;
   late String? email;
   late String? emailVerifiedAt;
-  late int? dateOfBirth;
+  late String? dateOfBirth;
   late String? exceprience;
   late String? gender;
   late String? phone;

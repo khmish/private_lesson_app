@@ -47,39 +47,6 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
   }
 
   //*****************************************Add subject */
-  var _baseUrlSubjects = 'https://privatelesson.herokuapp.com/api/subject';
-  Future<bool> addSubjects() async {
-    var baseUrl = _baseUrlSubjects;
-    try {
-      // if (page > 0) {
-      baseUrl = _baseUrlSubjects;
-      // }
-      var url = Uri.parse(baseUrl);
-      var response = await http.post(
-        url,
-        body: jsonEncode({
-          "name": subjectNameController.text,
-          "pic": subjectPicController.text,
-          "leveleducation_id": _leveleducationSelectedValue.toString(),
-        }),
-        headers: <String, String>{
-          'Accept': 'application/json',
-          'Content-Type': 'application/json; charset=UTF-8',
-          // 'Authorization': 'Bearer $token',
-        },
-      );
-      print(response.body);
-      print(response.statusCode);
-      if (response.statusCode == 201) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +168,20 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                                           10, 5, 10, 0),
                                       child: ElevatedButton.icon(
                                         onPressed: () {
-                                          addSubjects();
+                                          SubjectAPI.addSubjects(new Subject(
+                                                  name: subjectNameController
+                                                      .text,
+                                                  leveleducation:
+                                                      _leveleducationSelectedValue,pic:subjectPicController.text))
+                                              .then((value) {
+                                            if (value) {
+                                              showSnackBar(context,
+                                                  'added successfully');
+                                            } else {
+                                              showSnackBar(
+                                                  context, 'wrong something');
+                                            }
+                                          });
                                         },
                                         label: Text('submit'),
                                         icon: Icon(
@@ -321,16 +301,15 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
         break;
       case SlidableAction
           .delete: //*************************** delete Subject ***** */
-        SubjectAPI.deleteSubject(_subjectList.elementAt(index).id.toString())
-            .then((value) {
+        var tempSubject = _subjectList.elementAt(index);
+        SubjectAPI.deleteSubject(tempSubject.id.toString()).then((value) {
           if (value) {
             setState(() {
               _subjectList.removeAt(index);
             });
-            showSnackBar(context,
-                'Deleted the subject ${_subjectList.elementAt(index).name}');
+            showSnackBar(context, 'Deleted the subject ${tempSubject.name}');
           } else {
-            showSnackBar(context, 'something ');
+            showSnackBar(context, 'wrong something');
           }
         }).whenComplete(() {});
         break;

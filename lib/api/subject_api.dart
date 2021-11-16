@@ -140,26 +140,33 @@ class SubjectAPI {
   }
 
 //****************Add subject***********************************
-  // static Future<void> addSubjects(String subjectName) async {
-  //   var baseUrl = _baseUrlSubjects;
-  //   try {
-  //     baseUrl = _baseUrlSubjects;
-  //     var url = Uri.parse(baseUrl);
-  //     var response = await http.post(
-  //       url,
-  //       body: {
-  //         "name": subjectName,
-  //       },
-  //     );
-
-  //     print(response.body);
-  //     if (response.statusCode == 200) {
-  //     } else {
-  //       print(response.body);
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
+  static Future<bool> addSubjects(Subject subject) async {
+    var baseUrl = _baseUrlSubjects;
+    try {
+      // if (page > 0) {
+      baseUrl = _baseUrlSubjects;
+      // }
+      var url = Uri.parse(baseUrl);
+      var response = await http.post(
+        url,
+        body: jsonEncode(subject),
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization': 'Bearer $token',
+        },
+      );
+      print(response.body);
+      print(response.statusCode);
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 
 }

@@ -2,7 +2,7 @@ class TutorSubsLvEd {
   late int? id;
   late String? name;
   late String? email;
-  late int? dateOfBirth;
+  late String? dateOfBirth;
   late String? exceprience;
   late String? gender;
   late String? phone;

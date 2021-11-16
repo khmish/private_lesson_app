@@ -1,15 +1,15 @@
 import 'package:http/http.dart';
 
 class Subject {
-  late int id;
+  late int? id;
   late String name;
-  late String pic;
+  late String? pic;
   late int leveleducation;
 
   Subject(
-      {required this.id,
+      { this.id,
       required this.name,
-      required this.pic,
+      this.pic,
       required this.leveleducation});
 
   Subject.fromJson(Map<String, dynamic> json) {

@@ -175,6 +175,7 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
           .edit: //*************************** update City ***** */
         countryController.text = _cityList[index].countryName;
         cityNameController.text = _cityList[index].name;
+        City tempCity = new City(countryName: "", name: "", id: -1);
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -239,7 +240,21 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                 _cityList[index].countryName =
                                     countryController.text;
                                 _cityList[index].name = cityNameController.text;
-                                CityAPI.updateACity(_cityList[index]);
+                                CityAPI.updateACity(_cityList[index])
+                                    .then((city) {
+                                  tempCity = city;
+                                  Navigator.pop(context, false);
+                                });
+                                
+                                // .then((value) {
+                                //   if (value) {
+                                //     Navigator.pop(context, false);
+                                //     showSnackBar(context, 'Updated successfully');
+                                //   } else {
+                                //     Navigator.pop(context, false);
+                                //     showSnackBar(context, 'wrong something');
+                                //   }
+                                // });
                               },
                               label: Text('submit'),
                               icon: Icon(
@@ -254,21 +269,27 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                   ],
                 ),
               );
-            });
+            }).then((value) {
+              
+          if (tempCity.id == -1) {
+            showSnackBar(context, 'wrong something');
+          } else {
+            showSnackBar(context, 'Updated successfully');
+          }
+        });
         break;
 
       case SlidableAction
           .delete: //*************************** delete City ***** */
-        CityAPI.deleteCity(_cityList.elementAt(index).id.toString())
-            .then((value) {
+        var tempCity = _cityList.elementAt(index);
+        CityAPI.deleteCity(tempCity.id.toString()).then((value) {
           if (value) {
             setState(() {
               _cityList.removeAt(index);
             });
-            showSnackBar(
-                context, 'Deleted the city ${_cityList.elementAt(index).name}');
+            showSnackBar(context, 'Deleted the city ${tempCity.name}');
           } else {
-            showSnackBar(context, 'something ');
+            showSnackBar(context, 'wrong something');
           }
         }).whenComplete(() {});
         break;

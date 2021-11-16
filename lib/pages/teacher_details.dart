@@ -23,12 +23,17 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   bool isLoading = false;
+  var _subjectSelectedValue = 0;
+  List<Subjects> _subjectslist = [];
 
   @override
   Widget build(BuildContext context) {
     final thisuser =
         ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
-
+    _subjectslist = thisuser.subjects;
+    if (_subjectslist.length > 0) {
+      _subjectSelectedValue = _subjectslist[0].id!;
+    }
     // Use the Todo to create the UI.
     return Scaffold(
         appBar: AppBar(
@@ -100,51 +105,77 @@ class _DetailScreenState extends State<DetailScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Card(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-                      elevation: 2.0,
-                      child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 30),
-                          child: ElevatedButton(
-                            //********************************Reservation Button************** */
-                            onPressed: () {
+                    Container(
+                        //********************************Subjects**************
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width > 1000
+                            ? MediaQuery.of(context).size.width * .5
+                            : MediaQuery.of(context).size.width,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            constLeft, constTop, constRight, constBottom),
+                        child: DropdownButtonFormField(
+                          value: _subjectSelectedValue,
+                          items: _subjectslist.map((itemList) {
+                            print(itemList);
+                            return DropdownMenuItem(
+                              child: Text(itemList.subject!),
+                              value: itemList.id,
+                            );
+                          }).toList(),
+                          onChanged: (subjectId) {
+                            // log(value);
+                            print(subjectId);
+                            setState(() {
+                              _subjectSelectedValue = subjectId as int;
+                            });
+                          },
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.location_on_rounded),
+                            border: const OutlineInputBorder(),
+                          ),
+                        )),
+                    Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+                        child: ElevatedButton(
+                          //********************************Reservation Button************** */
+                          onPressed: () {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            checksIfLogIn().then((value) {
+                              print("subject =" +
+                                  _subjectSelectedValue.toString());
+                              if (value.id! > 0) {
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   SnackBar(
+                                //     backgroundColor: Colors.green,
+                                //     content: Text("you arre registered!!"),
+                                //   ),
+                                // );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.red,
+                                    content: Text(
+                                        "register first to get the service!!"),
+                                  ),
+                                );
+                                Navigator.of(context).pushNamed("/login");
+                              }
+                            }).whenComplete(() {
                               setState(() {
-                                isLoading = true;
+                                isLoading = false;
                               });
-                              checksIfLogIn().then((value) {
-                                if (value.id! > 0) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text("you arre registered!!"),
-                                    ),
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.red,
-                                      content: Text(
-                                          "register first to get the service!!"),
-                                    ),
-                                  );
-                                  Navigator.of(context).pushNamed("/login");
-                                }
-                              }).whenComplete(() {
-                                setState(() {
-                                  isLoading = false;
-                                });
-                              });
-                            },
-                            child: Text(
-                              "Request",
-                              style: TextStyle(
-                                  letterSpacing: 2.0,
-                                  fontWeight: FontWeight.w300),
-                            ),
-                          )),
-                    ),
+                            });
+                          },
+                          child: Text(
+                            "Request",
+                            style: TextStyle(
+                                letterSpacing: 2.0,
+                                fontWeight: FontWeight.w300),
+                          ),
+                        )),
                     SizedBox(
                       height: 15,
                     ),
@@ -220,7 +251,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       height: 50,
                     ),
                     Row(
-                            //********************************Contact me Button************** */
+                      //********************************Contact me Button************** */
 
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -255,7 +286,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                         ),
                         RaisedButton(
-                            //********************************Favorite Button************** */
+                          //********************************Favorite Button************** */
 
                           onPressed: () {},
                           shape: RoundedRectangleBorder(

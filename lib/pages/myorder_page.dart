@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/lesson_api.dart';
 import 'package:private_lesson_app/models/lesson.dart';
+import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
+import '../constants/size_const.dart';
 
 class MyorderPage extends StatefulWidget {
   const MyorderPage({Key? key}) : super(key: key);
@@ -29,6 +31,8 @@ class _MyorderPageState extends State<MyorderPage> {
   late TextEditingController leveleducationNameController;
   late TextEditingController subjectNameController;
   late List<Lesson> lessons = [];
+  User myuser =
+      new User(id: -1, name: '', email: '', city: -1, phone: '', gender: '');
   //*********  Show/Hide Level education page
   bool _isVisibleLevel = false;
   void showLeveleducationPage() {
@@ -48,10 +52,32 @@ class _MyorderPageState extends State<MyorderPage> {
     passwordController = TextEditingController();
     passwordVisibility = false;
 
-    LessonAPI.getLessons().then((orderlist) {
+    checksIfLogIn().then((user) {
       setState(() {
-        lessons = orderlist;
+        myuser = user;
       });
+    }).whenComplete(() {
+      if (myuser.role == "tutor") {
+        LessonAPI.getLessons(teacher_id: myuser.id.toString())
+            .then((orderlist) {
+          setState(() {
+            lessons = orderlist;
+          });
+        });
+      } else if (myuser.role == "student") {
+        LessonAPI.getLessons(student_id: myuser.id.toString())
+            .then((orderlist) {
+          setState(() {
+            lessons = orderlist;
+          });
+        });
+      } else if (myuser.role == "admin") {
+        LessonAPI.getLessons().then((orderlist) {
+          setState(() {
+            lessons = orderlist;
+          });
+        });
+      }
     });
   }
 

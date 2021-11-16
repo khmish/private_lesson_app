@@ -94,15 +94,15 @@ class _MyHomeState extends State<MyHome> {
         onTap: (value) => setState(() => page = value),
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.widgets),
+            icon: Icon(Icons.home),
             title: Text("Home"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.access_time),
+            icon: Icon(Icons.reorder_sharp),
             title: Text("My Order"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+            icon: Icon(Icons.account_circle_rounded),
             title: Text("My Profile"),
           ),
           

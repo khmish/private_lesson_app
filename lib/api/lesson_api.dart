@@ -8,12 +8,19 @@ class LessonAPI {
   static var _baseUrlLesson = 'http://privatelesson.herokuapp.com/api/lessson';
 
   // get Lesson*****************************************************
-  static Future<List<Lesson>> getLessons() async {
+  static Future<List<Lesson>> getLessons(
+      {String? student_id, String? teacher_id}) async {
     var baseUrl = _baseUrlLesson;
     List<Lesson> LessonList = [];
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlLesson;
+      student_id = student_id ?? '';
+      teacher_id = teacher_id ?? '';
+      baseUrl = _baseUrlLesson +
+          "?student_id=" +
+          student_id +
+          "&teacher_id=" +
+          teacher_id;
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.get(

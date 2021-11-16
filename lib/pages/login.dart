@@ -194,7 +194,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         .then((value) {
                                       if (value) {
                                         Navigator.of(context)
-                                            .pushNamed("/myprofile");
+                                            .pushNamed("/home");
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(

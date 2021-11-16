@@ -321,16 +321,15 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
         break;
       case SlidableAction
           .delete: //*************************** delete Subject ***** */
-        SubjectAPI.deleteSubject(_subjectList.elementAt(index).id.toString())
-            .then((value) {
+        var tempSubject = _subjectList.elementAt(index);
+        SubjectAPI.deleteSubject(tempSubject.id.toString()).then((value) {
           if (value) {
             setState(() {
               _subjectList.removeAt(index);
             });
-            showSnackBar(context,
-                'Deleted the subject ${_subjectList.elementAt(index).name}');
+            showSnackBar(context, 'Deleted the subject ${tempSubject.name}');
           } else {
-            showSnackBar(context, 'something ');
+            showSnackBar(context, 'wrong something');
           }
         }).whenComplete(() {});
         break;

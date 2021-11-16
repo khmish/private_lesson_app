@@ -231,17 +231,17 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
 
       case SlidableAction
           .delete: //*************************** delete Level education ***** */
-        LeveleducationAPI.deleteLeveleducation(
-                _leveleducationList.elementAt(index).id.toString())
+        var tempLeveleducation = _leveleducationList.elementAt(index);
+        LeveleducationAPI.deleteLeveleducation(tempLeveleducation.id.toString())
             .then((value) {
           if (value) {
             setState(() {
               _leveleducationList.removeAt(index);
             });
             showSnackBar(context,
-                'Deleted the level education ${_leveleducationList.elementAt(index).name}');
+                'Deleted the level education ${tempLeveleducation.name}');
           } else {
-            showSnackBar(context, 'something ');
+            showSnackBar(context, 'wrong something');
           }
         }).whenComplete(() {});
         break;

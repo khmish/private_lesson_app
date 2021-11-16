@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/pages/myorders_page.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myorder_page.dart';
@@ -47,7 +48,6 @@ class _MyHomeState extends State<MyHome> {
             ListTile(
                 leading: Icon(Icons.label),
                 title: Text('Admin Control Page'),
-                
                 onTap: () {
                   Navigator.push(
                     context,
@@ -59,35 +59,30 @@ class _MyHomeState extends State<MyHome> {
             ListTile(
                 leading: Icon(Icons.label),
                 title: Text('Teacher Signup'),
-                
                 onTap: () {
                   Navigator.of(context).popAndPushNamed('/singupTeacher');
                 }),
             ListTile(
                 leading: Icon(Icons.label),
                 title: Text('Signup'),
-                
                 onTap: () {
                   Navigator.of(context).popAndPushNamed('/singup');
                 }),
             ListTile(
                 leading: Icon(Icons.label),
                 title: Text('Login'),
-                
                 onTap: () {
                   Navigator.of(context).popAndPushNamed('/login');
                 }),
             ListTile(
                 leading: Icon(Icons.label),
                 title: Text('My Profile'),
-                
                 onTap: () {
                   Navigator.of(context).popAndPushNamed('/singup');
                 }),
           ],
         ),
       ),
-
       body: getBody(page),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: page,
@@ -105,22 +100,20 @@ class _MyHomeState extends State<MyHome> {
             icon: Icon(Icons.account_circle_rounded),
             title: Text("My Profile"),
           ),
-          
         ],
         type: BottomNavigationBarType.fixed,
       ),
     );
   }
-  
 }
+
 Widget getBody(int page) {
   switch (page) {
     case 0:
       return SearchWidget();
     case 1:
-      return MyorderPage();
+      return MyordersPage();
     default:
       return MyprofileScreen();
-    
   }
 }

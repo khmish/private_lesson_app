@@ -169,7 +169,7 @@ class LessonAPI {
       );
 
       print(response.body);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         dynamic body = json.decode(response.body)['data'];
         lesson = Lesson.fromJson(body);
         return lesson;

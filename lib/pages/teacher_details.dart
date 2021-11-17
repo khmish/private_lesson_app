@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/api/lesson_api.dart';
 import 'package:private_lesson_app/api/user_api.dart';
+import 'package:private_lesson_app/models/lesson.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/user.dart';
@@ -32,7 +34,7 @@ class _DetailScreenState extends State<DetailScreen> {
         ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
     _subjectslist = thisuser.subjects;
     if (_subjectslist.length > 0) {
-      _subjectSelectedValue = _subjectslist[0].id!;
+      _subjectSelectedValue = _subjectslist[0].subjectId!;
     }
     // Use the Todo to create the UI.
     return Scaffold(
@@ -119,7 +121,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             print(itemList);
                             return DropdownMenuItem(
                               child: Text(itemList.subject!),
-                              value: itemList.id,
+                              value: itemList.subjectId,
                             );
                           }).toList(),
                           onChanged: (subjectId) {
@@ -146,13 +148,35 @@ class _DetailScreenState extends State<DetailScreen> {
                             checksIfLogIn().then((value) {
                               print("subject =" +
                                   _subjectSelectedValue.toString());
-                              if (value.id! > 0) {
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //   SnackBar(
-                                //     backgroundColor: Colors.green,
-                                //     content: Text("you arre registered!!"),
-                                //   ),
-                                // );
+                              if (value.id! > 0 &&
+                                  thisuser.id! > 0 &&
+                                  _subjectSelectedValue > 0) {
+                                LessonAPI.addLesson(new Lesson(
+                                        studentId: value.id!,
+                                        teacherId: thisuser.id!,
+                                        subjectId: _subjectSelectedValue,
+                                        state: "new",
+                                        dateExecution:
+                                            DateTime.now().toString()))
+                                    .then((value) {
+                                  if (value.id! > 0) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.green,
+                                        content: Text("you are successfully registered for a lesson!!"),
+                                      ),
+                                    );
+                                    Navigator.pop(context, false);
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.red,
+                                    content: Text(
+                                        "error!!"),
+                                  ),
+                                );
+                                  }
+                                });
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

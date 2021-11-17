@@ -159,7 +159,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                         dateExecution:
                                             DateTime.now().toString()))
                                     .then((value) {
-                                  if (value.id! > 0) {
+                                  if (value.id!=null && value.id! > 0) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         backgroundColor: Colors.green,

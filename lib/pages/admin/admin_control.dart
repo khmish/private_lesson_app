@@ -1,10 +1,10 @@
 // Full control (Admin page)
 
 import 'package:flutter/material.dart';
-import 'package:private_lesson_app/pages/admin/user.dart';
-import 'package:private_lesson_app/pages/admin/city.dart';
-import 'package:private_lesson_app/pages/admin/leveleducation.dart';
-import 'package:private_lesson_app/pages/admin/subject.dart';
+import 'package:private_lesson_app/pages/admin/admin_users.dart';
+import 'package:private_lesson_app/pages/admin/admin_cities.dart';
+import 'package:private_lesson_app/pages/admin/admin_leveleducations.dart';
+import 'package:private_lesson_app/pages/admin/admin_subjects.dart';
 
 class AdminControlWidget extends StatefulWidget {
   AdminControlWidget({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:private_lesson_app/pages/myorders_page.dart';
+import 'package:private_lesson_app/pages/orders/myorders_page.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myorder_page.dart';

@@ -28,14 +28,14 @@ class _AllordersPageState extends State<AllordersPage> {
       });
     }).whenComplete(() {
       if (myuser.role == "tutor") {
-        LessonAPI.getLessons(teacher_id: myuser.id.toString())
+        LessonAPI.getLessons(teacherId: myuser.id.toString())
             .then((orderlist) {
           setState(() {
             lessons = orderlist;
           });
         });
       } else if (myuser.role == "student") {
-        LessonAPI.getLessons(student_id: myuser.id.toString())
+        LessonAPI.getLessons(studentId: myuser.id.toString())
             .then((orderlist) {
           setState(() {
             lessons = orderlist;

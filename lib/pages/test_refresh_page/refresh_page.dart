@@ -67,8 +67,8 @@ class _ListViewRefreshPageState extends State<ListViewRefreshPage> {
 
   Widget buildList() => data.isEmpty
       ? Center(child: CircularProgressIndicator())
-      : RefreshWidget(
-          keyRefresh: keyRefresh,
+      : RefreshIndicator(
+         
           onRefresh: loadList,
           child: ListView.builder(
             shrinkWrap: true,

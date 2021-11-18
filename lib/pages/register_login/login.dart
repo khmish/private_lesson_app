@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
+import 'package:private_lesson_app/widget/form_widget/pass_text_widget.dart';
+import 'package:private_lesson_app/widget/form_widget/text_widget.dart';
 
 class LoginPageWidget extends StatefulWidget {
   LoginPageWidget({Key? key}) : super(key: key);
@@ -32,193 +33,95 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: (colorBG),
+
       //key: scaffoldKey,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Private Lesson',
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 4,
-      ),
-      backgroundColor: Color(0xFFF5F5F5),
       body: _isLoading == true
           ? Center(
               child: LinearProgressIndicator(),
             )
-          : SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                child: Center(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                    width: MediaQuery.of(context).size.width > 1000
-                        ? MediaQuery.of(context).size.width * 0.6
-                        : MediaQuery.of(context).size.width,
-                    // height: MediaQuery.of(context).size.height * 0.46,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      shape: BoxShape.rectangle,
-                      border: Border.all(
-                        color: Color(0xFFA6A4A4),
-                        width: 1,
-                      ),
-                    ),
-                    child: Form(
-                      key: scaffoldKey,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                            child: Text(
-                              'Login Page',
-                              style: TextStyle(fontSize: 30),
+          : Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  width: MediaQuery.of(context).size.width > 1000
+                      ? MediaQuery.of(context).size.width * 0.6
+                      : MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height * 0.46,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    shape: BoxShape.rectangle,
+                    color: (colorAppBar),
+
+                    // border: Border.all(
+                    //   width: 1,
+                    // ),
+                  ),
+                  child: Form(
+                    key: scaffoldKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          // color:colorBox ,
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          child: Text(
+                            'Login Page',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: (colorText),
                             ),
                           ),
-                          Padding(
-                            //------------Email--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: TextFormField(
-                              //add here
-                              maxLength: 70,
-                              maxLengthEnforced: true,
-
-                              //
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your username';
-                                }
-                                return null;
-                              },
-
-                              controller: emailController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Email',
-                                border: const OutlineInputBorder(),
-                                prefixIcon: Icon(
-                                  Icons.alternate_email,
-                                ),
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                          ),
-                          Padding(
-                            //------------Password--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your password';
-                                }
-                                return null;
-                              },
-                              maxLength: 20,
-                              maxLengthEnforced: true,
-                              controller: passwordController,
-                              obscureText: !passwordVisibility,
-                              decoration: InputDecoration(
-                                labelText: 'Password',
-                                border: const OutlineInputBorder(),
-                                prefixIcon: Icon(
-                                  Icons.lock_outline_rounded,
-                                ),
-                                suffixIcon: InkWell(
-                                  onTap: () => setState(
-                                    () => passwordVisibility =
-                                        !passwordVisibility,
-                                  ),
-                                  child: Icon(
-                                    passwordVisibility
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
-                                    color: Color(0xFF757575),
-                                    size: 22,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            //------------Login Button--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeftBtn,
-                                constTopBtn,
-                                constRightBtn,
-                                constBottomBtn),
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 40,
-                              child: ElevatedButton.icon(
-                                label: Text("login"),
-                                // onPressed: () {
-                                //   setState(() {
-                                //     _isLoading = true;
-                                //   });
-                                //   UserAPI.login(emailController.text,
-                                //           passwordController.text)
-                                //       .then((value) {
-                                //     if (value) {
-                                //       Navigator.of(context).pushNamed("/");
-                                //     } else {
-                                //       ScaffoldMessenger.of(context).showSnackBar(
-                                //         SnackBar(
-                                //           backgroundColor: Colors.red,
-                                //           content: Text("error!!"),
-                                //         ),
-                                //       );
-                                //     }
-                                //   }).whenComplete(() {
-                                //     setState(() {
-                                //       _isLoading = false;
-                                //     });
-                                //   });
-                                // },
-
-                                onPressed: () {
-                                  if (scaffoldKey.currentState!.validate()) {
+                        ),
+                        TextWidget.textWidget('Email', length: 70, textController: emailController, icon: Icons.email),
+                        PasswordTextWidget( length: 20, textController: passwordController),
+                        Padding(
+                          //------------Login Button--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
+                              constTopBtn, constRightBtn, constBottomBtn),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 40,
+                            child: ElevatedButton.icon(
+                              label: Text("login"),
+                              onPressed: () {
+                                if (scaffoldKey.currentState!.validate()) {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  UserAPI.login(emailController.text,
+                                          passwordController.text)
+                                      .then((value) {
+                                    if (value) {
+                                      Navigator.of(context).pushNamed("/home");
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.red,
+                                          content: Text("error!!"),
+                                        ),
+                                      );
+                                    }
+                                  }).whenComplete(() {
                                     setState(() {
-                                      _isLoading = true;
+                                      _isLoading = false;
                                     });
-                                    UserAPI.login(emailController.text,
-                                            passwordController.text)
-                                        .then((value) {
-                                      if (value) {
-                                        Navigator.of(context)
-                                            .pushNamed("/home");
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            backgroundColor: Colors.red,
-                                            content: Text("error!!"),
-                                          ),
-                                        );
-                                      }
-                                    }).whenComplete(() {
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                    });
-                                  }
-                                },
-
-                                icon: Icon(
-                                  Icons.login_outlined,
-                                  size: 15,
-                                ),
+                                  });
+                                }
+                              },
+                              icon: Icon(
+                                Icons.login_outlined,
+                                size: 15,
                               ),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),

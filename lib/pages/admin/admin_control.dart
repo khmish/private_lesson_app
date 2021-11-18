@@ -1,6 +1,7 @@
 // Full control (Admin page)
 
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/pages/admin/admin_users.dart';
 import 'package:private_lesson_app/pages/admin/admin_cities.dart';
 import 'package:private_lesson_app/pages/admin/admin_leveleducations.dart';
@@ -64,6 +65,7 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+          backgroundColor: (colorAppBar),
 
       //------------------------------------appBar---------------------------
       appBar: AppBar(

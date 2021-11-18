@@ -53,15 +53,7 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       //key: _formKey,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Private Lesson',
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 4,
-      ),
+      
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(

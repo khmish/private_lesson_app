@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/api/user_api.dart';
@@ -6,6 +5,10 @@ import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/register.dart';
 import 'package:private_lesson_app/models/user.dart';
+import 'package:private_lesson_app/widget/form_widget/drp_city_widget.dart';
+import 'package:private_lesson_app/widget/form_widget/drp_widget.dart';
+import 'package:private_lesson_app/widget/form_widget/pass_text_widget.dart';
+import 'package:private_lesson_app/widget/form_widget/text_widget.dart';
 
 class SignupWidget extends StatefulWidget {
   SignupWidget({Key? key}) : super(key: key);
@@ -52,31 +55,24 @@ class _SignupWidgetState extends State<SignupWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // key: scaffoldKey,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Private Lesson',
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 4,
-      ),
+      // key: scaffoldKey,
+backgroundColor: (colorBG),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-              child: Center(
+          : Center(
+              child: SingleChildScrollView(
                 child: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+
+                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   width: MediaQuery.of(context).size.width > 1000
                       ? MediaQuery.of(context).size.width * 0.6
                       : MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     shape: BoxShape.rectangle,
+                    color: (colorAppBar),
+
                     border: Border.all(
                       color: Color(0xFFA6A4A4),
                       width: 1,
@@ -90,202 +86,55 @@ class _SignupWidgetState extends State<SignupWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: Text(
-                            'Sign UP',
-                          ),
-                        ),
-                        Padding(
-                          //------------Name--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              constLeft, constTop, constRight, constBottom),
-                          child: TextFormField(
-
-                            maxLength: 70,
-                            maxLengthEnforced: true,
-
-                            //
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your name';
-                              }
-                              return null;
-                            },
-
-                            controller: nameController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              labelText: 'Name',
-                              prefixIcon: Icon(
-                                Icons.person_outline,
-                              ),
+                            'Sign Up',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: (colorText),
                             ),
                           ),
                         ),
-                        Padding(
-                          //------------Email--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              constLeft, constTop, constRight, constBottom),
-                          child: TextFormField(
-
-                            maxLength: 40,
-                            maxLengthEnforced: true,
-
-                            //------------Validate--------------------------
-                            validator: (value) {
-                              // Check if this field is empty
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
-                              }
-
-                              // using regular expression
-                              if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                                return "Please enter a valid email address";
-                              }
-
-                              // the email is valid
-                              return null;
-                            },
-
-                            controller: emailController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              labelText: 'Email',
-                              prefixIcon: Icon(
-                                Icons.alternate_email,
-                              ),
-                            ),
-                            keyboardType: TextInputType.emailAddress,
-                          ),
+                        //------------Name--------------------------
+                        TextWidget.textWidget("Name",
+                            length: 70,
+                            textController: nameController,
+                            icon: Icons.person_outline,
+                            keyboardTp: 0),
+                        //------------Email--------------------------
+                        TextWidget.textWidget("Email",
+                            length: 70,
+                            textController: emailController,
+                            icon: Icons.alternate_email,
+                            keyboardTp: 1),
+                        //------------Gender--------------------------
+                        DrpWidget(
+                          listObject: _genderList,
+                          selectedValue: _genderSelectedValue,
+                          title: "Gender",
                         ),
-                        Padding(
-                          //------------Gender--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              constLeft, constTop, constRight, constBottom),
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: 50,
-                            child: DropdownButtonFormField(
-                              value: _genderSelectedValue,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  _genderSelectedValue = newValue.toString();
-                                });
-                              },
-                              items: _genderList.map((String itemList) {
-                                return DropdownMenuItem(
-                                  child: Text(itemList),
-                                  value: itemList,
-                                );
-                              }).toList(),
-                              decoration: const InputDecoration(
-                                //prefixIcon:Icon(Icons.male),
-                                border: const OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
+                        //------------Phone--------------------------
+                        TextWidget.textWidget("Phone",
+                            length: 10,
+                            textController: phoneController,
+                            icon: Icons.phone_android,
+                            keyboardTp: 2),
+
+                        //------------Password--------------------------
+                        PasswordTextWidget(
+                            length: 20, textController: passwordController),
+                        //------------City--------------------------
+                        DrpCityWidget(
+                          title: "City",
+                          listObject: _cityList,
+                          selectedValue: _citySelectedValue,
                         ),
-                        Padding(
-                          //------------Phone--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              constLeft, constTop, constRight, constBottom),
-                          child: TextFormField(
 
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter a valid phone number';
-                              }
-                              return null;
-                            },
-                            maxLength: 10,
-                            maxLengthEnforced: true,
-
-                            keyboardType: TextInputType.number,
-                            controller: phoneController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              labelText: 'Phone',
-                              prefixIcon: Icon(
-                                Icons.phone_android,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          //------------Password--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              constLeft, constTop, constRight, constBottom),
-                          child: TextFormField(
-
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter a valid password';
-                              }
-                              return null;
-                            },
-                            maxLength: 20,
-                            maxLengthEnforced: true,
-
-                            controller: passwordController,
-                            obscureText: !passwordVisibility,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              labelText: 'Password',
-                              prefixIcon: Icon(
-                                Icons.lock_outline_rounded,
-                              ),
-                              suffixIcon: InkWell(
-                                onTap: () => setState(
-                                  () => passwordVisibility =
-                                      !passwordVisibility,
-                                ),
-                                child: Icon(
-                                  passwordVisibility
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                  color: Color(0xFF757575),
-                                  size: 22,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                            //------------City--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: DropdownButtonFormField(
-                              value: _citySelectedValue,
-                              items: _cityList.map((itemList) {
-                                print(itemList);
-                                return DropdownMenuItem(
-                                  child: Text(itemList.name),
-                                  value: itemList.id,
-                                );
-                              }).toList(),
-                              onChanged: (cityId) {
-                                // log(value);
-                                print(cityId);
-                                setState(() {
-                                  _citySelectedValue = cityId as int;
-                                });
-                              },
-                              decoration: const InputDecoration(
-                                prefixIcon: Icon(Icons.location_on_rounded),
-                                border: const OutlineInputBorder(),
-                              ),
-                            )),
                         Padding(
                           //------------Register Button--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              constLeftBtn,
-                              constTopBtn,
-                              constRightBtn,
-                              constBottomBtn),
+                          padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
+                              constTopBtn, constRightBtn, constBottomBtn),
                           child: SizedBox(
                             height: 40,
                             width: double.infinity,
@@ -297,58 +146,38 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   });
 
                                   UserAPI.registed(new Register(
-                                      name: nameController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                      city: _citySelectedValue,
-                                      phone: phoneController.text,
-                                      gender: _genderSelectedValue,
-                                      role: "student"))
+                                          name: nameController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                          city: _citySelectedValue,
+                                          phone: phoneController.text,
+                                          gender: _genderSelectedValue,
+                                          role: "student"))
                                       .then((value) {
                                     if (value.id != -1) {
-
-                                      // student = value;
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) =>
-                                      //         SearchWidget(
-                                      //             student: student),
-                                      //   ),
-                                      // );
-                                      // ScaffoldMessenger.of(context)
-                                      //     .showSnackBar(
-                                      //   SnackBar(
-                                      //     backgroundColor: Colors.green,
-                                      //     content: Text("Completed!!"),
-                                      //   ),
-                                      // );
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            backgroundColor: Colors.green,
-                                            content: Text("saved!"),
-                                          ),
-                                        );
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            backgroundColor: Colors.red,
-                                            content: Text("error!!"),
-                                          ),
-                                        );
-                                      }
-
-
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.green,
+                                          content: Text("saved!"),
+                                        ),
+                                      );
+                                      Navigator.of(context).popAndPushNamed("/login");
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.red,
+                                          content: Text("error!!"),
+                                        ),
+                                      );
+                                    }
                                   }).whenComplete(() {
                                     setState(() {
                                       isLoading = false;
                                     });
                                   });
                                 }
-
                               },
                               label: Text('Register'),
                               icon: Icon(
@@ -364,7 +193,6 @@ class _SignupWidgetState extends State<SignupWidget> {
                 ),
               ),
             ),
-          ),
     );
   }
 }

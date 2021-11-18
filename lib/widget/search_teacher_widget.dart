@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/pages/teacher_details.dart';
@@ -40,7 +41,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                 return Container(
                   margin: EdgeInsets.symmetric(horizontal: 5, vertical: 23),
                   decoration: BoxDecoration(
-                    color: Color(0xFF2F2F2F),
+                    color: (colorAppBar),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: GestureDetector(
@@ -90,9 +91,12 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                                   decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadius.circular(12)),
-                                  child: Image.network(
-                                    'https://thumbs.dreamstime.com/b/back-to-school-background-copy-space-121767227.jpg',
-                                    fit: BoxFit.fitWidth,
+                                  child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    child: Image.network(
+                                      'https://thumbs.dreamstime.com/b/back-to-school-background-copy-space-121767227.jpg',
+                                      fit: BoxFit.fitWidth,
+                                    ),
                                   ),
                                 );
                               }),
@@ -121,7 +125,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                                 '${widget.tutorsList[index].name}',
                                 style: TextStyle(
                                   fontSize: 20,
-                                  color: Color(0xFFFF6F25),
+                                  color: (colorText),
                                   fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,

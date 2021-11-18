@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/constants/size_const.dart';
 
 class SelectListWidget extends StatefulWidget {
   late List<dynamic> list;
@@ -29,6 +30,8 @@ class _SelectListWidgetState extends State<SelectListWidget> {
     return Scaffold(
       appBar: AppBar(
         title: Text("List"),
+          backgroundColor: (colorAppBar),
+
       ),
       body: Column(
         children: [

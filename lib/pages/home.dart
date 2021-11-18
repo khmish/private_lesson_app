@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/pages/orders/myorders_page.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
-import 'package:private_lesson_app/pages/test_refresh_page/refresh_page.dart';
 
 class MyHome extends StatefulWidget {
   MyHome({Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: (colorAppBar),
         automaticallyImplyLeading: true,
         title: Text(
           'Private Lesson',
@@ -112,7 +113,7 @@ Widget getBody(int page) {
     case 0:
       return SearchWidget();
     case 1:
-      return ListViewRefreshPage();
+      return MyordersPage();
     default:
       return MyprofileScreen();
   }

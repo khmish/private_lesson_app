@@ -1,3 +1,4 @@
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +42,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+          backgroundColor: (colorAppBar),
+
       ),
       drawer: Drawer(
         child: ListView(

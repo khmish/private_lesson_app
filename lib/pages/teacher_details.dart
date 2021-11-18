@@ -40,6 +40,8 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('profile'),
+          backgroundColor: (colorAppBar),
+
         ),
         body: isLoading
             ? Center(

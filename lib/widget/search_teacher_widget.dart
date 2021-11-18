@@ -31,7 +31,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                           : 1,
                   mainAxisSpacing: 2,
                   crossAxisSpacing: 2,
-                  mainAxisExtent: 200),
+                  mainAxisExtent: 150),
               // shrinkWrap: true,
               scrollDirection: Axis.vertical,
               itemCount: widget.tutorsList.length,
@@ -40,7 +40,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                 return Container(
                   margin: EdgeInsets.symmetric(horizontal: 5, vertical: 23),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Color(0xFF2F2F2F),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: GestureDetector(
@@ -49,8 +49,8 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => DetailScreen(),
-                            settings:
-                                RouteSettings(arguments: widget.tutorsList[index])),
+                            settings: RouteSettings(
+                                arguments: widget.tutorsList[index])),
                       );
                     },
                     child: Stack(
@@ -58,19 +58,61 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                       // alignment: Alignment.center,
                       overflow: Overflow.visible,
                       children: [
+                        // ********************Picture *******************************
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              LayoutBuilder(builder:
+                                  (context, BoxConstraints constraints) {
+                                double widthCon =
+                                    MediaQuery.of(context).size.width*.9;
+                                double maxwidthCon =0;
+                                if (widthCon >= 1000) {
+                                  maxwidthCon = widthCon / 3;
+                                } else if (widthCon >= 600) {
+                                  maxwidthCon = widthCon / 2;
+
+                                } else {
+                                  maxwidthCon = widthCon ;
+
+                                }
+
+                                return Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 5),
+                                  
+                                  width: maxwidthCon,
+                                  height: 60,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(12)),
+                                  child: Image.network(
+                                    'https://thumbs.dreamstime.com/b/back-to-school-background-copy-space-121767227.jpg',
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
+                        ),
+
                         // ********************Name *******************************
                         Positioned(
                           top: 0,
                           left: 0,
                           child: Container(
-                            padding:
-                                EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                            margin:
-                                EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                            decoration: BoxDecoration(
-                              color: Colors.greenAccent[100],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                            // decoration: BoxDecoration(
+                            //   color: Color(0xFFFF6F25),
+                            //   borderRadius: BorderRadius.circular(10),
+                            // ),
                             child: ConstrainedBox(
                               constraints: BoxConstraints(
                                 maxWidth: 140,
@@ -79,6 +121,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                                 '${widget.tutorsList[index].name}',
                                 style: TextStyle(
                                   fontSize: 20,
+                                  color: Color(0xFFFF6F25),
                                   fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,
@@ -86,45 +129,16 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                             ),
                           ),
                         ),
-                        // ********************Picture *******************************
-                        Positioned(
-                          bottom: -10,
-                          left: 0,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              ImageFiltered(
-                                imageFilter: ImageFilter.blur(
-                                  sigmaX: 2,
-                                  sigmaY: 2,
-                                ),
-                                child: Padding(
-                                  padding:
-                                      EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                                  child: Container(
-                                    width: 110,
-                                    height: 110,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12)),
-                                    child: Image.network(
-                                      'https://picsum.photos/seed/305/600',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+
                         // ********************Stars *******************************
                         Positioned(
                           bottom: -25,
                           right: -10,
                           child: Container(
-                            margin:
-                                EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                            padding:
-                                EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
                             decoration: BoxDecoration(
                               color: Colors.amber,
                               borderRadius: BorderRadius.circular(10),
@@ -163,18 +177,19 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                           top: 0,
                           right: 0,
                           child: Container(
-                            margin:
-                                EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                            padding:
-                                EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                            decoration: BoxDecoration(
-                              color: Colors.redAccent[100],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                            // decoration: BoxDecoration(
+                            //   color: Colors.redAccent[100],
+                            //   borderRadius: BorderRadius.circular(10),
+                            // ),
                             child: Text(
-                              '${widget.tutorsList[index].price} / hour',
+                              '\$${widget.tutorsList[index].price}',
                               style: TextStyle(
                                 fontSize: 20,
+                                color: Color(0xFFFFFFFF),
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -183,15 +198,21 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                         // ********************Subjects *******************************
                         Positioned(
                           top: 50,
-                          left: 120,
+                          left: 20,
                           child: Container(
-                            width: 200,
-                            height: 77,
+                            width: 400,
+                            height: 40,
                             child: GridView.builder(
-                              itemCount: widget.tutorsList[index].subjects.length>6?6:widget.tutorsList[index].subjects.length,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount:
+                                  widget.tutorsList[index].subjects.length > 4
+                                      ? 4
+                                      : widget
+                                          .tutorsList[index].subjects.length,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3, mainAxisExtent: 40),
+                                      crossAxisCount: 1, mainAxisExtent: 70),
                               itemBuilder: (context, index1) {
                                 return Container(
                                   alignment: Alignment.center,
@@ -204,13 +225,18 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    "${widget.tutorsList[index].subjects[index1].subject}"
+                                    "${widget.tutorsList[index].subjects[index1].subject}",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 );
                               },
                             ),
                           ),
-                          
                         )
                       ],
                     ),

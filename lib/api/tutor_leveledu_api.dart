@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:private_lesson_app/models/tutor.dart';
 import 'package:private_lesson_app/models/tutor_leveleduction.dart';
 
 class TutorLeveleducationAPI {

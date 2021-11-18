@@ -17,7 +17,6 @@ class _SelectListWidgetState extends State<SelectListWidget> {
   List<bool> localval = <bool>[];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     searchList = widget.list;
     for (var itemlist in widget.list) {

@@ -1,7 +1,5 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/city.dart';
@@ -50,7 +48,6 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
     });
   }
 
-  var _baseUrlRegisterUser = 'https://privatelesson.herokuapp.com/api/user';
 
   @override
   Widget build(BuildContext context) {

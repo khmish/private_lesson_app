@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:private_lesson_app/models/city.dart';
 import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/models/lesson.dart';
 
@@ -9,18 +8,18 @@ class LessonAPI {
 
   // get Lesson*****************************************************
   static Future<List<Lesson>> getLessons(
-      {String? student_id, String? teacher_id}) async {
+      {String? studentId, String? teacherId}) async {
     var baseUrl = _baseUrlLesson;
-    List<Lesson> LessonList = [];
+    List<Lesson> lessonList = [];
     try {
       // if (page > 0) {
-      student_id = student_id ?? '';
-      teacher_id = teacher_id ?? '';
+      studentId = studentId ?? '';
+      teacherId = teacherId ?? '';
       baseUrl = _baseUrlLesson +
           "?student_id=" +
-          student_id +
+          studentId +
           "&teacher_id=" +
-          teacher_id;
+          teacherId;
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.get(
@@ -37,15 +36,15 @@ class LessonAPI {
 
         for (var i = 0; i < body.length; i++) {
           Lesson lesson = Lesson.fromJson(body[i]);
-          LessonList.add(lesson);
+          lessonList.add(lesson);
         }
-        return LessonList;
+        return lessonList;
       } else {
-        return LessonList;
+        return lessonList;
       }
     } catch (e) {
       print(e);
-      return LessonList;
+      return lessonList;
     }
   }
 

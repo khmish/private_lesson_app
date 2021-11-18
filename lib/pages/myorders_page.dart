@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/lesson_api.dart';
 import 'package:private_lesson_app/models/lesson.dart';
 import 'package:private_lesson_app/models/user.dart';
-import 'package:private_lesson_app/pages/main_search.dart';
 import '../constants/size_const.dart';
 
 class MyordersPage extends StatefulWidget {
@@ -73,14 +72,14 @@ class _MyordersPageState extends State<MyordersPage> {
       });
     }).whenComplete(() {
       if (myuser.role == "tutor") {
-        LessonAPI.getLessons(teacher_id: myuser.id.toString())
+        LessonAPI.getLessons(teacherId: myuser.id.toString())
             .then((orderlist) {
           setState(() {
             lessons = orderlist;
           });
         });
       } else if (myuser.role == "student") {
-        LessonAPI.getLessons(student_id: myuser.id.toString())
+        LessonAPI.getLessons(studentId: myuser.id.toString())
             .then((orderlist) {
           setState(() {
             lessons = orderlist;

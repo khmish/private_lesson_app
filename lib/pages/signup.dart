@@ -1,14 +1,11 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/register.dart';
 import 'package:private_lesson_app/models/user.dart';
-import 'package:private_lesson_app/pages/main_search.dart';
 
 class SignupWidget extends StatefulWidget {
   SignupWidget({Key? key}) : super(key: key);

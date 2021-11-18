@@ -20,9 +20,6 @@ class _MyorderPageState extends State<MyorderPage> {
   late TextEditingController emailController;
   late TextEditingController phoneController;
   late TextEditingController passwordController;
-  late List<String> _genderList = ['male', 'female'];
-  String _genderSelectedValue = "male";
-  late int _citySelectedValue = 1;
   late bool passwordVisibility;
 
   late TextEditingController cityNameController;
@@ -58,14 +55,14 @@ class _MyorderPageState extends State<MyorderPage> {
       });
     }).whenComplete(() {
       if (myuser.role == "tutor") {
-        LessonAPI.getLessons(teacher_id: myuser.id.toString())
+        LessonAPI.getLessons(teacherId: myuser.id.toString())
             .then((orderlist) {
           setState(() {
             lessons = orderlist;
           });
         });
       } else if (myuser.role == "student") {
-        LessonAPI.getLessons(student_id: myuser.id.toString())
+        LessonAPI.getLessons(studentId: myuser.id.toString())
             .then((orderlist) {
           setState(() {
             lessons = orderlist;

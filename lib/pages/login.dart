@@ -1,10 +1,8 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
-import 'package:http/http.dart' as http;
 
 class LoginPageWidget extends StatefulWidget {
   LoginPageWidget({Key? key}) : super(key: key);

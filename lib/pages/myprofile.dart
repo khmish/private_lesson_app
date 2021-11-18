@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/user_api.dart';
-import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
-import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

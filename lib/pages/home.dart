@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:private_lesson_app/pages/myorders_page.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
-import 'package:private_lesson_app/pages/myorder_page.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
 
 class MyHome extends StatefulWidget {
@@ -90,15 +89,15 @@ class _MyHomeState extends State<MyHome> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text("Home"),
+            label: ("Home"),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.reorder_sharp),
-            title: Text("My Order"),
+            label: ("My Order"),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_rounded),
-            title: Text("My Profile"),
+            label: ("My Profile"),
           ),
         ],
         type: BottomNavigationBarType.fixed,

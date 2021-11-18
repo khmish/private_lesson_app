@@ -8,10 +8,17 @@ import 'package:private_lesson_app/pages/register_login/signup_teacher.dart';
 import 'package:private_lesson_app/pages/teacher_profile.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'pages/register_login/login.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(MaterialApp(
     //here2
     initialRoute: '/home',

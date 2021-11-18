@@ -4,6 +4,7 @@ import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myorder_page.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
+import 'package:private_lesson_app/pages/test_refresh_page/refresh_page.dart';
 
 class MyHome extends StatefulWidget {
   MyHome({Key? key}) : super(key: key);
@@ -112,7 +113,7 @@ Widget getBody(int page) {
     case 0:
       return SearchWidget();
     case 1:
-      return MyordersPage();
+      return ListViewRefreshPage();
     default:
       return MyprofileScreen();
   }

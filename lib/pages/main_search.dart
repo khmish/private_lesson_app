@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/api/tutor_search_api.dart';
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/api/subject_api.dart';
 import 'package:private_lesson_app/models/subject.dart';
@@ -85,12 +86,13 @@ class _SearchWidgetState extends State<SearchWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       //body
+      backgroundColor: colorBG,
       body: SafeArea(
         //child: _widgetOptions.elementAt[_currentIndex],
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,
-          color: Colors.blueGrey[50],
+          // color: Colors.blueGrey[50],
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             children: [

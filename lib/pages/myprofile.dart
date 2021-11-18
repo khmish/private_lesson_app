@@ -17,8 +17,8 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool isLoading = false;
-User myuser =
-        new User(id: -1, name: '', email: '', city: -1, phone: '', gender: '');
+  User myuser =
+      new User(id: -1, name: '', email: '', city: -1, phone: '', gender: '');
   @override
   void initState() {
     super.initState();
@@ -40,7 +40,7 @@ User myuser =
     final storage = await SharedPreferences.getInstance();
     String token = storage.getString("token").toString();
     print(token + " ********************* ");
-    User user= await UserAPI.me(token);
+    User user = await UserAPI.me(token);
     return user;
   }
 
@@ -50,9 +50,6 @@ User myuser =
     // final thisuser =
     //     ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
 
-    
-
-    
     // checksIfLogIn().then((value) {
     //   if (value.id! > 1) {
     //     ScaffoldMessenger.of(context).showSnackBar(
@@ -74,15 +71,17 @@ User myuser =
 
     // Use the Todo to create the UI.
     return Scaffold(
-        appBar: AppBar(
-          title: Text('test profile'),
+        
           backgroundColor: (colorAppBar),
-        ),
+        // appBar: AppBar(
+        //   title: Text('test profile'),
+        // ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
                 decoration: BoxDecoration(
+                    color: colorBG,
                     image: DecorationImage(
                         image: NetworkImage("add you image URL here "),
                         fit: BoxFit.cover)),
@@ -108,7 +107,7 @@ User myuser =
                 'Name: ${myuser.name}',
                 style: TextStyle(
                     fontSize: 25.0,
-                    color: Colors.blueGrey,
+                    color: colorText,
                     letterSpacing: 2.0,
                     fontWeight: FontWeight.w400),
               ),
@@ -120,7 +119,7 @@ User myuser =
                 'Email: ${myuser.email}',
                 style: TextStyle(
                     fontSize: 18.0,
-                    color: Colors.black45,
+                    color: colorText,
                     letterSpacing: 2.0,
                     fontWeight: FontWeight.w300),
               ),

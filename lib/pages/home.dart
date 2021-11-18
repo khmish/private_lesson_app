@@ -17,6 +17,7 @@ class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: colorBG,
       appBar: AppBar(
         backgroundColor: (colorAppBar),
         automaticallyImplyLeading: true,

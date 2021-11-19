@@ -106,7 +106,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
 
                         // ********************Name *******************************
                         Positioned(
-                          top: 0,
+                          top: -3,
                           left: 0,
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -119,20 +119,26 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                             // ),
                             child: ConstrainedBox(
                               constraints: BoxConstraints(
-                                maxWidth: 140,
+                                maxWidth: 200,
                               ),
-                              child: Text(
-                                '${widget.tutorsList[index].name}',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: (colorMainText),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                              child:Chip(
+                                backgroundColor: colorBackGround,
+                                  avatar: CircleAvatar(
+                                    backgroundColor: (colorMainText),
+                                    child: Text("Te"),
+                                  ),
+                                  label: Text(
+                                    '${widget.tutorsList[index].name}',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: (colorMainText),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),), 
                             ),
                           ),
-                        ),
 
                         // ********************Stars *******************************
                         Positioned(

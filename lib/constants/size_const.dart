@@ -18,13 +18,24 @@ Future<User> checksIfLogIn() async {
   return user;
 }
 
+Future<bool> checksIfHasToken() async {
+  // bool isLogged = false;
+  final storage = await SharedPreferences.getInstance();
+  String token = storage.getString("token").toString();
+  if (token.isNotEmpty) {
+    return true;
+  }
+  return false;
+}
+
 //******************************* summer mode********************* */
 Color colorContainerBox = Color(0xFFdd6e42);
 Color colorBackGround = Color(0xFFe8dab2);
 Color colorMainText = Color(0xFF253237);
 Color colorHeaderText = Colors.black;
-Color colorInputTextBox =Color(0xFF253237);
+Color colorInputTextBox = Color(0xFF253237);
 Color colorPrimaryBTN = Color(0xFF4f5d75);
+Color colorSecondaryBTN = Color(0xFF8290AA);
 Color colorPrimaryText = Color(0xFFe8dab2);
 //******************************* summer inverted mode********************* */
 // Color colorContainerBox = Color(0xFFe8dab2);
@@ -33,6 +44,7 @@ Color colorPrimaryText = Color(0xFFe8dab2);
 // Color colorHeaderText = Colors.black;
 // Color colorInputTextBox = Colors.black45;
 // Color colorPrimaryBTN = Color(0xFF4f5d75);
+// Color colorSecondaryBTN = Color(0xFF68768F);
 // Color colorPrimaryText = Color(0xFFe8dab2);
 
 // ****************************** dark mode*******************
@@ -42,4 +54,5 @@ Color colorPrimaryText = Color(0xFFe8dab2);
 // Color colorHeaderText = Colors.white60;
 // Color colorInputTextBox = Colors.white60;
 // Color colorPrimaryBTN = Color(0xFFbfc0c0);
+// Color colorSecondaryBTN = Color(0xFF68768F);
 // Color colorPrimaryText = Color(0xFF2d3142);

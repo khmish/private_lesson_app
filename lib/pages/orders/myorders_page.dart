@@ -134,64 +134,67 @@ class _MyordersPageState extends State<MyordersPage> {
                   scrollDirection: Axis.vertical,
                   children: [
                     ElevatedButton.icon(
+                      label: Text("All",style: TextStyle(color: colorPrimaryText  ),),
+                      
                       style: ButtonStyle(
+                        
                         backgroundColor: _isVisibleAll
-                            ? MaterialStateProperty.all<Color>(Colors.blue)
+                            ? MaterialStateProperty.all<Color>(colorPrimaryBTN)
                             : MaterialStateProperty.all<Color>(
-                                Colors.blue.shade100),
+                                colorSecondaryBTN),
                       ),
                       onPressed: () {
                         showAllPage();
                       },
-                      label: Text('All'),
+                      
                       icon: Icon(
                         Icons.subject,
                         size: 15,
                       ),
                     ),
                     ElevatedButton.icon(
+                      label: Text("New",style: TextStyle(color: colorPrimaryText  ),),
                       style: ButtonStyle(
                         backgroundColor: _isVisibleNew
-                            ? MaterialStateProperty.all<Color>(Colors.blue)
+                            ? MaterialStateProperty.all<Color>(colorPrimaryBTN)
                             : MaterialStateProperty.all<Color>(
-                                Colors.blue.shade100),
+                                colorSecondaryBTN),
                       ),
                       onPressed: () {
                         showNewPage();
                       },
-                      label: Text('New'),
                       icon: Icon(
                         Icons.add,
                         size: 15,
                       ),
                     ),
                     ElevatedButton.icon(
+                      label: Text("Accepted",style: TextStyle(color: colorPrimaryText  ),),
                       style: ButtonStyle(
                         backgroundColor: _isVisibleAccepted
-                            ? MaterialStateProperty.all<Color>(Colors.blue)
+                            ? MaterialStateProperty.all<Color>(colorPrimaryBTN)
                             : MaterialStateProperty.all<Color>(
-                                Colors.blue.shade100),
+                                colorSecondaryBTN),
                       ),
                       onPressed: () {
                         showAcceptedPage();
                       },
-                      label: Text('Accepted'),
                       icon: Icon(
                         Icons.done,
                         size: 15,
                       ),
                     ),
                     ElevatedButton.icon(
+                      label: Text("Canceled",style: TextStyle(color: colorPrimaryText  ),),
                       style: ButtonStyle(
                         backgroundColor: _isVisibleCanceled
-                            ? MaterialStateProperty.all<Color>(Colors.blue)
+                            ? MaterialStateProperty.all<Color>(colorPrimaryBTN)
                             : MaterialStateProperty.all<Color>(
-                                Colors.blue.shade100),
+                                colorSecondaryBTN),
                       ),
                       onPressed: () {
                         showCanceledPage();
                       },
-                      label: Text('Canceled'),
                       icon: Icon(
                         Icons.cancel_outlined,
                         size: 15,

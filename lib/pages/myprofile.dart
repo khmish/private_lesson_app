@@ -35,40 +35,11 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
 // class MyprofileScreen extends StatelessWidget {
 //   MyprofileScreen({Key? key}) : super(key: key);
 
-  Future<User> checksIfLogIn() async {
-    // bool isLogged = false;
-    final storage = await SharedPreferences.getInstance();
-    String token = storage.getString("token").toString();
-    print(token + " ********************* ");
-    User user = await UserAPI.me(token);
-    return user;
-  }
+  
 
   @override
   Widget build(BuildContext context) {
-    //final myuser = ModalRoute.of(context)!.settings.arguments as User;
-    // final thisuser =
-    //     ModalRoute.of(context)!.settings.arguments as TutorSubsLvEd;
-
-    // checksIfLogIn().then((value) {
-    //   if (value.id! > 1) {
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(
-    //         backgroundColor: Colors.green,
-    //         content: Text("you are registered!! ${value.name}"),
-    //       ),
-    //     );
-    //   } else {
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(
-    //         backgroundColor: Colors.red,
-    //         content: Text("register first to get the service!!"),
-    //       ),
-    //     );
-    //     Navigator.of(context).pushNamed("/login");
-    //   }
-    // });
-
+    
     // Use the Todo to create the UI.
     return Scaffold(
         backgroundColor: (colorContainerBox),

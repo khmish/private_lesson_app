@@ -102,7 +102,7 @@ class _MyordersPageState extends State<MyordersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorBG,
+      backgroundColor: colorBackGround,
       // key: scaffoldKey,
       // appBar: AppBar(
       //   automaticallyImplyLeading: true,

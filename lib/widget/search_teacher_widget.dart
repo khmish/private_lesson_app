@@ -41,7 +41,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                 return Container(
                   margin: EdgeInsets.symmetric(horizontal: 5, vertical: 23),
                   decoration: BoxDecoration(
-                    color: (colorAppBar),
+                    color: (colorContainerBox),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: GestureDetector(
@@ -125,7 +125,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                                 '${widget.tutorsList[index].name}',
                                 style: TextStyle(
                                   fontSize: 20,
-                                  color: (colorText),
+                                  color: (colorMainText),
                                   fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,
@@ -193,7 +193,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                               '\$${widget.tutorsList[index].price}',
                               style: TextStyle(
                                 fontSize: 20,
-                                color: Color(0xFFFFFFFF),
+                                color: colorHeaderText,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),

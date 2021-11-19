@@ -42,16 +42,16 @@ class _DrpCityWidgetState extends State<DrpCityWidget> {
           }).toList(),
           decoration: InputDecoration(
             labelText: widget.title,
-            labelStyle: TextStyle(color: colorBox),
-            fillColor: colorBox,
+            labelStyle: TextStyle(color: colorInputTextBox),
+            fillColor: colorInputTextBox,
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: colorBox,
+                color: colorInputTextBox,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: colorBox,
+                color: colorInputTextBox,
               ),
             ),
           ),

@@ -56,7 +56,7 @@ class _SignupWidgetState extends State<SignupWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       // key: scaffoldKey,
-backgroundColor: (colorBG),
+backgroundColor: (colorBackGround),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : Center(
@@ -71,7 +71,7 @@ backgroundColor: (colorBG),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     shape: BoxShape.rectangle,
-                    color: (colorAppBar),
+                    color: (colorContainerBox),
 
                     border: Border.all(
                       color: Color(0xFFA6A4A4),
@@ -92,7 +92,7 @@ backgroundColor: (colorBG),
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: (colorText),
+                              color: (colorMainText),
                             ),
                           ),
                         ),

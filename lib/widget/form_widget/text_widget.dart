@@ -30,25 +30,25 @@ class TextWidget {
         controller: textController,
         obscureText: false,
         style: TextStyle(
-          color: colorBox,
+          color: colorInputTextBox,
         ),
         decoration: InputDecoration(
           labelText: title,
-          labelStyle: TextStyle(color: colorBox),
-          fillColor: colorBox,
+          labelStyle: TextStyle(color: colorInputTextBox),
+          fillColor: colorInputTextBox,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: colorBox,
+              color: colorInputTextBox,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: colorBox,
+              color: colorInputTextBox,
             ),
           ),
           prefixIcon: Icon(
             icon,
-            color: colorBox,
+            color: colorInputTextBox,
           ),
         ),
         keyboardType: keyboardTp==0?TextInputType.text:keyboardTp==1?TextInputType.emailAddress:TextInputType.number,

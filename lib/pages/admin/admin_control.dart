@@ -65,12 +65,12 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-         backgroundColor: colorBG,
+         backgroundColor: colorBackGround,
 
       //------------------------------------appBar---------------------------
       appBar: AppBar(
         automaticallyImplyLeading: true,
-         backgroundColor: (colorAppBar),
+         backgroundColor: (colorContainerBox),
         title: Text(
           'Admin Page',
         ),

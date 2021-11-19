@@ -75,7 +75,7 @@ class _SignupWidgetState extends State<teacher_profile> {
       //key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: true,
-          backgroundColor: (colorAppBar),
+          backgroundColor: (colorContainerBox),
 
         title: Text(
           'Private Lesson',

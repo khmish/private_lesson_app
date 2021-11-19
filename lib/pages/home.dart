@@ -17,72 +17,80 @@ class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorBG,
+      backgroundColor: colorBackGround,
       appBar: AppBar(
-        backgroundColor: (colorAppBar),
+        backgroundColor: (colorContainerBox),
+        iconTheme: IconThemeData(color: colorHeaderText),
         automaticallyImplyLeading: true,
         title: Text(
           'Private Lesson',
+          style: TextStyle(color: colorHeaderText),
         ),
         actions: [],
         centerTitle: true,
         elevation: 4,
       ),
       drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Header',
-                //style: textTheme.headline6,
+
+        child: Container(
+          color: colorBackGround,
+          child: ListView(
+            
+            // Important: Remove any padding from the ListView.
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              Container(
+                color: colorContainerBox,
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Header',
+                  //style: textTheme.headline6,
+                ),
               ),
-            ),
-            Divider(
-              height: 1,
-              thickness: 1,
-            ),
+              Divider(
+                height: 1,
+                thickness: 1,
+              ),
 
-            // ),
+              // ),
 
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Admin Control Page'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AdminControlWidget()),
-                  );
-                }),
+              ListTile(
+                  leading: Icon(Icons.label),
+                  title: Text('Admin Control Page'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AdminControlWidget()),
+                    );
+                  }),
 
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Teacher Signup'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singupTeacher');
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Signup'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singup');
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Login'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/login');
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('My Profile'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singup');
-                }),
-          ],
+              ListTile(
+                  leading: Icon(Icons.label),
+                  title: Text('Teacher Signup'),
+                  onTap: () {
+                    Navigator.of(context).popAndPushNamed('/singupTeacher');
+                  }),
+              ListTile(
+                  leading: Icon(Icons.label),
+                  title: Text('Signup'),
+                  onTap: () {
+                    Navigator.of(context).popAndPushNamed('/singup');
+                  }),
+              ListTile(
+                  leading: Icon(Icons.label),
+                  title: Text('Login'),
+                  onTap: () {
+                    Navigator.of(context).popAndPushNamed('/login');
+                  }),
+              ListTile(
+                  leading: Icon(Icons.label),
+                  title: Text('My Profile'),
+                  onTap: () {
+                    Navigator.of(context).popAndPushNamed('/singup');
+                  }),
+            ],
+          ),
         ),
       ),
       body: getBody(page),

@@ -86,7 +86,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       //body
-      backgroundColor: colorBG,
+      backgroundColor: colorBackGround,
       body: SafeArea(
         //child: _widgetOptions.elementAt[_currentIndex],
         child: Container(

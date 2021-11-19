@@ -33,7 +33,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: (colorBG),
+      backgroundColor: (colorBackGround),
 
       //key: scaffoldKey,
       body: _isLoading == true
@@ -52,7 +52,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     shape: BoxShape.rectangle,
-                    color: (colorAppBar),
+                    color: (colorContainerBox),
 
                     // border: Border.all(
                     //   width: 1,
@@ -73,12 +73,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: (colorText),
+                              color: (colorMainText),
                             ),
                           ),
                         ),
-                        TextWidget.textWidget('Email', length: 70, textController: emailController, icon: Icons.email),
-                        PasswordTextWidget( length: 20, textController: passwordController),
+                        TextWidget.textWidget('Email',
+                            length: 70,
+                            textController: emailController,
+                            icon: Icons.email),
+                        PasswordTextWidget(
+                            length: 20, textController: passwordController),
                         Padding(
                           //------------Login Button--------------------------
                           padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
@@ -87,7 +91,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             width: double.infinity,
                             height: 40,
                             child: ElevatedButton.icon(
-                              label: Text("login"),
+                              label: Text("login",style: TextStyle(color: colorPrimaryText  ),),
+                              style: ElevatedButton.styleFrom(
+                                primary: colorPrimaryBTN,
+                              ),
                               onPressed: () {
                                 if (scaffoldKey.currentState!.validate()) {
                                   setState(() {
@@ -116,6 +123,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               },
                               icon: Icon(
                                 Icons.login_outlined,
+                                color: colorPrimaryText,
                                 size: 15,
                               ),
                             ),

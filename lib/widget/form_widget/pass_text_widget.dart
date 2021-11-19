@@ -36,25 +36,25 @@ class _PasswordTextWidgetState extends State<PasswordTextWidget> {
         controller: widget.textController,
         obscureText: !passwordVisibility,
         style: TextStyle(
-          color: colorBox,
+          color: colorInputTextBox,
         ),
         decoration: InputDecoration(
           labelText: 'Password',
-          labelStyle: TextStyle(color: colorBox),
-          fillColor: colorBox,
+          labelStyle: TextStyle(color: colorInputTextBox),
+          fillColor: colorInputTextBox,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: colorBox,
+              color: colorInputTextBox,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: colorBox,
+              color: colorInputTextBox,
             ),
           ),
           prefixIcon: Icon(
             Icons.lock,
-            color: colorBox,
+            color: colorInputTextBox,
           ),
           suffixIcon: InkWell(
             onTap: () => setState(
@@ -64,7 +64,7 @@ class _PasswordTextWidgetState extends State<PasswordTextWidget> {
               passwordVisibility
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
-              color: colorBox,
+              color: colorInputTextBox,
               size: 22,
             ),
           ),

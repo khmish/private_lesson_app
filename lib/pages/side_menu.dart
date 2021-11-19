@@ -42,7 +42,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-          backgroundColor: (colorAppBar),
+          backgroundColor: (colorContainerBox),
 
       ),
       drawer: Drawer(

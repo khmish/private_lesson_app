@@ -56,13 +56,12 @@ class _SignupWidgetState extends State<SignupWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       // key: scaffoldKey,
-backgroundColor: (colorBackGround),
+      backgroundColor: (colorBackGround),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : Center(
               child: SingleChildScrollView(
                 child: Container(
-
                   margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   width: MediaQuery.of(context).size.width > 1000
@@ -72,7 +71,6 @@ backgroundColor: (colorBackGround),
                     borderRadius: BorderRadius.circular(12),
                     shape: BoxShape.rectangle,
                     color: (colorContainerBox),
-
                     border: Border.all(
                       color: Color(0xFFA6A4A4),
                       width: 1,
@@ -162,7 +160,8 @@ backgroundColor: (colorBackGround),
                                           content: Text("saved!"),
                                         ),
                                       );
-                                      Navigator.of(context).popAndPushNamed("/login");
+                                      Navigator.of(context)
+                                          .popAndPushNamed("/login");
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(

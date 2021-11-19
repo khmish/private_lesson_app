@@ -4,6 +4,7 @@ import 'package:private_lesson_app/pages/orders/myorders_page.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
+import 'package:private_lesson_app/widget/drawer_widget.dart';
 
 class MyHome extends StatefulWidget {
   MyHome({Key? key}) : super(key: key);
@@ -30,69 +31,7 @@ class _MyHomeState extends State<MyHome> {
         centerTitle: true,
         elevation: 4,
       ),
-      drawer: Drawer(
-
-        child: Container(
-          color: colorBackGround,
-          child: ListView(
-            
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              Container(
-                color: colorContainerBox,
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Header',
-                  //style: textTheme.headline6,
-                ),
-              ),
-              Divider(
-                height: 1,
-                thickness: 1,
-              ),
-
-              // ),
-
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('Admin Control Page'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AdminControlWidget()),
-                    );
-                  }),
-
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('Teacher Signup'),
-                  onTap: () {
-                    Navigator.of(context).popAndPushNamed('/singupTeacher');
-                  }),
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('Signup'),
-                  onTap: () {
-                    Navigator.of(context).popAndPushNamed('/singup');
-                  }),
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('Login'),
-                  onTap: () {
-                    Navigator.of(context).popAndPushNamed('/login');
-                  }),
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('My Profile'),
-                  onTap: () {
-                    Navigator.of(context).popAndPushNamed('/singup');
-                  }),
-            ],
-          ),
-        ),
-      ),
+      drawer: DrawerWidget.drawerWidget(context),
       body: getBody(page),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: page,

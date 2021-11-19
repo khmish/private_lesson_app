@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
+import 'package:private_lesson_app/widget/admin_widget/cities_widget.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 
@@ -57,7 +58,7 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -124,7 +125,7 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                               cityNameController.text,
                                               countryController.text);
                                         },
-                                        label: Text('submit'),
+                                        label: Text('Save'),
                                         icon: Icon(
                                           Icons.add,
                                           size: 15,
@@ -139,7 +140,13 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                         );
                       });
                 },
-                child: Text("Add city"),
+                style: ElevatedButton.styleFrom(
+                  shape: CircleBorder(),
+                  padding: EdgeInsets.all(20),
+                  // primary: Colors.blue, // <-- Button color
+                  // onPrimary: Colors.red, // <-- Splash color
+                ),
+                child: Icon(Icons.add),
               ),
             ],
           ),
@@ -245,16 +252,6 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                   tempCity = city;
                                   Navigator.pop(context, false);
                                 });
-                                
-                                // .then((value) {
-                                //   if (value) {
-                                //     Navigator.pop(context, false);
-                                //     showSnackBar(context, 'Updated successfully');
-                                //   } else {
-                                //     Navigator.pop(context, false);
-                                //     showSnackBar(context, 'wrong something');
-                                //   }
-                                // });
                               },
                               label: Text('submit'),
                               icon: Icon(
@@ -270,7 +267,6 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                 ),
               );
             }).then((value) {
-              
           if (tempCity.id == -1) {
             showSnackBar(context, 'wrong something');
           } else {
@@ -305,26 +301,13 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
 
   //************************************************Build List city
   Widget buildListTileCity(City item) => ListTile(
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
+        // contentPadding: EdgeInsets.symmetric(
+        //   horizontal: 16,
+        //   vertical: 16,
+        // ),
+        title: CitiesAdminWidget(
+          citiesList: item,
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              item.name,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            Text(item.countryName)
-          ],
-        ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SearchWidget()),
-          );
-        },
+        onTap: () {},
       );
 }

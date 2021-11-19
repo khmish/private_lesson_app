@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
+import 'package:private_lesson_app/widget/admin_widget/subLvl_widget.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 
@@ -56,7 +57,7 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -126,7 +127,13 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
                         );
                       });
                 },
-                child: Text("Add level education"),
+                style: ElevatedButton.styleFrom(
+                  shape: CircleBorder(),
+                  padding: EdgeInsets.all(20),
+                  // primary: Colors.blue, // <-- Button color
+                  // onPrimary: Colors.red, // <-- Splash color
+                ),
+                child: Icon(Icons.add),
               ),
             ],
           ),
@@ -261,20 +268,9 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
           horizontal: 16,
           vertical: 16,
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              item.name,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
+        title: ItemAdminWidget( itemsList: item,) ,
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SearchWidget()),
-          );
+         
         },
       );
 }

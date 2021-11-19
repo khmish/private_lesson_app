@@ -6,6 +6,7 @@ import 'package:private_lesson_app/pages/admin/admin_users.dart';
 import 'package:private_lesson_app/pages/admin/admin_cities.dart';
 import 'package:private_lesson_app/pages/admin/admin_leveleducations.dart';
 import 'package:private_lesson_app/pages/admin/admin_subjects.dart';
+import '../../widget/drawer_widget.dart';
 
 class AdminControlWidget extends StatefulWidget {
   AdminControlWidget({Key? key}) : super(key: key);
@@ -69,10 +70,12 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
 
       //------------------------------------appBar---------------------------
       appBar: AppBar(
+        backgroundColor: (colorContainerBox),
+        iconTheme: IconThemeData(color: colorHeaderText),
         automaticallyImplyLeading: true,
-         backgroundColor: (colorContainerBox),
         title: Text(
           'Admin Page',
+          style: TextStyle(color: colorHeaderText),
         ),
         actions: [],
         centerTitle: true,
@@ -80,60 +83,7 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
       ),
 
       //------------------------------------drawer---------------------------
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Menue',
-                //style: textTheme.headline6,
-              ),
-            ),
-            Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Admin Control Page'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AdminControlWidget()),
-                  );
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Teacher Signup'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singupTeacher');
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Signup'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singup');
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Login'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/login');
-                }),
-            ListTile(
-                leading: Icon(Icons.label),
-                title: Text('My Profile'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singup');
-                }),
-          ],
-        ),
-      ),
-
+      drawer: DrawerWidget.drawerWidget(context),
       //------------------------------------bady---------------------------
       body: SingleChildScrollView(
         child: Container(
@@ -157,64 +107,68 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
                     scrollDirection: Axis.vertical,
                     children: [
                       ElevatedButton.icon(
+                        label: Text("Users",style: TextStyle(color: colorPrimaryText  ),),
+                        
                         style: ButtonStyle(
                           backgroundColor: _isVisibleUser
-                              ? MaterialStateProperty.all<Color>(Colors.blue)
+                              ? MaterialStateProperty.all<Color>(colorPrimaryBTN)
                               : MaterialStateProperty.all<Color>(
-                                  Colors.blue.shade100),
+                                  colorSecondaryBTN),
                         ),
                         onPressed: () {
                           showUserPage();
                         },
-                        label: Text('Users'),
                         icon: Icon(
                           Icons.person,
                           size: 15,
                         ),
                       ),
                       ElevatedButton.icon(
+                        label: Text("Cities",style: TextStyle(color: colorPrimaryText  ),),
+                        
                         style: ButtonStyle(
                           backgroundColor: _isVisibleCity
-                              ? MaterialStateProperty.all<Color>(Colors.blue)
+                              ? MaterialStateProperty.all<Color>(colorPrimaryBTN)
                               : MaterialStateProperty.all<Color>(
-                                  Colors.blue.shade100),
+                                  colorSecondaryBTN),
                         ),
                         onPressed: () {
                           showCityPage();
                         },
-                        label: Text('Cities'),
                         icon: Icon(
                           Icons.location_city,
                           size: 15,
                         ),
                       ),
                       ElevatedButton.icon(
+                        label: Text("Levels education",style: TextStyle(color: colorPrimaryText  ),),
+                        
                         style: ButtonStyle(
                           backgroundColor: _isVisibleLevel
-                              ? MaterialStateProperty.all<Color>(Colors.blue)
+                              ? MaterialStateProperty.all<Color>(colorPrimaryBTN)
                               : MaterialStateProperty.all<Color>(
-                                  Colors.blue.shade100),
+                                  colorSecondaryBTN),
                         ),
                         onPressed: () {
                           showLeveleducationPage();
                         },
-                        label: Text('Levels education'),
                         icon: Icon(
                           Icons.cast_for_education,
                           size: 15,
                         ),
                       ),
                       ElevatedButton.icon(
+                        label: Text("Subjects",style: TextStyle(color: colorPrimaryText  ),),
+                        
                         style: ButtonStyle(
                           backgroundColor: _isVisibleSubject
-                              ? MaterialStateProperty.all<Color>(Colors.blue)
+                              ? MaterialStateProperty.all<Color>(colorPrimaryBTN)
                               : MaterialStateProperty.all<Color>(
-                                  Colors.blue.shade100),
+                                  colorSecondaryBTN),
                         ),
                         onPressed: () {
                           showSubjectPage();
                         },
-                        label: Text('Subjects'),
                         icon: Icon(
                           Icons.subject,
                           size: 15,

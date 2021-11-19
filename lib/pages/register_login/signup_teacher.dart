@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/api/user_api.dart';
@@ -7,6 +6,10 @@ import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/register.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/pages/teacher_profile.dart';
+import 'package:private_lesson_app/widget/form_widget/drp_city_widget.dart';
+import 'package:private_lesson_app/widget/form_widget/drp_widget.dart';
+import 'package:private_lesson_app/widget/form_widget/pass_text_widget.dart';
+import 'package:private_lesson_app/widget/form_widget/text_widget.dart';
 
 class SignupTeacherWidget extends StatefulWidget {
   SignupTeacherWidget({Key? key}) : super(key: key);
@@ -48,12 +51,12 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //key: _formKey,
-      
+      backgroundColor: (colorBackGround),
+
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -68,6 +71,7 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       shape: BoxShape.rectangle,
+                      color: (colorContainerBox),
                       border: Border.all(
                         color: Color(0xFFA6A4A4),
                         width: 1,
@@ -85,186 +89,47 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                                 EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: Text(
                               'Sign UP for Teacher ',
-                            ),
-                          ),
-                          Padding(
-                            //------------Name--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: TextFormField(
-                              controller: nameController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: 'Name',
-                                prefixIcon: Icon(
-                                  Icons.person_outline,
-                                ),
-                              ),
-
-                              maxLength: 70,
-                              maxLengthEnforced: true,
-
-                              //
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your name';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Padding(
-                            //------------Email--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: TextFormField(
-                              controller: emailController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: 'Email',
-                                prefixIcon: Icon(
-                                  Icons.alternate_email,
-                                ),
-                              ),
-
-                              maxLength: 40,
-                              maxLengthEnforced: true,
-
-                              //------------Validate--------------------------
-                              validator: (value) {
-                                // Check if this field is empty
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your email';
-                                }
-
-                                // using regular expression
-                                if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                                  return "Please enter a valid email address";
-                                }
-
-                                // the email is valid
-                                return null;
-                              },
-
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                          ),
-                          Padding(
-                            //------------Gender--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 50,
-                              child: DropdownButtonFormField(
-                                value: _genderSelectedValue,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _genderSelectedValue = newValue.toString();
-                                  });
-                                },
-                                items: _genderList.map((String itemList) {
-                                  return DropdownMenuItem(
-                                    child: Text(itemList),
-                                    value: itemList,
-                                  );
-                                }).toList(),
-                                decoration: const InputDecoration(
-                                  //prefixIcon:Icon(Icons.male),
-                                  border: const OutlineInputBorder(),
-                                ),
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: (colorMainText),
                               ),
                             ),
                           ),
-                          Padding(
-                            //------------Phone--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              controller: phoneController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: 'Phone',
-                                prefixIcon: Icon(
-                                  Icons.phone_android,
-                                ),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter a valid phone number';
-                                }
-                                return null;
-                              },
-                              maxLength: 10,
-                              maxLengthEnforced: true,
-                            ),
+                          //------------Name--------------------------
+                          TextWidget.textWidget("Name",
+                              length: 70,
+                              textController: nameController,
+                              icon: Icons.person_outline,
+                              keyboardTp: 0),
+                          //------------Email--------------------------
+                          TextWidget.textWidget("Email",
+                              length: 70,
+                              textController: emailController,
+                              icon: Icons.alternate_email,
+                              keyboardTp: 1),
+                          //------------Gender--------------------------
+                          DrpWidget(
+                            listObject: _genderList,
+                            selectedValue: _genderSelectedValue,
+                            title: "Gender",
                           ),
-                          Padding(
-                            //------------Password--------------------------
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                constLeft, constTop, constRight, constBottom),
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter a valid password';
-                                }
-                                return null;
-                              },
-                              maxLength: 20,
-                              maxLengthEnforced: true,
-                              controller: passwordController,
-                              obscureText: !passwordVisibility,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: 'Password',
-                                prefixIcon: Icon(
-                                  Icons.lock_outline_rounded,
-                                ),
-                                suffixIcon: InkWell(
-                                  onTap: () => setState(
-                                    () => passwordVisibility =
-                                        !passwordVisibility,
-                                  ),
-                                  child: Icon(
-                                    passwordVisibility
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
-                                    color: Color(0xFF757575),
-                                    size: 22,
-                                  ),
-                                ),
-                              ),
-                            ),
+                          //------------Phone--------------------------
+                          TextWidget.textWidget("Phone",
+                              length: 10,
+                              textController: phoneController,
+                              icon: Icons.phone_android,
+                              keyboardTp: 2),
+                          //------------Password--------------------------
+                          PasswordTextWidget(
+                              length: 20, textController: passwordController),
+                          //------------City--------------------------
+                          DrpCityWidget(
+                            title: "City",
+                            listObject: _cityList,
+                            selectedValue: _citySelectedValue,
                           ),
-                          Padding(
-                              //------------City--------------------------
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  constLeft, constTop, constRight, constBottom),
-                              child: DropdownButtonFormField(
-                                value: _citySelectedValue,
-                                items: _cityList.map((itemList) {
-                                  print(itemList);
-                                  return DropdownMenuItem(
-                                    child: Text(itemList.name),
-                                    value: itemList.id,
-                                  );
-                                }).toList(),
-                                onChanged: (cityId) {
-                                  // log(value);
-                                  print(cityId);
-                                  setState(() {
-                                    _citySelectedValue = cityId as int;
-                                  });
-                                },
-                                decoration: const InputDecoration(
-                                  prefixIcon: Icon(Icons.location_on_rounded),
-                                  border: const OutlineInputBorder(),
-                                ),
-                              )),
+
                           Padding(
                             //------------Register Button--------------------------
                             padding: EdgeInsetsDirectional.fromSTEB(

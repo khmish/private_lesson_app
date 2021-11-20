@@ -7,9 +7,6 @@ import 'package:private_lesson_app/pages/myprofile.dart';
 import 'package:private_lesson_app/widget/drawer_widget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
-
-
-
 class MyHome extends StatefulWidget {
   MyHome({Key? key}) : super(key: key);
 
@@ -18,94 +15,98 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  var pages = [
+    Icon(Icons.home, size: 30),
+  ];
+  bool isLoading = true;
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      isLoading = true;
+    });
+    bool hasTok = false;
+    checksIfHasToken().then((hasToken) {
+      hasTok = hasToken;
+    }).whenComplete(() {
+      if (hasTok) {
+        setState(() {
+          pages = [
+            Icon(Icons.reorder_sharp, size: 30),
+            Icon(Icons.home, size: 30),
+            Icon(Icons.account_circle_rounded, size: 30),
+          ];
+
+          page = 1;
+        });
+      } else {
+        pages = [
+          Icon(Icons.home, size: 30),
+        ];
+      }
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
   int page = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorBackGround,
-      appBar: AppBar(
-        backgroundColor: (colorContainerBox),
-        iconTheme: IconThemeData(color: colorHeaderText),
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Private Lesson',
-          style: TextStyle(color: colorHeaderText),
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 4,
-      ),
-      drawer: DrawerWidget.drawerWidget(context),
-      body: getBody(page),
+    return isLoading
+        ? Center(
+            child: LinearProgressIndicator(),
+          )
+        : Scaffold(
+            backgroundColor: colorBackGround,
+            appBar: AppBar(
+              backgroundColor: (colorContainerBox),
+              iconTheme: IconThemeData(color: colorHeaderText),
+              automaticallyImplyLeading: true,
+              title: Text(
+                'Private Lesson',
+                style: TextStyle(color: colorHeaderText),
+              ),
+              actions: [],
+              centerTitle: true,
+              elevation: 4,
+            ),
+            drawer: DrawerWidget.drawerWidget(context),
+            body: getBody(page, pages),
 
-      //here 1
-      //bottomNavigationBar: BottomNavigationBar(
+            //here 1
+            //bottomNavigationBar: BottomNavigationBar(
 
-    bottomNavigationBar: CurvedNavigationBar(
+            bottomNavigationBar: CurvedNavigationBar(
+              backgroundColor: colorBackGround,
 
-      //here 2
-        //currentIndex: page,
+              // buttonBackgroundColor: colorContainerBox,
+              index: page,
 
-      index: 0,
+              onTap: (value) => setState(() {
+                page = value;
+              }),
+              items: pages,
 
-
-        onTap: (value) => setState(() => page = value),
-        items: [
-
-          //here 3
-
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.home),
-          //   label: ("Home"),
-          // ),
-
-
-          //here home 7
-          //Icon(Icons.home, size: 30),
-
-          //here 4
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.reorder_sharp),
-          //   label: ("My Order"),
-          // ),
-
-          Icon(Icons.reorder_sharp, size: 30),
-
-          Icon(Icons.home, size: 30),
-
-
-          //here 5
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.account_circle_rounded),
-          //   label: ("My Profile"),
-          // ),
-
-          Icon(Icons.account_circle_rounded, size: 30),
-
-
-
-
-        ],
-
-        //here 6
-        // type: BottomNavigationBarType.fixed,
-
-
-      ),
-    );
+              //here 6
+              // type: BottomNavigationBarType.fixed,
+            ),
+          );
   }
 }
 
-Widget getBody(int page) {
+Widget getBody(int page, var pages) {
   switch (page) {
     case 0:
-      //return SearchWidget();
-
+      if (pages.length == 1) {
+        return SearchWidget();
+      }
       return MyordersPage();
 
     case 1:
       //return MyordersPage();
       return SearchWidget();
+
     default:
       return MyprofileScreen();
   }

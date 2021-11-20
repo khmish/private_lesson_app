@@ -22,7 +22,7 @@ Future<bool> checksIfHasToken() async {
   // bool isLogged = false;
   final storage = await SharedPreferences.getInstance();
   String token = storage.getString("token").toString();
-  if (token.isNotEmpty) {
+  if (!token.contains("null") && token.isNotEmpty) {
     return true;
   }
   return false;

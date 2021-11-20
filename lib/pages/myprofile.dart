@@ -16,7 +16,7 @@ class MyprofileScreen extends StatefulWidget {
 class _MyprofileScreenState extends State<MyprofileScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  bool isLoading = false;
+  bool isLoading = true;
   User myuser =
       new User(id: -1, name: '', email: '', city: -1, phone: '', gender: '');
   @override
@@ -28,6 +28,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
     checksIfLogIn().then((value) {
       setState(() {
         myuser = value;
+        isLoading = false;
       });
     });
   }
@@ -41,7 +42,11 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
   Widget build(BuildContext context) {
     
     // Use the Todo to create the UI.
-    return Scaffold(
+    return isLoading == true
+          ? Center(
+              child: LinearProgressIndicator(),
+            )
+          :Scaffold(
         backgroundColor: (colorContainerBox),
         // appBar: AppBar(
         //   title: Text('test profile'),
@@ -115,4 +120,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
           ),
         ));
   }
+}
+
+class _isLoading {
 }

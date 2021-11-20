@@ -5,6 +5,10 @@ import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
 import 'package:private_lesson_app/widget/drawer_widget.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
+
+
 
 class MyHome extends StatefulWidget {
   MyHome({Key? key}) : super(key: key);
@@ -33,24 +37,60 @@ class _MyHomeState extends State<MyHome> {
       ),
       drawer: DrawerWidget.drawerWidget(context),
       body: getBody(page),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: page,
+
+      //here 1
+      //bottomNavigationBar: BottomNavigationBar(
+
+    bottomNavigationBar: CurvedNavigationBar(
+
+      //here 2
+        //currentIndex: page,
+
+      index: 0,
+
+
         onTap: (value) => setState(() => page = value),
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: ("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.reorder_sharp),
-            label: ("My Order"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_rounded),
-            label: ("My Profile"),
-          ),
+
+          //here 3
+
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.home),
+          //   label: ("Home"),
+          // ),
+
+
+          //here home 7
+          //Icon(Icons.home, size: 30),
+
+          //here 4
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.reorder_sharp),
+          //   label: ("My Order"),
+          // ),
+
+          Icon(Icons.reorder_sharp, size: 30),
+
+          Icon(Icons.home, size: 30),
+
+
+          //here 5
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.account_circle_rounded),
+          //   label: ("My Profile"),
+          // ),
+
+          Icon(Icons.account_circle_rounded, size: 30),
+
+
+
+
         ],
-        type: BottomNavigationBarType.fixed,
+
+        //here 6
+        // type: BottomNavigationBarType.fixed,
+
+
       ),
     );
   }
@@ -59,9 +99,13 @@ class _MyHomeState extends State<MyHome> {
 Widget getBody(int page) {
   switch (page) {
     case 0:
-      return SearchWidget();
-    case 1:
+      //return SearchWidget();
+
       return MyordersPage();
+
+    case 1:
+      //return MyordersPage();
+      return SearchWidget();
     default:
       return MyprofileScreen();
   }

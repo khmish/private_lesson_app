@@ -20,7 +20,7 @@ void main() async {
   ]);
   runApp(MaterialApp(
     //here2
-    initialRoute: '/adminControl',
+    initialRoute: '/home',
     // initialRoute: '/myorder_page',
 
     routes: {

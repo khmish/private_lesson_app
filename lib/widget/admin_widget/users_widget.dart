@@ -69,7 +69,7 @@ class _UsersAdminWidgetState extends State<UsersAdminWidget> {
                           vertical: 5, horizontal: 5),
                       child: ConstrainedBox(
                           constraints: BoxConstraints(
-                            maxWidth: 300,
+                            maxWidth: 150,
                           ),
                           child: Chip(
                             avatar: CircleAvatar(
@@ -95,7 +95,7 @@ class _UsersAdminWidgetState extends State<UsersAdminWidget> {
                           vertical: 5, horizontal: 5),
                       child: ConstrainedBox(
                           constraints: BoxConstraints(
-                            maxWidth: 300,
+                            maxWidth: 150,
                           ),
                           child: Chip(
                             backgroundColor: colorContainerBox,

@@ -124,6 +124,7 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                           CityAPI.addCities(
                                               cityNameController.text,
                                               countryController.text);
+                                          //City tempAddCity = new City(countryName: "", name: "", id: -1);
                                         },
                                         label: Text('Save'),
                                         icon: Icon(
@@ -138,7 +139,29 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                             ],
                           ),
                         );
-                      });
+                      }).then((value) {
+                    if (value.id != -1) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.green,
+                          content: Text("saved!"),
+                        ),
+                      );
+                      // Navigator.of(context)
+                      //     .popAndPushNamed("/login");
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text("error!!"),
+                        ),
+                      );
+                    }
+                  }).whenComplete(() {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                   shape: CircleBorder(),
@@ -268,9 +291,19 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
               );
             }).then((value) {
           if (tempCity.id == -1) {
-            showSnackBar(context, 'wrong something');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text("Wrong something!!"),
+              ),
+            );
           } else {
-            showSnackBar(context, 'Updated successfully');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.green,
+                content: Text("Updated successfully!"),
+              ),
+            );
           }
         });
         break;
@@ -283,9 +316,19 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
             setState(() {
               _cityList.removeAt(index);
             });
-            showSnackBar(context, 'Deleted the city ${tempCity.name}');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('Deleted the city ${tempCity.name}'),
+              ),
+            );
           } else {
-            showSnackBar(context, 'wrong something');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text("Wrong something!!"),
+              ),
+            );
           }
         }).whenComplete(() {});
         break;

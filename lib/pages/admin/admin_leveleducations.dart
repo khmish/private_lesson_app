@@ -168,6 +168,8 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
       case SlidableAction
           .edit: //*************************** update Level education ***** */
         leveleducationNameController.text = _leveleducationList[index].name;
+        Leveleducation tempLeveleducation =
+            new Leveleducation(name: "", id: -1);
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -218,7 +220,11 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
                                 _leveleducationList[index].name =
                                     leveleducationNameController.text;
                                 LeveleducationAPI.updateALeveleducation(
-                                    _leveleducationList[index]);
+                                        _leveleducationList[index])
+                                    .then((leveleducation) {
+                                  tempLeveleducation = leveleducation;
+                                  Navigator.pop(context, false);
+                                });
                               },
                               label: Text('submit'),
                               icon: Icon(
@@ -233,7 +239,23 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
                   ],
                 ),
               );
-            });
+            }).then((value) {
+          if (tempLeveleducation.id == -1) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text("Wrong something!!"),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.green,
+                content: Text("Updated successfully!"),
+              ),
+            );
+          }
+        });
         break;
 
       case SlidableAction
@@ -245,10 +267,20 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
             setState(() {
               _leveleducationList.removeAt(index);
             });
-            showSnackBar(context,
-                'Deleted the level education ${tempLeveleducation.name}');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.green,
+                content: Text(
+                    'Deleted the level education ${tempLeveleducation.name}'),
+              ),
+            );
           } else {
-            showSnackBar(context, 'wrong something');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text("Wrong something!!"),
+              ),
+            );
           }
         }).whenComplete(() {});
         break;
@@ -268,9 +300,9 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
           horizontal: 16,
           vertical: 16,
         ),
-        title: ItemAdminWidget( itemsList: item,) ,
-        onTap: () {
-         
-        },
+        title: ItemAdminWidget(
+          itemsList: item,
+        ),
+        onTap: () {},
       );
 }

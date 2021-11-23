@@ -240,6 +240,7 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
       case SlidableAction
           .edit: //*************************** update Subject ***** */
         subjectNameController.text = _subjectList[index].name;
+        Subject tempSubject = new Subject(name: "", id: -1, leveleducation: -1);
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -289,7 +290,11 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                               onPressed: () {
                                 _subjectList[index].name =
                                     subjectNameController.text;
-                                SubjectAPI.updateASubject(_subjectList[index]);
+                                SubjectAPI.updateASubject(_subjectList[index])
+                                    .then((subject) {
+                                  tempSubject = subject;
+                                  Navigator.pop(context, false);
+                                });
                               },
                               label: Text('submit'),
                               icon: Icon(
@@ -304,7 +309,23 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                   ],
                 ),
               );
-            });
+            }).then((value) {
+          if (tempSubject.id == -1) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text("Wrong something!!"),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.green,
+                content: Text("Updated successfully!"),
+              ),
+            );
+          }
+        });
         break;
       case SlidableAction
           .delete: //*************************** delete Subject ***** */
@@ -316,7 +337,12 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
             });
             showSnackBar(context, 'Deleted the subject ${tempSubject.name}');
           } else {
-            showSnackBar(context, 'wrong something');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text("Wrong something!!"),
+              ),
+            );
           }
         }).whenComplete(() {});
         break;

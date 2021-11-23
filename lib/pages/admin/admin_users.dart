@@ -298,8 +298,17 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
       case SlidableAction
           .edit: //*************************** update USER ***** */
         nameController.text = _userList[index].name!;
+        _genderSelectedValue = _genderList[index].toString();
+        _citySelectedValue = _cityList[index].id;
         phoneController.text = _userList[index].phone!;
-        //_citySelectedValue = _userList[index].city;
+        User tempUser = new User(
+          name: "",
+          gender: "",
+          email: "",
+          phone: "",
+          id: -1,
+          city: -1,
+        );
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -329,6 +338,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
+                            //------------Name--------------------------
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                             child: TextFormField(
@@ -341,6 +351,18 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                 ),
                               ),
                             ),
+                          ),
+                          //------------Gender--------------------------
+                          DrpWidget(
+                            listObject: _genderList,
+                            selectedValue: _genderSelectedValue,
+                            title: "Gender",
+                          ),
+                          //------------City--------------------------
+                          DrpCityWidget(
+                            title: "City",
+                            listObject: _cityList,
+                            selectedValue: _citySelectedValue,
                           ),
                           Padding(
                             //------------Phone--------------------------
@@ -365,8 +387,14 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                             child: ElevatedButton.icon(
                               onPressed: () {
                                 _userList[index].name = nameController.text;
+                                _userList[index].gender = _genderSelectedValue;
+                                _userList[index].city = _cityList[index].id;
                                 _userList[index].phone = phoneController.text;
-                                UserAPI.updateUser(_userList[index]);
+                                UserAPI.updateUser(_userList[index])
+                                    .then((user) {
+                                  tempUser = user;
+                                  Navigator.pop(context, false);
+                                });
                               },
                               label: Text('submit'),
                               icon: Icon(
@@ -381,8 +409,25 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                   ],
                 ),
               );
-            });
+            }).then((value) {
+          if (tempUser.id == -1) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text("Wrong something!!"),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.green,
+                content: Text("Updated successfully!"),
+              ),
+            );
+          }
+        });
         break;
+
       case SlidableAction
           .delete: //*************************** delete USER ***** */
         var tempUser = _userList.elementAt(index);
@@ -393,7 +438,12 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
             });
             showSnackBar(context, 'Deleted the user ${tempUser.name}');
           } else {
-            showSnackBar(context, 'wrong something');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text("Wrong something!!"),
+              ),
+            );
           }
         }).whenComplete(() {});
 

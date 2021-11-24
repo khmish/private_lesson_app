@@ -109,7 +109,16 @@ class _SignupWidgetState extends State<SignupWidget> {
                         //------------Gender--------------------------
                         DrpWidget(
                           listObject: _genderList,
-                          selectedValue: _genderSelectedValue,
+                          selectedValue: (value) {
+                            setState(() {
+                              if (value.isNotEmpty) {
+                                _genderSelectedValue = value;
+                              } else {
+                                _genderSelectedValue = "male";
+                              }
+                              // print(_country);
+                            });
+                          },
                           title: "Gender",
                         ),
                         //------------Phone--------------------------
@@ -126,7 +135,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                         DrpCityWidget(
                           title: "City",
                           listObject: _cityList,
-                          selectedValue: _citySelectedValue,
+                          defaultValue:  _citySelectedValue,
+                            selectedValue: (value) {
+                              setState(() {
+                                _citySelectedValue = value;
+                                // print(_country);
+                              });
+                            },
                         ),
 
                         Padding(

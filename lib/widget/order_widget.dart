@@ -47,13 +47,14 @@ class _OrderWidgetState extends State<OrderWidget> {
                   ),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetailScreen(),
-                            settings: RouteSettings(
-                                arguments: widget.ordersList[index])),
-                      );
+                      /*********************************ORDER ON CLICK ************/
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => DetailScreen(),
+                      //       settings: RouteSettings(
+                      //           arguments: widget.ordersList[index])),
+                      // );
                     },
                     child: Stack(
                       // fit: StackFit.loose,

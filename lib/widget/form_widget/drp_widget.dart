@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 
 class DrpWidget extends StatefulWidget {
-  var selectedValue;
+  var defalutValue;
+  Function(String) selectedValue;
   List listObject;
   String title;
-  DrpWidget({Key? key,required this.title, this.selectedValue, required this.listObject})
+  DrpWidget(
+      {Key? key,
+      required this.title,
+      required this.selectedValue,
+      required this.listObject,
+      this.defalutValue
+      })
       : super(key: key);
 
   @override
@@ -23,10 +30,10 @@ class _DrpWidgetState extends State<DrpWidget> {
         width: double.infinity,
         height: 50,
         child: DropdownButtonFormField(
-          value: widget.selectedValue,
+          value: widget.defalutValue,
           onChanged: (newValue) {
             setState(() {
-              widget.selectedValue = newValue.toString();
+              widget.selectedValue(newValue.toString());
             });
           },
           items: widget.listObject.map((dynamic itemList) {
@@ -35,7 +42,7 @@ class _DrpWidgetState extends State<DrpWidget> {
               value: itemList,
             );
           }).toList(),
-          decoration:  InputDecoration(
+          decoration: InputDecoration(
             labelText: widget.title,
             labelStyle: TextStyle(color: colorInputTextBox),
             fillColor: colorInputTextBox,
@@ -49,7 +56,6 @@ class _DrpWidgetState extends State<DrpWidget> {
                 color: colorInputTextBox,
               ),
             ),
-            
           ),
         ),
       ),

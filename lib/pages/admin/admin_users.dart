@@ -210,8 +210,14 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                             //------------Gender--------------------------
                                             DrpWidget(
                                               listObject: _genderList,
-                                              selectedValue:
+                                              defalutValue:
                                                   _genderSelectedValue,
+                                              selectedValue: (value) {
+                                                setState(() {
+                                                  _genderSelectedValue = value;
+                                                  // print(_country);
+                                                });
+                                              },
                                               title: "Gender",
                                             ),
                                             //------------Phone--------------------------
@@ -230,12 +236,24 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                             DrpCityWidget(
                                               title: "City",
                                               listObject: _cityList,
-                                              selectedValue: _citySelectedValue,
+                                              defaultValue: _citySelectedValue,
+                                              selectedValue: (value) {
+                                                setState(() {
+                                                  _citySelectedValue = value;
+                                                  // print(_country);
+                                                });
+                                              },
                                             ),
                                             //------------Role--------------------------
                                             DrpWidget(
                                               listObject: _roleList,
-                                              selectedValue: _roleSelectedValue,
+                                              defalutValue: _roleSelectedValue,
+                                              selectedValue: (value) {
+                                                setState(() {
+                                                  _roleSelectedValue = value;
+                                                  // print(_country);
+                                                });
+                                              },
                                               title: "Role",
                                             ),
                                             Padding(
@@ -298,8 +316,8 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
       case SlidableAction
           .edit: //*************************** update USER ***** */
         nameController.text = _userList[index].name!;
-        _genderSelectedValue = _genderList[index].toString();
-        _citySelectedValue = _cityList[index].id;
+        _genderSelectedValue = _userList[index].gender!;
+        _citySelectedValue = _userList[index].city!;
         phoneController.text = _userList[index].phone!;
         User tempUser = new User(
           name: "",
@@ -353,16 +371,30 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                             ),
                           ),
                           //------------Gender--------------------------
+
                           DrpWidget(
                             listObject: _genderList,
-                            selectedValue: _genderSelectedValue,
+                            defalutValue: _genderSelectedValue,
+                            selectedValue: (value) {
+                              setState(() {
+                                _genderSelectedValue = value;
+                                // print(_country);
+                              });
+                            },
                             title: "Gender",
                           ),
                           //------------City--------------------------
                           DrpCityWidget(
                             title: "City",
                             listObject: _cityList,
-                            selectedValue: _citySelectedValue,
+                            // selectedValue: _citySelectedValue,
+                            defaultValue: _citySelectedValue,
+                            selectedValue: (value) {
+                              setState(() {
+                                _citySelectedValue = value;
+                                // print(_country);
+                              });
+                            },
                           ),
                           Padding(
                             //------------Phone--------------------------
@@ -388,7 +420,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                               onPressed: () {
                                 _userList[index].name = nameController.text;
                                 _userList[index].gender = _genderSelectedValue;
-                                _userList[index].city = _cityList[index].id;
+                                _userList[index].city = _citySelectedValue;
                                 _userList[index].phone = phoneController.text;
                                 UserAPI.updateUser(_userList[index])
                                     .then((user) {

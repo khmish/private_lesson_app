@@ -3,14 +3,17 @@ import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/subject.dart';
 
 class DrpSubWidget extends StatefulWidget {
-  int selectedValue;
+  Function(int) selectedValue;
+  int defaultValue;
   List<Subject> listObject;
   String title;
   DrpSubWidget(
       {Key? key,
       required this.title,
       required this.selectedValue,
-      required this.listObject})
+      required this.listObject,
+      required this.defaultValue
+      })
       : super(key: key);
 
   @override
@@ -28,10 +31,11 @@ class _DrpSubWidgetState extends State<DrpSubWidget> {
         width: double.infinity,
         height: 50,
         child: DropdownButtonFormField(
-          value: widget.selectedValue,
+          value: widget.defaultValue,
           onChanged: (subId) {
             setState(() {
-              widget.selectedValue = subId as int;
+              // widget.selectedValue = subId as int;
+              widget.selectedValue(subId as int);
             });
           },
           items: widget.listObject.map((itemList) {

@@ -3,14 +3,17 @@ import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 
 class DrpLevelWidget extends StatefulWidget {
-  int selectedValue;
+  Function(int) selectedValue;
+  int defaultValue;
   List<Leveleducation> listObject;
   String title;
   DrpLevelWidget(
       {Key? key,
       required this.title,
       required this.selectedValue,
-      required this.listObject})
+      required this.listObject,
+      required this.defaultValue
+      })
       : super(key: key);
 
   @override
@@ -28,10 +31,11 @@ class _DrpLevelWidgetState extends State<DrpLevelWidget> {
         width: double.infinity,
         height: 50,
         child: DropdownButtonFormField(
-          value: widget.selectedValue,
+          value: widget.defaultValue,
           onChanged: (levelId) {
             setState(() {
-              widget.selectedValue = levelId as int;
+              // widget.selectedValue = levelId as int;
+              widget.selectedValue(levelId as int);
             });
           },
           items: widget.listObject.map((itemList) {

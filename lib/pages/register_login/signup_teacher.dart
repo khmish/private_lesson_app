@@ -111,7 +111,13 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                           //------------Gender--------------------------
                           DrpWidget(
                             listObject: _genderList,
-                            selectedValue: _genderSelectedValue,
+                            defalutValue: _genderSelectedValue,
+                            selectedValue: (value) {
+                              setState(() {
+                                _genderSelectedValue = value;
+                                // print(_country);
+                              });
+                            },
                             title: "Gender",
                           ),
                           //------------Phone--------------------------
@@ -127,7 +133,13 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                           DrpCityWidget(
                             title: "City",
                             listObject: _cityList,
-                            selectedValue: _citySelectedValue,
+                            defaultValue:  _citySelectedValue,
+                            selectedValue: (value) {
+                              setState(() {
+                                _citySelectedValue = value;
+                                // print(_country);
+                              });
+                            },
                           ),
 
                           Padding(
@@ -142,7 +154,7 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                               width: double.infinity,
                               child: ElevatedButton.icon(
                                 onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
+                                  // if (_formKey.currentState!.validate()) {
                                     setState(() {
                                       isLoading = true;
                                     });
@@ -178,7 +190,7 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                                         isLoading = false;
                                       });
                                     });
-                                  }
+                                  // }
 
                                   // setState(() {
                                   //   isLoading = true;

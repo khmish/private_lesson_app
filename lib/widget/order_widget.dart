@@ -4,10 +4,12 @@ import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/lesson.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/pages/teacher_details.dart';
 
 class OrderWidget extends StatefulWidget {
   final List<Lesson> ordersList;
+  late User myuser;
   OrderWidget({Key? key, required this.ordersList}) : super(key: key);
 
   @override
@@ -15,6 +17,19 @@ class OrderWidget extends StatefulWidget {
 }
 
 class _OrderWidgetState extends State<OrderWidget> {
+  User myuser =
+      new User(id: -1, name: '', email: '', city: -1, phone: '', gender: '');
+
+  @override
+  void initState() {
+    super.initState();
+    checksIfLogIn().then((value) {
+      setState(() {
+        myuser = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -150,29 +165,73 @@ class _OrderWidgetState extends State<OrderWidget> {
                               )),
                         ),
 
-                        // ********************Status *******************************
-                        if(widget.ordersList[index].state == "new")
-                        Positioned(
-                              top: 55,
-                              right: -10,
+                        // ********************Accept/Cancel Buttons *******************************
+                        if (widget.ordersList[index].state == "new")
+                          if (myuser.role == "tutor")
+                            Positioned(
+                              top: 80,
+                              right: 75,
                               child: Container(
                                 margin: EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 5),
                                 padding: EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 5),
-                                decoration: BoxDecoration(
-                                  color: Colors.amber,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                                // decoration: BoxDecoration(
+                                //   color: Colors.blue,
+                                //   borderRadius: BorderRadius.circular(3),
+                                // ),
                                 child: ElevatedButton.icon(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.blue),
+                                  ),
                                   onPressed: null,
-                                  label: Text('Accept'),
+                                  label: Text(
+                                    'Accept',
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.8)),
+                                  ),
                                   icon: Icon(
-                                    Icons.arrow_right,
+                                    Icons.done,
+                                    color: Colors.black.withOpacity(0.8),
                                     size: 15,
                                   ),
                                 ),
-                               
+                              ),
+                            ),
+                        if (widget.ordersList[index].state == "new")
+                          if (myuser.role == "tutor")
+                            Positioned(
+                              top: 80,
+                              right: -20,
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 5),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 5),
+                                // decoration: BoxDecoration(
+                                //   color: Colors.blue,
+                                //   borderRadius: BorderRadius.circular(3),
+                                // ),
+                                child: ElevatedButton.icon(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.red),
+                                  ),
+                                  onPressed: null,
+                                  label: Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.8)),
+                                  ),
+                                  icon: Icon(
+                                    Icons.clear,
+                                    color: Colors.black.withOpacity(0.8),
+                                    size: 15,
+                                  ),
+                                ),
                               ),
                             ),
                       ],

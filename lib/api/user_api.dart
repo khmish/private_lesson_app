@@ -41,7 +41,7 @@ class UserAPI {
     }
   }
 
-  static Future<bool> login(String email, String password) async {
+  static Future<User> login(String email, String password) async {
     final storage = await SharedPreferences.getInstance();
     var baseUrl = _baseUrlUsers+"/login";
     try {
@@ -65,15 +65,15 @@ class UserAPI {
         print(response.body);
         storage.setString("token", json.decode(response.body)['data']);
 
-        return true;
+        return User.fromJson(json.decode(response.body)['user']);
       } else {
         storage.remove("token");
         print(response.body);
-        return false;
+        return new User(id: -1,name: "", email: "", city: -1, phone: "", gender: "");
       }
     } catch (e) {
       print(e);
-      return false;
+      return new User(id: -1,name: "", email: "", city: -1, phone: "", gender: "");
     }
   }
 

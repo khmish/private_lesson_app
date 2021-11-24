@@ -33,6 +33,7 @@ class _DrpCityWidgetState extends State<DrpCityWidget> {
           value: widget.defaultValue,
           onChanged: (cityId) {
             setState(() {
+              if(cityId!=widget.defaultValue)
               widget.selectedValue(cityId as int);
             });
           },

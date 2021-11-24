@@ -68,22 +68,22 @@ class _AdminControlWidgetState extends State<AdminControlWidget> {
       resizeToAvoidBottomInset: false,
          backgroundColor: colorBackGround,
 
-      //------------------------------------appBar---------------------------
-      appBar: AppBar(
-        backgroundColor: (colorContainerBox),
-        iconTheme: IconThemeData(color: colorHeaderText),
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Admin Page',
-          style: TextStyle(color: colorHeaderText),
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 4,
-      ),
+      // //------------------------------------appBar---------------------------
+      // appBar: AppBar(
+      //   backgroundColor: (colorContainerBox),
+      //   iconTheme: IconThemeData(color: colorHeaderText),
+      //   automaticallyImplyLeading: true,
+      //   title: Text(
+      //     'Admin Page',
+      //     style: TextStyle(color: colorHeaderText),
+      //   ),
+      //   actions: [],
+      //   centerTitle: true,
+      //   elevation: 4,
+      // ),
 
-      //------------------------------------drawer---------------------------
-      drawer: DrawerWidget.drawerWidget(context),
+      // //------------------------------------drawer---------------------------
+      // drawer: DrawerWidget.drawerWidget(context),
       //------------------------------------bady---------------------------
       body: SingleChildScrollView(
         child: Container(

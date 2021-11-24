@@ -151,6 +151,30 @@ class _OrderWidgetState extends State<OrderWidget> {
                         ),
 
                         // ********************Status *******************************
+                        if(widget.ordersList[index].state == "new")
+                        Positioned(
+                              top: 55,
+                              right: -10,
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 5),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 5),
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: ElevatedButton.icon(
+                                  onPressed: null,
+                                  label: Text('Accept'),
+                                  icon: Icon(
+                                    Icons.arrow_right,
+                                    size: 15,
+                                  ),
+                                ),
+                               
+                              ),
+                            ),
                       ],
                     ),
                   ),

@@ -103,8 +103,17 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   UserAPI.login(emailController.text,
                                           passwordController.text)
                                       .then((value) {
-                                    if (value) {
-                                      Navigator.of(context).pushNamed("/home");
+                                    if (value.id!=-1) {
+                                      if (value.role!.toLowerCase()=="student") {
+                                        Navigator.of(context).pushReplacementNamed("/home");  
+                                      }
+                                      else if (value.role!.toLowerCase()=="tutor") {
+                                         Navigator.of(context).pushReplacementNamed("/homeTutor");
+                                      }
+                                      else if (value.role!.toLowerCase()=="admin") {
+                                        Navigator.of(context).pushReplacementNamed("/homeAdmin");
+                                      }
+                                      
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(

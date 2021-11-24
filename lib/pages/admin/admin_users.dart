@@ -387,7 +387,6 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                           DrpCityWidget(
                             title: "City",
                             listObject: _cityList,
-                            // selectedValue: _citySelectedValue,
                             defaultValue: _citySelectedValue,
                             selectedValue: (value) {
                               setState(() {

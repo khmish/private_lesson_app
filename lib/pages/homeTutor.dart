@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/pages/orders/myorders_page.dart';
-import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
 import 'package:private_lesson_app/widget/drawer_widget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
-class MyHome extends StatefulWidget {
-  MyHome({Key? key}) : super(key: key);
+class MyHomeTutor extends StatefulWidget {
+  MyHomeTutor({Key? key}) : super(key: key);
 
   @override
-  _MyHomeState createState() => _MyHomeState();
+  _MyHomeTutorState createState() => _MyHomeTutorState();
 }
 
-class _MyHomeState extends State<MyHome> {
+class _MyHomeTutorState extends State<MyHomeTutor> {
   var pages = [
-    Icon(Icons.home, size: 30),
+    Icon(Icons.reorder_sharp, size: 30),
+    Icon(Icons.account_circle_rounded, size: 30),
   ];
   bool isLoading = true;
   @override
@@ -28,28 +28,14 @@ class _MyHomeState extends State<MyHome> {
     });
     User user = new User(
         id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
-    checksIfLogIn().then((userVal) {
-      user = userVal;
+    checksIfLogIn().then((valUser) {
+      user = valUser;
     }).whenComplete(() {
-      if (user.id != -1) {
-        if (user.role!.toLowerCase() == "tutor") {
-          Navigator.of(context).pushReplacementNamed("/homeTutor");
-        } else if (user.role!.toLowerCase() == "admin") {
-          Navigator.of(context).pushReplacementNamed("/homeAdmin");
-        }
-        setState(() {
-          pages = [
-            Icon(Icons.reorder_sharp, size: 30),
-            Icon(Icons.home, size: 30),
-            Icon(Icons.account_circle_rounded, size: 30),
-          ];
-
-          page = 1;
-        });
+      if (user.role!.toLowerCase() == "tutor") {
+        setState(() {});
       } else {
-        pages = [
-          Icon(Icons.home, size: 30),
-        ];
+        print("no permission");
+        Navigator.of(context).pushReplacementNamed("/login");
       }
       setState(() {
         isLoading = false;
@@ -110,9 +96,9 @@ Widget getBody(int page, var pages) {
       }
       return MyordersPage();
 
-    case 1:
-      //return MyordersPage();
-      return SearchWidget();
+    // case 1:
+    //   //return MyordersPage();
+    //   return SearchWidget();
 
     default:
       return MyprofileScreen();

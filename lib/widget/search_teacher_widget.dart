@@ -156,6 +156,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
+                                Text("${widget.tutorsList[index].rating}"),
                                 Icon(
                                   Icons.star_rounded,
                                   size: 24,

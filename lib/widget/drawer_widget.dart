@@ -1,72 +1,82 @@
-
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class DrawerWidget{
-  static Widget drawerWidget( BuildContext context){
+class DrawerWidget {
+  static Widget drawerWidget(BuildContext context,bool isLogin) {
+    
     return Drawer(
-
-        child: Container(
-          color: colorBackGround,
-          child: ListView(
-            
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              Container(
-                color: colorContainerBox,
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Header',
-                  //style: textTheme.headline6,
-                ),
+      child: Container(
+        color: colorBackGround,
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Container(
+              color: colorContainerBox,
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Header',
+                //style: textTheme.headline6,
               ),
-              Divider(
-                height: 1,
-                thickness: 1,
-              ),
+            ),
+            Divider(
+              height: 1,
+              thickness: 1,
+            ),
 
-              // ),
+            // ),
 
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('Admin Control Page'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AdminControlWidget()),
-                    );
-                  }),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Admin Control Page'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AdminControlWidget()),
+                  );
+                }),
 
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('Teacher Signup'),
-                  onTap: () {
-                    Navigator.of(context).popAndPushNamed('/singupTeacher');
-                  }),
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('Signup'),
-                  onTap: () {
-                    Navigator.of(context).popAndPushNamed('/singup');
-                  }),
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('Login'),
-                  onTap: () {
-                    Navigator.of(context).popAndPushNamed('/login');
-                  }),
-              ListTile(
-                  leading: Icon(Icons.label),
-                  title: Text('My Profile'),
-                  onTap: () {
-                    Navigator.of(context).popAndPushNamed('/singup');
-                  }),
-            ],
-          ),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Teacher Signup'),
+                onTap: () {
+                  Navigator.of(context).popAndPushNamed('/singupTeacher');
+                }),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Signup'),
+                onTap: () {
+                  Navigator.of(context).popAndPushNamed('/singup');
+                }),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Login'),
+                onTap: () {
+                  Navigator.of(context).popAndPushNamed('/login');
+                }),
+            ListTile(
+                leading: Icon(Icons.label),
+                title: Text('My Profile'),
+                onTap: () {
+                  Navigator.of(context).popAndPushNamed('/singup');
+                }),
+
+            isLogin
+                ? ListTile(
+                    leading: Icon(Icons.label),
+                    title: Text('Logout'),
+                    onTap: () async {
+                      final storage = await SharedPreferences.getInstance();
+                      storage.remove("token");
+                      Navigator.of(context).pushReplacementNamed('/login');
+                    })
+                : Text(""),
+          ],
         ),
-      );
+      ),
+    );
   }
 }

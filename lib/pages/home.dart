@@ -20,14 +20,15 @@ class _MyHomeState extends State<MyHome> {
     Icon(Icons.home, size: 30),
   ];
   bool isLoading = true;
+  User user = new User(
+        id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
   @override
   void initState() {
     super.initState();
     setState(() {
       isLoading = true;
     });
-    User user = new User(
-        id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
+    
     checksIfLogIn().then((userVal) {
       user = userVal;
     }).whenComplete(() {
@@ -78,7 +79,7 @@ class _MyHomeState extends State<MyHome> {
               centerTitle: true,
               elevation: 4,
             ),
-            drawer: DrawerWidget.drawerWidget(context),
+            drawer: DrawerWidget.drawerWidget(context,user.id!=-1?true:false),
             body: getBody(page, pages),
 
             //here 1

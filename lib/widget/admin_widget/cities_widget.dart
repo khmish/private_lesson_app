@@ -62,6 +62,7 @@ class _CitiesAdminWidgetState extends State<CitiesAdminWidget> {
                               child: Text("${widget.citiesList.name.substring(0,2).toUpperCase()}"),
                             ),
                             label: Text(
+                              // ***********************City name*****************
                               '${widget.citiesList.name}',
                               style: TextStyle(
                                 fontSize: 20,
@@ -80,14 +81,15 @@ class _CitiesAdminWidgetState extends State<CitiesAdminWidget> {
                           vertical: 5, horizontal: 5),
                       child: ConstrainedBox(
                           constraints: BoxConstraints(
-                            maxWidth: 300,
+                            maxWidth: MediaQuery.of(context).size.width>500?250: 150,
                           ),
                           child: Chip(
-                            backgroundColor: colorContainerBox,
+                            // backgroundColor: colorContainerBox,
                             avatar: CircleAvatar(
                               backgroundColor: (colorMainText),
                               child: Icon(Icons.place),
                             ),
+                            // ***********************Country name*****************
                             label: Text(
                               '${widget.citiesList.countryName}',
                               style: TextStyle(

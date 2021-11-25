@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/pages/teacher_details.dart';
 
-
 import 'package:private_lesson_app/pages/homepage1.dart';
 
 class OrderWidget extends StatefulWidget {
@@ -65,7 +64,6 @@ class _OrderWidgetState extends State<OrderWidget> {
                   ),
                   child: GestureDetector(
                     onTap: () {
-
                       //moe to next page
                       Navigator.push(
                         context,

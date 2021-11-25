@@ -50,7 +50,7 @@ class _UsersAdminWidgetState extends State<UsersAdminWidget> {
                           "${widget.usersList.role!.toUpperCase()}",
                           style: TextStyle(
                             fontSize: 15,
-                            color: (colorMainText),
+                            color: (colorSeText),
                             fontWeight: FontWeight.bold
                           ),
                         )),
@@ -69,7 +69,7 @@ class _UsersAdminWidgetState extends State<UsersAdminWidget> {
                           vertical: 5, horizontal: 5),
                       child: ConstrainedBox(
                           constraints: BoxConstraints(
-                            maxWidth: 150,
+                            maxWidth: MediaQuery.of(context).size.width>500?250: 150,
                           ),
                           child: Chip(
                             avatar: CircleAvatar(
@@ -95,10 +95,10 @@ class _UsersAdminWidgetState extends State<UsersAdminWidget> {
                           vertical: 5, horizontal: 5),
                       child: ConstrainedBox(
                           constraints: BoxConstraints(
-                            maxWidth: 150,
+                            maxWidth: MediaQuery.of(context).size.width>500?250: 150,
                           ),
                           child: Chip(
-                            backgroundColor: colorContainerBox,
+                            // backgroundColor: colorContainerBox,
                             avatar: CircleAvatar(
                               backgroundColor: (colorMainText),
                               child: Icon(Icons.alternate_email),

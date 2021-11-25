@@ -20,7 +20,9 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
     Icon(Icons.reorder_sharp, size: 30),
     Icon(Icons.local_police_rounded, size: 30),
     Icon(Icons.account_circle_rounded, size: 30),
-  ];
+  ]; 
+  User user = new User(
+        id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
   bool isLoading = true;
   @override
   void initState() {
@@ -28,8 +30,7 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
     setState(() {
       isLoading = true;
     });
-    User user = new User(
-        id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
+   
     checksIfLogIn().then((valUser) {
       user = valUser;
     }).whenComplete(() {
@@ -66,7 +67,7 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
               centerTitle: true,
               elevation: 4,
             ),
-            drawer: DrawerWidget.drawerWidget(context),
+            drawer: DrawerWidget.drawerWidget(context,user.id!=-1?true:false),
             body: getBody(page, pages),
 
             //here 1

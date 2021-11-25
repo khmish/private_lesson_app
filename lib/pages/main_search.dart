@@ -118,7 +118,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                       margin:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        //color: Colors.white,
+                          color:Color(0xff212121),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: SingleChildScrollView(

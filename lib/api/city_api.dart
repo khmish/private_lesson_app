@@ -4,30 +4,24 @@ import 'package:private_lesson_app/models/city.dart';
 import 'package:http/http.dart' as http;
 
 class CityAPI {
+
+  //---------------------------------- URL to api ----------------------------------//
+
   static var _baseUrlCities = 'https://privatelesson.herokuapp.com/api/city';
   
 
-  // get city*****************************************************
+  //---------------------------------- get city ----------------------------------//
   static Future<List<City>> getCities() async {
     var baseUrl = _baseUrlCities;
     List<City> cityList = [];
     try {
-      // if (page > 0) {
       baseUrl = _baseUrlCities;
-      // }
       var url = Uri.parse(baseUrl);
       var response = await http.get(
         url,
-        // headers: <String, String>{
-        //   'Accept': 'application/json',
-        //   'Content-Type': 'application/json; charset=UTF-8',
-        //   // 'Authorization': 'Bearer $token',
-        // },
       );
-      // print(response.body);
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
-
         for (var i = 0; i < body.length; i++) {
           City city = City.fromJson(body[i]);
           cityList.add(city);
@@ -42,30 +36,23 @@ class CityAPI {
     }
   }
 
-  // delete city*****************************************************
+  //---------------------------------- del city ----------------------------------//
   static Future<bool> deleteCity(String id) async {
     var baseUrl = _baseUrlCities;
-
     try {
-      // if (page > 0) {
       baseUrl = _baseUrlCities + "/$id";
-      // }
       var url = Uri.parse(baseUrl);
       var response = await http.delete(
         url,
         headers: <String, String>{
           'Accept': 'application/json',
           'Content-Type': 'application/json; charset=UTF-8',
-          // 'Authorization': 'Bearer $token',
         },
       );
       print(response.body);
       if (response.statusCode == 204) {
-        // dynamic body = json.decode(response.body)['data'];
-
         return true;
       } else {
-        // storage.setString("token", "");
         return false;
       }
     } catch (e) {
@@ -74,21 +61,17 @@ class CityAPI {
     }
   }
 
-  // show a city*****************************************************
+  //---------------------------------- show city ----------------------------------//
   static Future<City> getACity(String id) async {
     var baseUrl = _baseUrlCities;
-
     try {
-      // if (page > 0) {
       baseUrl = _baseUrlCities + "/$id";
-      // }
       var url = Uri.parse(baseUrl);
       var response = await http.get(
         url,
         headers: <String, String>{
           'Accept': 'application/json',
           'Content-Type': 'application/json; charset=UTF-8',
-          // 'Authorization': 'Bearer $token',
         },
       );
       print(response.body);
@@ -97,7 +80,6 @@ class CityAPI {
         City city = City.fromJson(body);
         return city;
       } else {
-        // storage.setString("token", "");
         return new City(countryName: "", name: "", id: -1);
       }
     } catch (e) {
@@ -106,22 +88,15 @@ class CityAPI {
     }
   }
 
-  // update a city*****************************************************
+  //---------------------------------- update city ----------------------------------//
   static Future<City> updateACity(City city) async {
     var baseUrl = _baseUrlCities;
 
     try {
-      // if (page > 0) {
       baseUrl = _baseUrlCities + "/${city.id}";
-      // }
       var url = Uri.parse(baseUrl);
       var response = await http.put(
         url,
-        // body: jsonEncode({
-        //   "id":city.id,
-        //   "name":city.name,
-        //   "country_name":city.countryName,
-        // }),
         body: jsonEncode(city),
         headers: <String, String>{
           'Accept': 'application/json',
@@ -135,7 +110,6 @@ class CityAPI {
         City city = City.fromJson(body);
         return city;
       } else {
-        // storage.setString("token", "");
         return new City(countryName: "", name: "", id: -1);
       }
     } catch (e) {
@@ -144,7 +118,7 @@ class CityAPI {
     }
   }
 
-//****************Add city
+//---------------------------------- add city ----------------------------------//
   static var _baseURL = 'https://privatelesson.herokuapp.com/api/city';
   static Future<void> addCities(String cityName, String countryName) async {
     var baseUrl = _baseURL;
@@ -158,7 +132,6 @@ class CityAPI {
           "country_name": countryName,
         },
       );
-
       print(response.body);
       if (response.statusCode == 200) {
       } else {

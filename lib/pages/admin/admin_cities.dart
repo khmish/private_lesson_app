@@ -3,7 +3,7 @@ import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/widget/admin_widget/cities_widget.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
-import 'package:private_lesson_app/pages/main_search.dart';
+
 
 class CityAdminWidget extends StatefulWidget {
   CityAdminWidget({Key? key}) : super(key: key);

@@ -64,7 +64,9 @@ class _OrderWidgetState extends State<OrderWidget> {
                   ),
                   child: GestureDetector(
                     onTap: () {
+                      /*********************************WORK HERE هنا ************/
                       //moe to next page
+                      // widget.ordersList[index]
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MyHome()),

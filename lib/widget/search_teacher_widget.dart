@@ -69,28 +69,24 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                               LayoutBuilder(builder:
                                   (context, BoxConstraints constraints) {
                                 double widthCon =
-                                    MediaQuery.of(context).size.width*.9;
-                                double maxwidthCon =0;
+                                    MediaQuery.of(context).size.width * .9;
+                                double maxwidthCon = 0;
                                 if (widthCon >= 1000) {
                                   maxwidthCon = widthCon / 3;
                                 } else if (widthCon >= 600) {
                                   maxwidthCon = widthCon / 2;
-
                                 } else {
-                                  maxwidthCon = widthCon ;
-
+                                  maxwidthCon = widthCon;
                                 }
 
                                 return Container(
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 5, vertical: 5),
-                                  
                                   width: maxwidthCon,
                                   height: 60,
                                   clipBehavior: Clip.antiAlias,
                                   decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(12)),
+                                      borderRadius: BorderRadius.circular(12)),
                                   child: FittedBox(
                                     fit: BoxFit.fill,
                                     child: Image.network(
@@ -121,24 +117,25 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                               constraints: BoxConstraints(
                                 maxWidth: 200,
                               ),
-                              child:Chip(
+                              child: Chip(
                                 backgroundColor: colorBackGround,
-                                  avatar: CircleAvatar(
-                                    backgroundColor: (colorMainText),
-                                    child: Text("Te"),
+                                avatar: CircleAvatar(
+                                  backgroundColor: (colorMainText),
+                                  child: Text("Te"),
+                                ),
+                                label: Text(
+                                  '${widget.tutorsList[index].name}',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: (colorMainText),
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  label: Text(
-                                    '${widget.tutorsList[index].name}',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: (colorMainText),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),), 
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
                             ),
                           ),
+                        ),
 
                         // ********************Stars *******************************
                         Positioned(
@@ -156,33 +153,208 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Text("${widget.tutorsList[index].rating}"),
-                                Icon(
-                                  Icons.star_rounded,
-                                  size: 24,
-                                ),
-                                Icon(
-                                  Icons.star_rounded,
-                                  size: 24,
-                                ),
-                                Icon(
-                                  Icons.star_rounded,
-                                  size: 24,
-                                ),
-                                Icon(
-                                  Icons.star_rounded,
-                                  color: Colors.black,
-                                  size: 24,
-                                ),
-                                Icon(
-                                  Icons.star_rounded,
-                                  color: Colors.black,
-                                  size: 24,
-                                )
+                                Text(
+                                    "${widget.tutorsList[index].rating!.toStringAsFixed(1)}"),
+
+                                //------------------------- Rating 0 --------------------
+                                if (widget.tutorsList[index].rating == 0) ...[
+                                  for (int i = 0; i < 5; i++)
+                                    Icon(
+                                      Icons.star_outline_rounded,
+                                      size: 24,
+                                    ),
+                                ],
+
+                                //------------------------- Rating 0.5 -------------------
+                                if (widget.tutorsList[index].rating! > 0 &&
+                                    widget.tutorsList[index].rating! <=
+                                        0.5) ...[
+                                  Icon(
+                                    Icons.star_half_rounded,
+                                    size: 24,
+                                  ),
+                                  for (int i = 0; i < 4; i++)
+                                    Icon(
+                                      Icons.star_outline_rounded,
+                                      size: 24,
+                                    ),
+                                ],
+
+                                //------------------------- Rating 1 --------------------
+                                if (widget.tutorsList[index].rating! > 0.5 &&
+                                    widget.tutorsList[index].rating! <= 1) ...[
+                                  Icon(
+                                    Icons.star_rounded,
+                                    size: 24,
+                                  ),
+                                  for (int i = 0; i < 4; i++)
+                                    Icon(
+                                      Icons.star_outline_rounded,
+                                      size: 24,
+                                    ),
+                                ],
+
+                                //------------------------- Rating 1.5 ------------------
+                                if (widget.tutorsList[index].rating! > 1 &&
+                                    widget.tutorsList[index].rating! <=
+                                        1.5) ...[
+                                  Icon(
+                                    Icons.star_rounded,
+                                    size: 24,
+                                  ),
+                                  Icon(
+                                    Icons.star_half_rounded,
+                                    size: 24,
+                                  ),
+                                  for (int i = 0; i < 3; i++)
+                                    Icon(
+                                      Icons.star_outline_rounded,
+                                      size: 24,
+                                    ),
+                                ],
+
+                                //------------------------- Rating 2 --------------------
+                                if (widget.tutorsList[index].rating! > 1.5 &&
+                                    widget.tutorsList[index].rating! <= 2) ...[
+                                  Icon(
+                                    Icons.star_rounded,
+                                    size: 24,
+                                  ),
+                                  Icon(
+                                    Icons.star_rounded,
+                                    size: 24,
+                                  ),
+                                  for (int i = 0; i < 3; i++)
+                                    Icon(
+                                      Icons.star_outline_rounded,
+                                      size: 24,
+                                    ),
+                                ],
+
+                                //------------------------- Rating 2.5 ------------------
+                                if (widget.tutorsList[index].rating! > 2 &&
+                                    widget.tutorsList[index].rating! <=
+                                        2.5) ...[
+                                  Icon(
+                                    Icons.star_rounded,
+                                    size: 24,
+                                  ),
+                                  Icon(
+                                    Icons.star_rounded,
+                                    size: 24,
+                                  ),
+                                  Icon(
+                                    Icons.star_half_rounded,
+                                    size: 24,
+                                  ),
+                                  for (int i = 0; i < 2; i++)
+                                    Icon(
+                                      Icons.star_outline_rounded,
+                                      size: 24,
+                                    ),
+                                ],
+
+                                //------------------------- Rating 3 --------------------
+                                if (widget.tutorsList[index].rating! > 2.5 &&
+                                    widget.tutorsList[index].rating! <= 3) ...[
+                                  for (int i = 0; i < 3; i++)
+                                    Icon(
+                                      Icons.star_rounded,
+                                      size: 24,
+                                    ),
+                                  Icon(
+                                    Icons.star_outline_rounded,
+                                    size: 24,
+                                  ),
+                                  Icon(
+                                    Icons.star_outline_rounded,
+                                    size: 24,
+                                  ),
+                                ],
+
+                                //------------------------- Rating 3.5 ------------------
+                                if (widget.tutorsList[index].rating! > 3 &&
+                                    widget.tutorsList[index].rating! <=
+                                        3.5) ...[
+                                  for (int i = 0; i < 3; i++)
+                                    Icon(
+                                      Icons.star_rounded,
+                                      size: 24,
+                                    ),
+                                  Icon(
+                                    Icons.star_half_rounded,
+                                    size: 24,
+                                  ),
+                                  Icon(
+                                    Icons.star_outline_rounded,
+                                    size: 24,
+                                  ),
+                                ],
+
+                                //------------------------- Rating 4 --------------------
+                                if (widget.tutorsList[index].rating! > 3.5 &&
+                                    widget.tutorsList[index].rating! <= 4) ...[
+                                  for (int i = 0; i < 4; i++)
+                                    Icon(
+                                      Icons.star_rounded,
+                                      size: 24,
+                                    ),
+                                  Icon(
+                                    Icons.star_outline_rounded,
+                                    size: 24,
+                                  ),
+                                ],
+
+                                //------------------------- Rating 4.5 ------------------
+                                if (widget.tutorsList[index].rating! > 4 &&
+                                    widget.tutorsList[index].rating! <=
+                                        4.5) ...[
+                                  for (int i = 0; i < 4; i++)
+                                    Icon(
+                                      Icons.star_rounded,
+                                      size: 24,
+                                    ),
+                                  Icon(
+                                    Icons.star_half_rounded,
+                                    size: 24,
+                                  ),
+                                ],
+
+                                //------------------------- Rating 5 --------------------
+                                if (widget.tutorsList[index].rating! > 4 &&
+                                    widget.tutorsList[index].rating! <= 5) ...[
+                                  for (int i = 0; i < 5; i++)
+                                    Icon(
+                                      Icons.star_rounded,
+                                      size: 24,
+                                    ),
+                                ],
+
+                                //Text("☆"),
+
+                                // Icon(
+                                //   Icons.star_rounded,
+                                //   size: 24,
+                                // ),
+                                // Icon(
+                                //   Icons.star_rounded,
+                                //   size: 24,
+                                // ),
+                                // Icon(
+                                //   Icons.star_rounded,
+                                //   color: Colors.black,
+                                //   size: 24,
+                                // ),
+                                // Icon(
+                                //   Icons.star_rounded,
+                                //   color: Colors.black,
+                                //   size: 24,
+                                // )
                               ],
                             ),
                           ),
                         ),
+
                         // ********************Price *******************************
                         Positioned(
                           top: 0,

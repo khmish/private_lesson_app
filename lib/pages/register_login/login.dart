@@ -26,6 +26,18 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
+
+    checksIfLogIn().then((value) {
+      if (value.id != -1) {
+        if (value.role!.toLowerCase() == "student") {
+          Navigator.of(context).pushReplacementNamed("/home");
+        } else if (value.role!.toLowerCase() == "tutor") {
+          Navigator.of(context).pushReplacementNamed("/homeTutor");
+        } else if (value.role!.toLowerCase() == "admin") {
+          Navigator.of(context).pushReplacementNamed("/homeAdmin");
+        }
+      }
+    });
   }
 
   bool _isLoading = false;
@@ -73,7 +85,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: (colorMainText),
+                              color: (colorInputTextBox),
                             ),
                           ),
                         ),
@@ -85,13 +97,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             length: 20, textController: passwordController),
                         Padding(
                           //------------Login Button--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(constLeftBtn,
-                              constTopBtn, constRightBtn, constBottomBtn),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeftBtn, constTopBtn, constRightBtn, 0),
                           child: SizedBox(
                             width: double.infinity,
                             height: 40,
                             child: ElevatedButton.icon(
-                              label: Text("login",style: TextStyle(color: colorPrimaryText  ),),
+                              label: Text(
+                                "login",
+                                style: TextStyle(color: colorPrimaryText),
+                              ),
                               style: ElevatedButton.styleFrom(
                                 primary: colorPrimaryBTN,
                               ),
@@ -103,17 +118,20 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   UserAPI.login(emailController.text,
                                           passwordController.text)
                                       .then((value) {
-                                    if (value.id!=-1) {
-                                      if (value.role!.toLowerCase()=="student") {
-                                        Navigator.of(context).pushReplacementNamed("/home");  
+                                    if (value.id != -1) {
+                                      if (value.role!.toLowerCase() ==
+                                          "student") {
+                                        Navigator.of(context)
+                                            .pushReplacementNamed("/home");
+                                      } else if (value.role!.toLowerCase() ==
+                                          "tutor") {
+                                        Navigator.of(context)
+                                            .pushReplacementNamed("/homeTutor");
+                                      } else if (value.role!.toLowerCase() ==
+                                          "admin") {
+                                        Navigator.of(context)
+                                            .pushReplacementNamed("/homeAdmin");
                                       }
-                                      else if (value.role!.toLowerCase()=="tutor") {
-                                         Navigator.of(context).pushReplacementNamed("/homeTutor");
-                                      }
-                                      else if (value.role!.toLowerCase()=="admin") {
-                                        Navigator.of(context).pushReplacementNamed("/homeAdmin");
-                                      }
-                                      
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -137,7 +155,91 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    constLeftBtn, 5, constRightBtn, 0),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: 40,
+                                  child: ElevatedButton.icon(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: colorPrimaryBTN,
+                                    ),
+                                    icon: Icon(
+                                      Icons.wallet_membership,
+                                      color: colorPrimaryText,
+                                      size: 15,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushReplacementNamed("/singup");
+                                    },
+                                    label: Text(
+                                      "regiseter as Student",
+                                      style:
+                                          TextStyle(color: colorPrimaryText),
+                                    ),
+                                  ),
+                                )),
+                            Container(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    constLeftBtn, 5, constRightBtn, 0),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: 40,
+                                  child: ElevatedButton.icon(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: colorPrimaryBTN,
+                                    ),
+                                    icon: Icon(
+                                      Icons.wallet_membership,
+                                      color: colorPrimaryText,
+                                      size: 15,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(
+                                              "/singupTeacher");
+                                    },
+                                    label: Text(
+                                      "regiseter as Teacher",
+                                      style:
+                                          TextStyle(color: colorPrimaryText),
+                                    ),
+                                  ),
+                                )),
+                            Container(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    constLeftBtn, 5, constRightBtn, 0),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: 40,
+                                  child: ElevatedButton.icon(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: colorPrimaryBTN,
+                                    ),
+                                    icon: Icon(
+                                      Icons.wallet_membership,
+                                      color: colorPrimaryText,
+                                      size: 15,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(
+                                              "/home");
+                                    },
+                                    label: Text(
+                                      "login as Guest",
+                                      style:
+                                          TextStyle(color: colorPrimaryText),
+                                    ),
+                                  ),
+                                )),
+                          ],
+                        ),
                       ],
                     ),
                   ),

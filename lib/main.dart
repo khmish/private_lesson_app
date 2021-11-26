@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:private_lesson_app/pages/home.dart';
 import 'package:private_lesson_app/pages/homeAdmin.dart';
 import 'package:private_lesson_app/pages/homeTutor.dart';
+import 'package:private_lesson_app/pages/homepage1.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myorder_page.dart';
 import 'package:private_lesson_app/pages/register_login/signup.dart';
@@ -21,7 +22,7 @@ void main() async {
   ]);
   runApp(MaterialApp(
     //here2
-    initialRoute: '/home',
+    initialRoute: '/login',
     // initialRoute: '/myorder_page',
 
     routes: {
@@ -50,7 +51,7 @@ void main() async {
       // '/teacherProfile': (context) => teacher_profile(),
 
       //Drawer
-      '/user2': (context) => SideMenu(),
+      '/testRating': (context) => MyHomeTest(),
     },
   ));
 }

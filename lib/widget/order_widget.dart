@@ -5,6 +5,7 @@ import 'package:private_lesson_app/models/lesson.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/models/user.dart';
+import 'package:private_lesson_app/pages/home.dart';
 import 'package:private_lesson_app/pages/teacher_details.dart';
 
 import 'package:private_lesson_app/pages/homepage1.dart';

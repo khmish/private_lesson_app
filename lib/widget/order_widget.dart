@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:private_lesson_app/api/lesson_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/lesson.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
@@ -69,10 +70,13 @@ class _OrderWidgetState extends State<OrderWidget> {
                       /*********************************WORK HERE هنا ************/
                       //moe to next page
                       // widget.ordersList[index]
-                      
+
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => OrderDetail( lesson: widget.ordersList[index],)),
+                        MaterialPageRoute(
+                            builder: (context) => OrderDetail(
+                                  lesson: widget.ordersList[index],
+                                )),
                       );
 
                       /*********************************ORDER ON CLICK ************/
@@ -179,74 +183,85 @@ class _OrderWidgetState extends State<OrderWidget> {
                         ),
 
                         // ********************Accept/Cancel Buttons *******************************
-                        if (widget.ordersList[index].state == "new")
-                          if (myuser.role == "tutor")
-                            Positioned(
-                              top: 80,
-                              right: 75,
-                              child: Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                // decoration: BoxDecoration(
-                                //   color: Colors.blue,
-                                //   borderRadius: BorderRadius.circular(3),
-                                // ),
-                                child: ElevatedButton.icon(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.blue),
-                                  ),
-                                  onPressed: null,
-                                  label: Text(
-                                    'Accept',
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.8)),
-                                  ),
-                                  icon: Icon(
-                                    Icons.done,
-                                    color: Colors.black.withOpacity(0.8),
-                                    size: 15,
-                                  ),
+                        if (widget.ordersList[index].state == "new" &&
+                            myuser.role == "tutor") ...[
+                          Positioned(
+                            top: 80,
+                            right: 75,
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              // decoration: BoxDecoration(
+                              //   color: Colors.blue,
+                              //   borderRadius: BorderRadius.circular(3),
+                              // ),
+                              child: ElevatedButton.icon(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.blue),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    widget.ordersList[index].state = "accepted";
+                                    LessonAPI.updateALesson(
+                                        widget.ordersList[index]);
+                                  });
+                                },
+                                label: Text(
+                                  'Accept',
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.8)),
+                                ),
+                                icon: Icon(
+                                  Icons.done,
+                                  color: Colors.black.withOpacity(0.8),
+                                  size: 15,
                                 ),
                               ),
                             ),
-                        if (widget.ordersList[index].state == "new")
-                          if (myuser.role == "tutor")
-                            Positioned(
-                              top: 80,
-                              right: -20,
-                              child: Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                // decoration: BoxDecoration(
-                                //   color: Colors.blue,
-                                //   borderRadius: BorderRadius.circular(3),
-                                // ),
-                                child: ElevatedButton.icon(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.red),
-                                  ),
-                                  onPressed: null,
-                                  label: Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.8)),
-                                  ),
-                                  icon: Icon(
-                                    Icons.clear,
-                                    color: Colors.black.withOpacity(0.8),
-                                    size: 15,
-                                  ),
+                          ),
+                          Positioned(
+                            top: 80,
+                            right: -20,
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              // decoration: BoxDecoration(
+                              //   color: Colors.blue,
+                              //   borderRadius: BorderRadius.circular(3),
+                              // ),
+                              child: ElevatedButton.icon(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.red),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    widget.ordersList[index].state = "canceled";
+                                    LessonAPI.updateALesson(
+                                        widget.ordersList[index]);
+                                  });
+                                },
+                                label: Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.8)),
+                                ),
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: Colors.black.withOpacity(0.8),
+                                  size: 15,
                                 ),
                               ),
                             ),
+                          ),
+                        ]
                       ],
                     ),
                   ),
@@ -259,5 +274,3 @@ class _OrderWidgetState extends State<OrderWidget> {
     );
   }
 }
-
-

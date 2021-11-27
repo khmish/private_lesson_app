@@ -9,6 +9,7 @@ import 'package:private_lesson_app/pages/home.dart';
 import 'package:private_lesson_app/pages/teacher_details.dart';
 
 import 'package:private_lesson_app/pages/homepage1.dart';
+import 'package:private_lesson_app/widget/order_detail_widget.dart';
 
 class OrderWidget extends StatefulWidget {
   final List<Lesson> ordersList;
@@ -68,9 +69,10 @@ class _OrderWidgetState extends State<OrderWidget> {
                       /*********************************WORK HERE هنا ************/
                       //moe to next page
                       // widget.ordersList[index]
+                      
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MyHome()),
+                        MaterialPageRoute(builder: (context) => OrderDetail( lesson: widget.ordersList[index],)),
                       );
 
                       /*********************************ORDER ON CLICK ************/
@@ -257,3 +259,5 @@ class _OrderWidgetState extends State<OrderWidget> {
     );
   }
 }
+
+

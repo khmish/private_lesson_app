@@ -17,7 +17,7 @@ class StarsWidget {
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           decoration: BoxDecoration(
-            color: Colors.amber,
+            color: Colors.blueAccent[100],
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -25,20 +25,22 @@ class StarsWidget {
             children: [
               Text("${numberOfStars.toStringAsFixed(1)}"),
               ...[
-                for (int i = 0; i < tempNumberOfEmptyStars; i++)
+                for (int i = 0; i < tempNumberOfStars; i++)
                   Icon(
                     Icons.star_rounded,
-                    size: 24,
+                    size: 28,
+                    color: Colors.amber,
                   ),
-                
                 if (fraction > 0)
                   Icon(
                     Icons.star_half_rounded,
-                    size: 24,
+                    size: 28,
+                    color: Colors.amber,
                   ),
-                for (int i = 0; i < tempNumberOfStars; i++)
+                for (int i = 0; i < tempNumberOfEmptyStars; i++)
                   Icon(
-                    Icons.star_outline_rounded,
+                    Icons.star_border_purple500_rounded,
+                    color: Colors.amber,
                     size: 24,
                   ),
               ],

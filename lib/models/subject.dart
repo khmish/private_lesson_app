@@ -3,7 +3,7 @@ class Subject {
   late int? id;
   late String name;
   late String? pic;
-  late int leveleducation;
+  late int? leveleducation;
 
   Subject(
       { this.id,

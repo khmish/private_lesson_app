@@ -1,3 +1,5 @@
+import 'package:private_lesson_app/models/subject.dart';
+
 class TutorSubsLvEd {
   late int? id;
   late String? name;
@@ -13,7 +15,7 @@ class TutorSubsLvEd {
   late String? city;
   late String? price;
   late String? cert;
-  late List<Subjects> subjects;
+  late List<Subject> subjects;
   late List<LevelEductions> levelEductions;
 
   TutorSubsLvEd(
@@ -50,9 +52,9 @@ class TutorSubsLvEd {
     price = json['price'];
     cert = json['cert'];
     if (json['subjects'] != null) {
-      subjects = <Subjects>[];
+      subjects = <Subject>[];
       json['subjects'].forEach((v) {
-        subjects.add(new Subjects.fromJson(v));
+        subjects.add(new Subject.fromJson(v));
       });
     }
     if (json['levelEductions'] != null) {

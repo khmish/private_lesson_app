@@ -50,9 +50,8 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetailScreen(),
-                            settings: RouteSettings(
-                                arguments: widget.tutorsList[index])),
+                            builder: (context) => DetailScreen(thisuser: widget.tutorsList[index],),
+                            ),
                       );
                     },
                     child: Stack(
@@ -194,7 +193,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    "${widget.tutorsList[index].subjects[index1].subject}",
+                                    "${widget.tutorsList[index].subjects[index1].name}",
                                     style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.black,

@@ -1,3 +1,5 @@
+import 'package:private_lesson_app/models/subject.dart';
+
 class Lesson {
   late int? id;
   late int studentId;
@@ -125,43 +127,43 @@ class Student {
   }
 }
 
-class Subject {
-  late int? id;
-  late int? leveleducationId;
-  late String? name;
-  late String? pic;
-  late String? deletedAt;
-  late String? createdAt;
-  late String? updatedAt;
+// class Subject {
+//   late int? id;
+//   late int? leveleducationId;
+//   late String? name;
+//   late String? pic;
+//   late String? deletedAt;
+//   late String? createdAt;
+//   late String? updatedAt;
 
-  Subject(
-      {required this.id,
-      required this.leveleducationId,
-      required this.name,
-      this.pic,
-      this.deletedAt,
-      this.createdAt,
-      this.updatedAt});
+//   Subject(
+//       {required this.id,
+//       required this.leveleducationId,
+//       required this.name,
+//       this.pic,
+//       this.deletedAt,
+//       this.createdAt,
+//       this.updatedAt});
 
-  Subject.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    leveleducationId = json['leveleducation_id'];
-    name = json['name'];
-    pic = json['pic'];
-    deletedAt = json['deleted_at'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
+//   Subject.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     leveleducationId = json['leveleducation_id'];
+//     name = json['name'];
+//     pic = json['pic'];
+//     deletedAt = json['deleted_at'];
+//     createdAt = json['created_at'];
+//     updatedAt = json['updated_at'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['leveleducation_id'] = this.leveleducationId;
-    data['name'] = this.name;
-    data['pic'] = this.pic;
-    data['deleted_at'] = this.deletedAt;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['leveleducation_id'] = this.leveleducationId;
+//     data['name'] = this.name;
+//     data['pic'] = this.pic;
+//     data['deleted_at'] = this.deletedAt;
+//     data['created_at'] = this.createdAt;
+//     data['updated_at'] = this.updatedAt;
+//     return data;
+//   }
+// }

@@ -10,7 +10,7 @@ class TutorSubsLvEd {
   late String? phone;
   late String? role;
   late String? pic;
-  late double? rating;
+  late num rating=0;
   late int? cityId;
   late String? city;
   late String? price;
@@ -28,7 +28,7 @@ class TutorSubsLvEd {
       this.phone,
       this.role,
       this.pic,
-      this.rating,
+      required this.rating,
       this.cityId,
       this.city,
       this.price,
@@ -46,7 +46,7 @@ class TutorSubsLvEd {
     phone = json['phone'];
     role = json['role'];
     pic = json['pic'];
-    rating = json['rating'];
+    rating = json['rating'] ;
     cityId = json['city_id'];
     city = json['city'];
     price = json['price'];

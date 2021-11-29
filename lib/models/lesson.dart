@@ -9,6 +9,7 @@ class Lesson {
   late Subject? subject;
   late int subjectId;
   late String? dateExecution;
+  late String? price;
   late String? state;
 
   Lesson(
@@ -20,6 +21,7 @@ class Lesson {
       this.subject,
       required this.subjectId,
        this.dateExecution,
+       this.price,
        this.state});
 
   Lesson.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class Lesson {
         (json['subject'] != null ? new Subject.fromJson(json['subject']) : null);
     subjectId = json['subject_id'];
     dateExecution = json['date_execution'];
+    price = json['price'];
     state = json['state'];
   }
 
@@ -53,6 +56,7 @@ class Lesson {
     }
     data['subject_id'] = this.subjectId;
     data['date_execution'] = this.dateExecution;
+    data['price'] = this.price;
     data['state'] = this.state;
     return data;
   }

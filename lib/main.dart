@@ -9,6 +9,7 @@ import 'package:private_lesson_app/pages/register_login/signup_teacher.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
 import 'package:flutter/services.dart';
+import 'package:private_lesson_app/widget/chat/chat_widget.dart';
 
 import 'pages/register_login/login.dart';
 
@@ -20,6 +21,7 @@ void main() async {
   ]);
   runApp(MaterialApp(
     //here2
+    // initialRoute: '/chat',
     initialRoute: '/login',
     // initialRoute: '/myorder_page',
 
@@ -48,6 +50,8 @@ void main() async {
 
       //Drawer
       '/testRating': (context) => MyHomeTest(),
+
+      '/chat': (context) => ChatWidget(),
     },
   ));
 }

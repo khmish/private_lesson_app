@@ -3,9 +3,9 @@ import 'package:private_lesson_app/constants/size_const.dart';
 
 class StarsWidget {
   static Widget starsWidget({
-    required double numberOfStars,
+    required num numberOfStars,
   }) {
-    double fraction = numberOfStars - numberOfStars.truncate();
+    num fraction = numberOfStars - numberOfStars.truncate();
     int tempNumberOfStars = int.parse(numberOfStars.floor().toString());
     int tempNumberOfEmptyStars =
         5 - (tempNumberOfStars + (fraction > 0 ? 1 : 0));
@@ -17,7 +17,7 @@ class StarsWidget {
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           decoration: BoxDecoration(
-            color: Colors.blueAccent[100],
+            color: Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -36,6 +36,7 @@ class StarsWidget {
                     Icons.star_half_rounded,
                     size: 28,
                     color: Colors.amber,
+                    
                   ),
                 for (int i = 0; i < tempNumberOfEmptyStars; i++)
                   Icon(

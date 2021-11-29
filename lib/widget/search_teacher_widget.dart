@@ -138,7 +138,7 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                         ),
 
                         // ********************Stars *******************************
-                        StarsWidget.starsWidget(numberOfStars: widget.tutorsList[index].rating!),
+                        StarsWidget.starsWidget(numberOfStars:(widget.tutorsList[index].rating) ),
 
                         // ********************Price *******************************
                         Positioned(

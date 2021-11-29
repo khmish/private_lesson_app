@@ -13,10 +13,10 @@ class OrderDetail extends StatefulWidget {
 class _OrderDetailState extends State<OrderDetail> {
   @override
   Widget build(BuildContext context) {
-    var studentname = widget.lesson.student!.name;
-    var teachername = widget.lesson.teacher!.name;
-    var subject = widget.lesson.subject!.name;
-    var state = widget.lesson.state!;
+    String studentname = widget.lesson.student!.name??"";
+    String teachername = widget.lesson.teacher!.name??"";
+    String subject = widget.lesson.subject!.name;
+    String state = widget.lesson.state!;
 
 
     return Scaffold(
@@ -40,10 +40,11 @@ class _OrderDetailState extends State<OrderDetail> {
                 Container(
                   child: Column(
                     children: [
-                      Text("Student Name: " + studentname!),
-                      Text("Teacher Name: " + teachername!),
-                      Text("Subject: " + subject!),
-                      Text("State: " + state!),
+                      Text("Student Name: " + studentname),
+                      Text("Teacher Name: " + teachername),
+                      Text("Subject: " + subject),
+                      Text("State: " + state),
+                      Text("Price: " + state),
 
                     ],
                   ),

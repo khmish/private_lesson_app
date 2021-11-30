@@ -1,3 +1,5 @@
+//import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/pages/home.dart';
 import 'package:private_lesson_app/pages/homeAdmin.dart';
@@ -9,6 +11,8 @@ import 'package:private_lesson_app/pages/register_login/signup_teacher.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
 import 'package:flutter/services.dart';
+import 'package:private_lesson_app/pages/test_refresh_page/home_search.dart';
+import 'package:private_lesson_app/pages/test_refresh_page/refresh_page.dart';
 import 'package:private_lesson_app/widget/chat/chat_widget.dart';
 
 import 'pages/register_login/login.dart';
@@ -23,7 +27,8 @@ void main() async {
     //here2
     // initialRoute: '/chat',
     initialRoute: '/login',
-    // initialRoute: '/myorder_page',
+    //initialRoute: '/refresh',
+    //initialRoute: '/homerefresh',
 
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
@@ -41,7 +46,6 @@ void main() async {
       //************* Admin Pages *************//
       '/adminControl': (context) => AdminControlWidget(),
 
-
       //************* Admin Pages *************//
       '/myprofile': (context) => MyprofileScreen(),
 
@@ -52,6 +56,8 @@ void main() async {
       '/testRating': (context) => MyHomeTest(),
 
       '/chat': (context) => ChatWidget(),
+      '/refresh': (context) => ListViewRefreshPage(),
+      '/homerefresh': (context) => HomeSearchRefresh(),
     },
   ));
 }

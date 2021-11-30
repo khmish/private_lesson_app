@@ -100,6 +100,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                             textController: nameController,
                             icon: Icons.person_outline,
                             keyboardTp: 0),
+
+
+
                         //------------Email--------------------------
                         TextWidget.textWidget("Email",
                             length: 70,

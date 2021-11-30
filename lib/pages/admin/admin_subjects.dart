@@ -107,6 +107,7 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 10, 0),
                                       child: TextFormField(
+                                        maxLength: 22,
                                         controller: subjectNameController,
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -273,6 +274,7 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                             child: TextFormField(
+                              maxLength: 22,
                               controller: subjectNameController,
                               obscureText: false,
                               decoration: InputDecoration(

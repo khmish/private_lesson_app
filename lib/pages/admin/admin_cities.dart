@@ -92,6 +92,7 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 10, 0),
                                       child: TextFormField(
+                                        maxLength: 22,
                                         controller: cityNameController,
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -103,9 +104,11 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                       ),
                                     ),
                                     Padding(
+
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 10, 0),
                                       child: TextFormField(
+                                        maxLength: 22,
                                         controller: countryController,
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -238,6 +241,7 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                             child: TextFormField(
+                              maxLength: 22,
                               controller: cityNameController,
                               obscureText: false,
                               decoration: InputDecoration(
@@ -252,6 +256,7 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                             child: TextFormField(
+                              maxLength: 22,
                               controller: countryController,
                               obscureText: false,
                               decoration: InputDecoration(

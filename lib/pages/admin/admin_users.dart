@@ -360,6 +360,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                             child: TextFormField(
+                              maxLength: 22,
                               controller: nameController,
                               obscureText: false,
                               decoration: InputDecoration(
@@ -400,6 +401,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 constLeft, constTop, constRight, constBottom),
                             child: TextFormField(
+                              maxLength: 15,
                               keyboardType: TextInputType.number,
                               controller: phoneController,
                               obscureText: false,

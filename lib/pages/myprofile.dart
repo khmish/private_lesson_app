@@ -7,6 +7,7 @@ import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/widget/form_widget/drp_city_widget.dart';
 import 'package:private_lesson_app/widget/form_widget/drp_widget.dart';
+import 'package:private_lesson_app/widget/form_widget/text_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyprofileScreen extends StatefulWidget {
@@ -87,187 +88,211 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
             // ),
             body: SingleChildScrollView(
               child: Center(
-                child: Column(
-                  children: [
-                    //------------Pic user--------------------------
-                    Container(
-                      width: MediaQuery.of(context).size.width > 1000
-                          ? MediaQuery.of(context).size.width * 0.6
-                          : MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: colorBackGround,
-                          image: DecorationImage(
-                              image: NetworkImage("add you image URL here "),
-                              fit: BoxFit.cover)),
-                      child: Container(
-                        width: double.infinity,
-                        height: 160,
+                //child: Column(
+                child: Form( // del here if som wrong
+                  child: Column(
+                    children: [
+                      //------------Pic user--------------------------
+                      Container(
+                        width: MediaQuery.of(context).size.width > 1000
+                            ? MediaQuery.of(context).size.width * 0.6
+                            : MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            color: colorBackGround,
+                            image: DecorationImage(
+                                image: NetworkImage("add you image URL here "),
+                                fit: BoxFit.cover)),
                         child: Container(
-                          alignment: Alignment(0.0, 2.5),
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                "https://picsum.photos/seed/305/600"
-                                // "https://i.ibb.co/JzdX185/profile-male.png"
-                                ),
-                            radius: 60.0,
+                          width: double.infinity,
+                          height: 160,
+                          child: Container(
+                            alignment: Alignment(0.0, 2.5),
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  "https://picsum.photos/seed/305/600"
+                                  // "https://i.ibb.co/JzdX185/profile-male.png"
+                                  ),
+                              radius: 60.0,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                    ),
+                      SizedBox(
+                        height: 60,
+                      ),
 
-                    Padding(
+                      // //------------Name--------------------------
+                      // Padding(
+                      //   //------------Name--------------------------
+                      //   padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                      //   child: TextFormField(
+                      //     controller: nameController,
+                      //     obscureText: false,
+                      //     decoration: InputDecoration(
+                      //
+                      //       labelText: 'Input name',
+                      //       prefixIcon: Icon(
+                      //         Icons.text_fields,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+
                       //------------Name--------------------------
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                      child: TextFormField(
-                        controller: nameController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Input name',
-                          prefixIcon: Icon(
-                            Icons.text_fields,
-                          ),
-                        ),
-                      ),
-                    ),
+                      TextWidget.textWidget("Name",
+                          length: 70,
+                          textController: nameController,
+                          icon: Icons.person_outline,
+                          keyboardTp: 0),
 
-                    //------------Gender--------------------------
-                    DrpWidget(
-                      listObject: _genderList,
-                      defalutValue: _genderSelectedValue,
-                      selectedValue: (value) {
-                        setState(() {
-                          _genderSelectedValue = value;
-                          // print(_country);
-                        });
-                      },
-                      title: "Gender",
-                    ),
 
-                    //---------------City--------------------------
-                    DrpCityWidget(
-                      title: "City",
-                      listObject: _cityList,
-                      defaultValue: _citySelectedValue,
-                      selectedValue: (value) {
-                        setState(() {
-                          _citySelectedValue = value;
-                          // print(_country);
-                        });
-                      },
-                    ),
-
-                    Padding(
-                      //------------Phone--------------------------
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          constLeft, constTop, constRight, constBottom),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: phoneController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: 'Phone',
-                          prefixIcon: Icon(
-                            Icons.phone_android,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    //------------Save button--------------------------
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          myuser.name = nameController.text;
-                          myuser.gender = _genderSelectedValue;
-                          myuser.city = _citySelectedValue;
-                          myuser.phone = phoneController.text;
-                          UserAPI.updateUser(myuser).then((user) {
-                            tempUser = user;
-                          }).then((value) {
-                            if (tempUser.id == -1) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.red,
-                                  content: Text("Wrong something!!"),
-                                ),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.green,
-                                  content: Text("Updated successfully!"),
-                                ),
-                              );
-                            }
+                      //------------Gender--------------------------
+                      DrpWidget(
+                        listObject: _genderList,
+                        defalutValue: _genderSelectedValue,
+                        selectedValue: (value) {
+                          setState(() {
+                            _genderSelectedValue = value;
+                            // print(_country);
                           });
                         },
-                        label: Text('Save changes'),
-                        icon: Icon(
-                          Icons.add,
-                          size: 15,
+                        title: "Gender",
+                      ),
+
+                      //---------------City--------------------------
+                      DrpCityWidget(
+                        title: "City",
+                        listObject: _cityList,
+                        defaultValue: _citySelectedValue,
+                        selectedValue: (value) {
+                          setState(() {
+                            _citySelectedValue = value;
+                            // print(_country);
+                          });
+                        },
+                      ),
+
+
+                      //------------Phone--------------------------
+                      // Padding(
+                      //   //------------Phone--------------------------
+                      //   padding: EdgeInsetsDirectional.fromSTEB(
+                      //       constLeft, constTop, constRight, constBottom),
+                      //   child: TextFormField(
+                      //
+                      //     keyboardType: TextInputType.number,
+                      //     controller: phoneController,
+                      //     obscureText: false,
+                      //     decoration: InputDecoration(
+                      //
+                      //       border: const OutlineInputBorder(),
+                      //       labelText: 'Phone',
+                      //       prefixIcon: Icon(
+                      //         Icons.phone_android,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+
+                      //------------Phone--------------------------
+                      TextWidget.textWidget("Phone",
+                          length: 14,
+                          textController: phoneController,
+                          icon: Icons.phone_android,
+                          keyboardTp: 2),
+
+                      //------------Save button--------------------------
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            myuser.name = nameController.text;
+                            myuser.gender = _genderSelectedValue;
+                            myuser.city = _citySelectedValue;
+                            myuser.phone = phoneController.text;
+                            UserAPI.updateUser(myuser).then((user) {
+                              tempUser = user;
+                            }).then((value) {
+                              if (tempUser.id == -1) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.red,
+                                    content: Text("Wrong something!!"),
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.green,
+                                    content: Text("Updated successfully!"),
+                                  ),
+                                );
+                              }
+                            });
+                          },
+                          label: Text('Save changes'),
+                          icon: Icon(
+                            Icons.add,
+                            size: 15,
+                          ),
                         ),
                       ),
-                    ),
 
-                    // Text(
-                    //   'Name: ${myuser.name}',
-                    //   textAlign: TextAlign.start,
-                    //   style: TextStyle(
-                    //       fontSize: 25.0,
-                    //       color: colorMainText,
-                    //       letterSpacing: 2.0,
-                    //       fontWeight: FontWeight.w400),
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // Text(
-                    //   'Email: ${myuser.email}',
-                    //   style: TextStyle(
-                    //       fontSize: 18.0,
-                    //       color: colorMainText,
-                    //       letterSpacing: 2.0,
-                    //       fontWeight: FontWeight.w300),
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // Text(
-                    //   'Gender: ${myuser.gender}',
-                    //   style: TextStyle(
-                    //       fontSize: 18.0,
-                    //       color: colorMainText,
-                    //       letterSpacing: 2.0,
-                    //       fontWeight: FontWeight.w300),
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // Text(
-                    //   'Phone number: ${myuser.phone}',
-                    //   style: TextStyle(
-                    //       fontSize: 18.0,
-                    //       color: colorMainText,
-                    //       letterSpacing: 2.0,
-                    //       fontWeight: FontWeight.w300),
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // Text(
-                    //   'City: ${myuser.city}',
-                    //   style: TextStyle(
-                    //       fontSize: 18.0,
-                    //       color: colorMainText,
-                    //       letterSpacing: 2.0,
-                    //       fontWeight: FontWeight.w300),
-                    // ),
-                  ],
+                      // Text(
+                      //   'Name: ${myuser.name}',
+                      //   textAlign: TextAlign.start,
+                      //   style: TextStyle(
+                      //       fontSize: 25.0,
+                      //       color: colorMainText,
+                      //       letterSpacing: 2.0,
+                      //       fontWeight: FontWeight.w400),
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Text(
+                      //   'Email: ${myuser.email}',
+                      //   style: TextStyle(
+                      //       fontSize: 18.0,
+                      //       color: colorMainText,
+                      //       letterSpacing: 2.0,
+                      //       fontWeight: FontWeight.w300),
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Text(
+                      //   'Gender: ${myuser.gender}',
+                      //   style: TextStyle(
+                      //       fontSize: 18.0,
+                      //       color: colorMainText,
+                      //       letterSpacing: 2.0,
+                      //       fontWeight: FontWeight.w300),
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Text(
+                      //   'Phone number: ${myuser.phone}',
+                      //   style: TextStyle(
+                      //       fontSize: 18.0,
+                      //       color: colorMainText,
+                      //       letterSpacing: 2.0,
+                      //       fontWeight: FontWeight.w300),
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Text(
+                      //   'City: ${myuser.city}',
+                      //   style: TextStyle(
+                      //       fontSize: 18.0,
+                      //       color: colorMainText,
+                      //       letterSpacing: 2.0,
+                      //       fontWeight: FontWeight.w300),
+                      // ),
+                    ],
+                  ),
                 ),
               ),
             ));

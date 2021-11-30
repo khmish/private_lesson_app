@@ -91,6 +91,7 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 10, 0),
                                       child: TextFormField(
+                                        maxLength: 30,
                                         controller:
                                             leveleducationNameController,
                                         obscureText: false,
@@ -202,6 +203,7 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                             child: TextFormField(
+                              maxLength: 22,
                               controller: leveleducationNameController,
                               obscureText: false,
                               decoration: InputDecoration(

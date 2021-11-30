@@ -17,6 +17,7 @@ class _OrderDetailState extends State<OrderDetail> {
     String teachername = widget.lesson.teacher!.name??"";
     String subject = widget.lesson.subject!.name;
     String state = widget.lesson.state!;
+    String price = widget.lesson.price!;
 
 
     return Scaffold(
@@ -44,7 +45,7 @@ class _OrderDetailState extends State<OrderDetail> {
                       Text("Teacher Name: " + teachername),
                       Text("Subject: " + subject),
                       Text("State: " + state),
-                      Text("Price: " + state),
+                      Text("Price: " + price),
 
                     ],
                   ),

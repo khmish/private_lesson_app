@@ -28,7 +28,7 @@ class _DrpCityWidgetState extends State<DrpCityWidget> {
           constLeft, constTop, constRight, constBottom),
       child: SizedBox(
         width: double.infinity,
-        height: 50,
+        height: 60,
         child: DropdownButtonFormField(
           value: widget.defaultValue,
           onChanged: (cityId) {

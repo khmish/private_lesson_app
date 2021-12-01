@@ -28,7 +28,7 @@ class _DrpWidgetState extends State<DrpWidget> {
           constLeft, constTop, constRight, constBottom),
       child: SizedBox(
         width: double.infinity,
-        height: 50,
+        height: 60,
         child: DropdownButtonFormField(
           value: widget.defalutValue,
           onChanged: (newValue) {

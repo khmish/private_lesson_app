@@ -117,12 +117,11 @@ class CityAPI {
     }
   }
 
-//---------------------------------- add city ----------------------------------//
-  static var _baseURL = 'https://privatelesson.herokuapp.com/api/city';
+  //---------------------------------- add city ----------------------------------//
   static Future<void> addCities(String cityName, String countryName) async {
-    var baseUrl = _baseURL;
+    var baseUrl = _baseUrlCities;
     try {
-      baseUrl = _baseURL;
+      baseUrl = _baseUrlCities;
       var url = Uri.parse(baseUrl);
       var response = await http.post(
         url,

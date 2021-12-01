@@ -6,9 +6,13 @@ import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 class TutorSearch {
   static var _baseUrlUsers =
       'https://privatelesson.herokuapp.com/api/user/search';
-      // 'http://192.168.100.49/privateLesson/public/api/user/search';
-  
-  static Future<List<TutorSubsLvEd>> searchForTutorsWithParams({int? leveleducationId ,String? gender="",int? subjectId,int? cityId}) async {
+  // 'http://192.168.100.49/privateLesson/public/api/user/search';
+
+  static Future<List<TutorSubsLvEd>> searchForTutorsWithParams(
+      {int? leveleducationId,
+      String? gender = "",
+      int? subjectId,
+      int? cityId}) async {
     var baseUrl = _baseUrlUsers;
     List<TutorSubsLvEd> tutorsList = [];
     try {
@@ -32,7 +36,7 @@ class TutorSearch {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
 
@@ -45,7 +49,6 @@ class TutorSearch {
         return tutorsList;
       }
     } catch (e) {
-      print(e);
       return tutorsList;
     }
   }

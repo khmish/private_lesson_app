@@ -13,7 +13,6 @@ Future<User> checksIfLogIn() async {
   // bool isLogged = false;
   final storage = await SharedPreferences.getInstance();
   String token = storage.getString("token").toString();
-  print(token + " ********************* ");
   User user = await UserAPI.me(token);
   return user;
 }

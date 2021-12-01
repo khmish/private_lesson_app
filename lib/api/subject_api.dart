@@ -24,7 +24,7 @@ class SubjectAPI {
         //   // 'Authorization': 'Bearer $token',
         // },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
 
@@ -37,7 +37,6 @@ class SubjectAPI {
         return subjectList;
       }
     } catch (e) {
-      print(e);
       return subjectList;
     }
   }
@@ -59,7 +58,7 @@ class SubjectAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 204) {
         // dynamic body = json.decode(response.body)['data'];
 
@@ -69,7 +68,6 @@ class SubjectAPI {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -91,7 +89,7 @@ class SubjectAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         Subject subject = Subject.fromJson(body);
@@ -101,7 +99,6 @@ class SubjectAPI {
         return new Subject(name: "", pic: "", leveleducation: -1, id: -1);
       }
     } catch (e) {
-      print(e);
       return new Subject(name: "", pic: "", leveleducation: -1, id: -1);
     }
   }
@@ -124,7 +121,7 @@ class SubjectAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         Subject subject = Subject.fromJson(body);
@@ -134,7 +131,6 @@ class SubjectAPI {
         return new Subject(name: "", pic: "", leveleducation: -1, id: -1);
       }
     } catch (e) {
-      print(e);
       return new Subject(name: "", pic: "", leveleducation: -1, id: -1);
     }
   }
@@ -156,7 +152,7 @@ class SubjectAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       print(response.statusCode);
       if (response.statusCode == 201) {
         return true;
@@ -164,9 +160,7 @@ class SubjectAPI {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
-
 }

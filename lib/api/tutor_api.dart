@@ -21,7 +21,7 @@ class TutorAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
 
@@ -34,7 +34,6 @@ class TutorAPI {
         return tutorList;
       }
     } catch (e) {
-      print(e);
       return tutorList;
     }
   }
@@ -57,7 +56,7 @@ class TutorAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 201) {
         dynamic body = json.decode(response.body)['data'];
         tutor = Tutor.fromJson(body);
@@ -66,14 +65,14 @@ class TutorAPI {
         return tutor;
       }
     } catch (e) {
-      print(e);
       return tutor;
     }
   }
 
   static Future<Tutor> updateTutor(Tutor tutor) async {
     var baseUrl = _baseUrlTutor;
-    Tutor tutor = new Tutor(id:-1,userId: 0, titleCert: "", price: "", type: "");
+    Tutor tutor =
+        new Tutor(id: -1, userId: 0, titleCert: "", price: "", type: "");
 
     try {
       // if (page > 0) {
@@ -89,7 +88,7 @@ class TutorAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         tutor = Tutor.fromJson(body);
@@ -98,7 +97,6 @@ class TutorAPI {
         return tutor;
       }
     } catch (e) {
-      print(e);
       return tutor;
     }
   }
@@ -120,14 +118,13 @@ class TutorAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 204) {
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }

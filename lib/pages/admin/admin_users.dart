@@ -87,7 +87,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       print(response.statusCode);
       if (response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -115,9 +115,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
           ),
         );
       }
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   @override

@@ -3,8 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/models/tutor_subs.dart';
 
 class TutorSubsAPI {
-  static var _baseUrlTutorSubs = 'https://privatelesson.herokuapp.com/api/tutor-sub';
-  
+  static var _baseUrlTutorSubs =
+      'https://privatelesson.herokuapp.com/api/tutor-sub';
+
   static Future<List<TutorSubs>> getTutorsSubs() async {
     var baseUrl = _baseUrlTutorSubs;
     List<TutorSubs> tutorList = [];
@@ -21,7 +22,7 @@ class TutorSubsAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
 
@@ -34,13 +35,13 @@ class TutorSubsAPI {
         return tutorList;
       }
     } catch (e) {
-      print(e);
       return tutorList;
     }
   }
+
   static Future<bool> addTutorSubs(TutorSubs tutorSubs) async {
     var baseUrl = _baseUrlTutorSubs;
-    
+
     try {
       // if (page > 0) {
       baseUrl = _baseUrlTutorSubs;
@@ -55,24 +56,23 @@ class TutorSubsAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 201) {
-        
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
+
   static Future<bool> updateTutor(TutorSubs tutorSubs) async {
     var baseUrl = _baseUrlTutorSubs;
-    
+
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlTutorSubs+'/${tutorSubs.id}';
+      baseUrl = _baseUrlTutorSubs + '/${tutorSubs.id}';
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.put(
@@ -84,24 +84,23 @@ class TutorSubsAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
-        
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
+
   static Future<bool> deleteTutor(String tutorSubsId) async {
     var baseUrl = _baseUrlTutorSubs;
-    
+
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlTutorSubs+'/$tutorSubsId';
+      baseUrl = _baseUrlTutorSubs + '/$tutorSubsId';
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.delete(
@@ -113,17 +112,14 @@ class TutorSubsAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 204) {
-        
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
-
 }

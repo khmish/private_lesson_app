@@ -30,7 +30,7 @@ class LessonAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
 
@@ -43,7 +43,6 @@ class LessonAPI {
         return lessonList;
       }
     } catch (e) {
-      print(e);
       return lessonList;
     }
   }
@@ -65,7 +64,7 @@ class LessonAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 204) {
         // dynamic body = json.decode(response.body)['data'];
 
@@ -75,7 +74,6 @@ class LessonAPI {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -97,7 +95,7 @@ class LessonAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         Lesson city = Lesson.fromJson(body);
@@ -108,7 +106,6 @@ class LessonAPI {
         return Lesson.fromJson(bodyerror);
       }
     } catch (e) {
-      print(e);
       dynamic bodyerror;
 
       return Lesson.fromJson(bodyerror);
@@ -133,7 +130,7 @@ class LessonAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         Lesson lesson = Lesson.fromJson(body);
@@ -144,7 +141,6 @@ class LessonAPI {
         return Lesson.fromJson(bodyerror);
       }
     } catch (e) {
-      print(e);
       dynamic bodyerror;
       return Lesson.fromJson(bodyerror);
     }
@@ -167,17 +163,14 @@ class LessonAPI {
         },
       );
 
-      print(response.body);
       if (response.statusCode == 201) {
         dynamic body = json.decode(response.body)['data'];
         lesson = Lesson.fromJson(body);
         return lesson;
       } else {
-        print(response.body);
         return lesson;
       }
     } catch (e) {
-      print(e);
       return lesson;
     }
   }

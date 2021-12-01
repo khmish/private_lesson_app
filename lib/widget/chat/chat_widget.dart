@@ -67,6 +67,7 @@ class _ChatWidgetState extends State<ChatWidget> {
       body: Center(
         child: Container(
           child: Column(
+            
             children: [
               SizedBox(
                 height: 20,
@@ -112,31 +113,30 @@ class _ChatWidgetState extends State<ChatWidget> {
 
 Widget chatItem(BuildContext context, MessagesChat chatDetail) {
   return Container(
+    height: 70,
     decoration: BoxDecoration(
       color: (colorContainerBox),
       borderRadius: BorderRadius.circular(10),
     ),
-    alignment: Alignment.centerLeft,
+    // alignment: Alignment.centerLeft,
     margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-    child: FittedBox(
-      child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          CircleAvatar(
-            backgroundColor: (colorMainText),
-            child: Text("${chatDetail.sender.substring(0, 2).toUpperCase()}"),
-          ),
-          Column(
-            children: [
-              Text("${chatDetail.message}"),
-              Text("${chatDetail.msgTime}"),
-            ],
-          ),
-          Icon(Icons.fiber_new),
-        ],
-      ),
+    child: Row(
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        CircleAvatar(
+          backgroundColor: (colorMainText),
+          child: Text("${chatDetail.sender.substring(0, 2).toUpperCase()}"),
+        ),
+        Column(
+          children: [
+            Text("${chatDetail.message}"),
+            Text("${chatDetail.msgTime}"),
+          ],
+        ),
+        Icon(Icons.fiber_new),
+      ],
     ),
   );
 }

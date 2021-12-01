@@ -3,8 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/models/tutor_leveleduction.dart';
 
 class TutorLeveleducationAPI {
-  static var _baseUrlTutorleveleducation = 'https://privatelesson.herokuapp.com/api/tutor-level-education';
-  
+  static var _baseUrlTutorleveleducation =
+      'https://privatelesson.herokuapp.com/api/tutor-level-education';
+
   static Future<List<TutorLeveleducation>> getTutorsleveleducation() async {
     var baseUrl = _baseUrlTutorleveleducation;
     List<TutorLeveleducation> tutorList = [];
@@ -21,7 +22,7 @@ class TutorLeveleducationAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
 
@@ -34,13 +35,14 @@ class TutorLeveleducationAPI {
         return tutorList;
       }
     } catch (e) {
-      print(e);
       return tutorList;
     }
   }
-  static Future<bool> addTutorleveleducation(TutorLeveleducation tutorleveleducation) async {
+
+  static Future<bool> addTutorleveleducation(
+      TutorLeveleducation tutorleveleducation) async {
     var baseUrl = _baseUrlTutorleveleducation;
-    
+
     try {
       // if (page > 0) {
       baseUrl = _baseUrlTutorleveleducation;
@@ -55,24 +57,24 @@ class TutorLeveleducationAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 201) {
-        
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
-  static Future<bool> updateTutor(TutorLeveleducation tutorleveleducation) async {
+
+  static Future<bool> updateTutor(
+      TutorLeveleducation tutorleveleducation) async {
     var baseUrl = _baseUrlTutorleveleducation;
-    
+
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlTutorleveleducation+'/${tutorleveleducation.id}';
+      baseUrl = _baseUrlTutorleveleducation + '/${tutorleveleducation.id}';
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.put(
@@ -84,24 +86,23 @@ class TutorLeveleducationAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
-        
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
+
   static Future<bool> deleteTutor(String tutorleveleducationId) async {
     var baseUrl = _baseUrlTutorleveleducation;
-    
+
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlTutorleveleducation+'/$tutorleveleducationId';
+      baseUrl = _baseUrlTutorleveleducation + '/$tutorleveleducationId';
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.delete(
@@ -113,17 +114,14 @@ class TutorLeveleducationAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 204) {
-        
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
-
 }

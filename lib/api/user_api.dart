@@ -24,7 +24,7 @@ class UserAPI {
         //   // 'Authorization': 'Bearer $token',
         // },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         for (var i = 0; i < body.length; i++) {
@@ -36,17 +36,16 @@ class UserAPI {
         return userList;
       }
     } catch (e) {
-      print(e);
       return userList;
     }
   }
 
   static Future<User> login(String email, String password) async {
     final storage = await SharedPreferences.getInstance();
-    var baseUrl = _baseUrlUsers+"/login";
+    var baseUrl = _baseUrlUsers + "/login";
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlUsers+"/login";
+      baseUrl = _baseUrlUsers + "/login";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.post(
@@ -62,27 +61,26 @@ class UserAPI {
         },
       );
       if (response.statusCode == 200) {
-        print(response.body);
         storage.setString("token", json.decode(response.body)['data']);
 
         return User.fromJson(json.decode(response.body)['user']);
       } else {
         storage.remove("token");
-        print(response.body);
-        return new User(id: -1,name: "", email: "", city: -1, phone: "", gender: "");
+
+        return new User(
+            id: -1, name: "", email: "", city: -1, phone: "", gender: "");
       }
     } catch (e) {
-      print(e);
-      return new User(id: -1,name: "", email: "", city: -1, phone: "", gender: "");
+      return new User(
+          id: -1, name: "", email: "", city: -1, phone: "", gender: "");
     }
   }
 
   static Future<User> me(String token) async {
-    
-    var baseUrl = _baseUrlUsers+"/me";
+    var baseUrl = _baseUrlUsers + "/me";
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlUsers+"/me";
+      baseUrl = _baseUrlUsers + "/me";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.post(
@@ -94,19 +92,28 @@ class UserAPI {
         },
       );
       if (response.statusCode == 200) {
-        print(response.body);
         dynamic user = json.decode(response.body);
 
         return User.fromJson(user);
       } else {
-        
-        print(response.body);
-        return User(city: -1,id: -1,email: "",gender: "",name: "",phone: "",role: "");
+        return User(
+            city: -1,
+            id: -1,
+            email: "",
+            gender: "",
+            name: "",
+            phone: "",
+            role: "");
       }
     } catch (e) {
-      print(e);
-
-      return User(city: -1,id: -1,email: "",gender: "",name: "",phone: "",role: "");
+      return User(
+          city: -1,
+          id: -1,
+          email: "",
+          gender: "",
+          name: "",
+          phone: "",
+          role: "");
     }
   }
 
@@ -129,7 +136,7 @@ class UserAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       print(response.statusCode);
       if (response.statusCode == 201) {
         dynamic body = json.decode(response.body);
@@ -139,17 +146,16 @@ class UserAPI {
         return user;
       }
     } catch (e) {
-      print(e);
       return user;
     }
   }
 
   static Future<bool> getLoginUser(String token) async {
-    var baseUrl = _baseUrlUsers+"/me";
+    var baseUrl = _baseUrlUsers + "/me";
 
     try {
       // if (page > 0) {
-      baseUrl = _baseUrlUsers+"/me";
+      baseUrl = _baseUrlUsers + "/me";
       // }
       var url = Uri.parse(baseUrl);
       var response = await http.post(
@@ -160,7 +166,7 @@ class UserAPI {
           'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         // dynamic body = json.decode(response.body)['data'];
 
@@ -170,7 +176,6 @@ class UserAPI {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -191,7 +196,7 @@ class UserAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 204) {
         // dynamic body = json.decode(response.body)['data'];
 
@@ -201,7 +206,6 @@ class UserAPI {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -224,7 +228,7 @@ class UserAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         User user = User.fromJson(body);
@@ -235,7 +239,6 @@ class UserAPI {
             name: "", email: "", city: -1, phone: "", gender: "", id: -1);
       }
     } catch (e) {
-      print(e);
       return new User(
           name: "", email: "", city: -1, phone: "", gender: "", id: -1);
     }

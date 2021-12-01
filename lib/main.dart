@@ -46,8 +46,6 @@ void main() async {
       //************* Admin Pages *************//
       '/adminControl': (context) => AdminControlWidget(),
 
-      //************* Admin Pages *************//
-      '/myprofile': (context) => MyprofileScreen(),
 
       //************* Teacher Pages *************//
       // '/teacherProfile': (context) => teacher_profile(),

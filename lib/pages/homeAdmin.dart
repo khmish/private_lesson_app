@@ -68,7 +68,7 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
               elevation: 4,
             ),
             drawer: DrawerWidget.drawerWidget(context,user.id!=-1?true:false),
-            body: getBody(page, pages),
+            body: getBody(page, pages,user),
 
             //here 1
             //bottomNavigationBar: BottomNavigationBar(
@@ -91,7 +91,7 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
   }
 }
 
-Widget getBody(int page, var pages) {
+Widget getBody(int page, var pages,User user) {
   switch (page) {
     case 0:
       if (pages.length == 1) {
@@ -104,6 +104,6 @@ Widget getBody(int page, var pages) {
       return AdminControlWidget();
 
     default:
-      return MyprofileScreen();
+      return MyprofileScreen(myuser: user,);
   }
 }

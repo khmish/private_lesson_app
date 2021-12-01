@@ -24,7 +24,7 @@ class LeveleducationAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      // print(response.body);
+      //
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
 
@@ -37,7 +37,6 @@ class LeveleducationAPI {
         return leveleducationList;
       }
     } catch (e) {
-      print(e);
       return leveleducationList;
     }
   }
@@ -59,7 +58,7 @@ class LeveleducationAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 204) {
         // dynamic body = json.decode(response.body)['data'];
 
@@ -69,7 +68,6 @@ class LeveleducationAPI {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -91,7 +89,7 @@ class LeveleducationAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         Leveleducation leveleducation = Leveleducation.fromJson(body);
@@ -101,7 +99,6 @@ class LeveleducationAPI {
         return new Leveleducation(name: "", id: -1);
       }
     } catch (e) {
-      print(e);
       return new Leveleducation(name: "", id: -1);
     }
   }
@@ -125,7 +122,7 @@ class LeveleducationAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         Leveleducation leveleducation = Leveleducation.fromJson(body);
@@ -135,7 +132,6 @@ class LeveleducationAPI {
         return new Leveleducation(name: "", id: -1);
       }
     } catch (e) {
-      print(e);
       return new Leveleducation(name: "", id: -1);
     }
   }
@@ -153,13 +149,8 @@ class LeveleducationAPI {
         },
       );
 
-      print(response.body);
       if (response.statusCode == 200) {
-      } else {
-        print(response.body);
-      }
-    } catch (e) {
-      print(e);
-    }
+      } else {}
+    } catch (e) {}
   }
 }

@@ -31,7 +31,6 @@ class CityAPI {
         return cityList;
       }
     } catch (e) {
-      print(e);
       return cityList;
     }
   }
@@ -49,14 +48,14 @@ class CityAPI {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      print(response.body);
+      
       if (response.statusCode == 204) {
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print(e);
+      
       return false;
     }
   }
@@ -74,7 +73,7 @@ class CityAPI {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      print(response.body);
+      
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         City city = City.fromJson(body);
@@ -83,7 +82,7 @@ class CityAPI {
         return new City(countryName: "", name: "", id: -1);
       }
     } catch (e) {
-      print(e);
+      
       return new City(countryName: "", name: "", id: -1);
     }
   }
@@ -104,7 +103,7 @@ class CityAPI {
           // 'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
+      
       if (response.statusCode == 200) {
         dynamic body = json.decode(response.body)['data'];
         City city = City.fromJson(body);
@@ -113,7 +112,7 @@ class CityAPI {
         return new City(countryName: "", name: "", id: -1);
       }
     } catch (e) {
-      print(e);
+      
       return new City(countryName: "", name: "", id: -1);
     }
   }
@@ -132,13 +131,13 @@ class CityAPI {
           "country_name": countryName,
         },
       );
-      print(response.body);
+      
       if (response.statusCode == 200) {
       } else {
-        print(response.body);
+        
       }
     } catch (e) {
-      print(e);
+      
     }
   }
 }

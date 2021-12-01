@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MyprofileScreen extends StatefulWidget {
   late User myuser;
-  MyprofileScreen({Key? key , required this.myuser}) : super(key: key);
+  MyprofileScreen({Key? key, required this.myuser}) : super(key: key);
 
   @override
   _MyprofileScreenState createState() => _MyprofileScreenState();
@@ -22,24 +22,25 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late TextEditingController nameController;
-  
+
   late TextEditingController phoneController;
-  
+
   late List<String> _genderList = ['male', 'female'];
   String _genderSelectedValue = "male";
   late List<City> _cityList = [];
   late int _citySelectedValue = 1;
 
   bool isLoading = true;
-  User myuser=new User(id: -1,name: '', email: '', city: -1, phone: "", gender: "") ;
-      
+  User myuser =
+      new User(id: -1, name: '', email: '', city: -1, phone: "", gender: "");
+
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController();
-   
+
     phoneController = TextEditingController();
-   
+
     CityAPI.getCities().then((citiesList) {
       setState(() {
         _cityList = citiesList;
@@ -55,12 +56,11 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
         isLoading = false;
       });
     });
-     myuser =widget.myuser;
+    myuser = widget.myuser;
     nameController.text = myuser.name!;
     _genderSelectedValue = myuser.gender!;
     _citySelectedValue = myuser.city!;
     phoneController.text = myuser.phone!;
-    
   }
 
 // class MyprofileScreen extends StatelessWidget {
@@ -69,8 +69,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
   @override
   Widget build(BuildContext context) {
     // Use the Todo to create the UI.
-
-    
 
     return isLoading == true
         ? Center(
@@ -84,7 +82,8 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
             body: SingleChildScrollView(
               child: Center(
                 //child: Column(
-                child: Form( // del here if som wrong
+                child: Form(
+                  // del here if som wrong
                   child: Column(
                     children: [
                       //------------Pic user--------------------------
@@ -140,7 +139,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                           icon: Icons.person_outline,
                           keyboardTp: 0),
 
-
                       //------------Gender--------------------------
                       DrpWidget(
                         listObject: _genderList,
@@ -166,7 +164,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                           });
                         },
                       ),
-
 
                       //------------Phone--------------------------
                       // Padding(
@@ -205,9 +202,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                             myuser.gender = _genderSelectedValue;
                             myuser.city = _citySelectedValue;
                             myuser.phone = phoneController.text;
-                            UserAPI.updateUser(myuser).then((user) {
-                              myuser = user;
-                            }).then((value) {
+                            UserAPI.updateUser(myuser).then((user) {                            
                               if (myuser.id == -1) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -216,6 +211,10 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                                   ),
                                 );
                               } else {
+                                setState(() {
+                                  myuser = user;
+                                 
+                                });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     backgroundColor: Colors.green,

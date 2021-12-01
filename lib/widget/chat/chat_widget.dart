@@ -64,46 +64,56 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          child: Column(
-            
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .77,
-                // width: MediaQuery.of(context).size.width * .8,
-                child: ListView.builder(
-                  controller: scrollController,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      child: chatItem(context, listChat[index]),
-                    );
-                  },
-                  itemCount: listChat.length,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              TextWidget.textWidget("enter message",
-                  length: 250,
-                  textController: textController,
-                  icon: Icons.ac_unit),
-              ElevatedButton(
-                  onPressed: () async {
-                    sendMsg();
-                    // conn.connect('3.88.177.153', 6379).then((Command command) {
-                    //   command.send_object([
-                    //     "PUBLISH",
-                    //     "hassan",
-                    //     textController.text
-                    //   ]).whenComplete(() {
-                    //     sendMsg();
-                    // });
-                    // connectToRedis();
-                  },
-                  child: Text("start"))
-            ],
+                SizedBox(
+                  height: MediaQuery.of(context).size.height<500?MediaQuery.of(context).size.height * .77:MediaQuery.of(context).size.height*.7,
+                  // width: MediaQuery.of(context).size.width * .8,
+                  child: ListView.builder(
+                    controller: scrollController,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: chatItem(context, listChat[index]),
+                      );
+                    },
+                    itemCount: listChat.length,
+                  ),
+                ),
+                TextWidget.textWidget("enter message",
+                    length: 250,
+                    textController: textController,
+                    icon: Icons.ac_unit),
+                ElevatedButton(
+                    onPressed: () async {
+                      if (!kIsWeb) {
+                        conn
+                            .connect('3.88.177.153', 6379)
+                            .then((Command command) {
+                          command.send_object([
+                            "PUBLISH",
+                            "hassan",
+                            textController.text
+                          ]).whenComplete(() {
+                            sendMsg();
+                            connectToRedis();
+                          });
+                        });
+                      } else {
+                        print('is not supported!');
+                      }
+                      // sendMsg();
+      
+                      // connectToRedis();
+                    },
+                    child: Text("start"))
+              ],
+            ),
           ),
         ),
       ),

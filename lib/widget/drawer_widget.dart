@@ -26,18 +26,27 @@ class DrawerWidget {
               height: 1,
               thickness: 1,
             ),
-            ListTile(
+            isLogin
+                ?ListTile(
+                leading: Icon(Icons.label),
+                title: Text('Chat'),
+                onTap: () {
+                  Navigator.of(context).popAndPushNamed('/chat');
+                }):Text(""),
+            isLogin
+                ? ListTile(
                 leading: Icon(Icons.label),
                 title: Text('Teacher Signup'),
                 onTap: () {
                   Navigator.of(context).popAndPushNamed('/singupTeacher');
-                }),
-            ListTile(
+                }):Text(""),
+            isLogin
+                ? ListTile(
                 leading: Icon(Icons.label),
                 title: Text('Signup'),
                 onTap: () {
                   Navigator.of(context).popAndPushNamed('/singup');
-                }),
+                }):Text(""),
             isLogin
                 ? ListTile(
                     leading: Icon(Icons.label),

@@ -64,8 +64,8 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
           child: Container(
             child: Column(
               children: [
@@ -73,7 +73,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                   height: 20,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height<500?MediaQuery.of(context).size.height * .77:MediaQuery.of(context).size.height*.7,
+                  height: MediaQuery.of(context).size.height < 500
+                      ? MediaQuery.of(context).size.height * .77
+                      : MediaQuery.of(context).size.height * .7,
                   // width: MediaQuery.of(context).size.width * .8,
                   child: ListView.builder(
                     controller: scrollController,
@@ -90,28 +92,32 @@ class _ChatWidgetState extends State<ChatWidget> {
                     textController: textController,
                     icon: Icons.ac_unit),
                 ElevatedButton(
-                    onPressed: () async {
-                      if (!kIsWeb) {
-                        conn
-                            .connect('3.88.177.153', 6379)
-                            .then((Command command) {
-                          command.send_object([
-                            "PUBLISH",
-                            "hassan",
-                            textController.text
-                          ]).whenComplete(() {
-                            sendMsg();
-                            connectToRedis();
-                          });
-                        });
-                      } else {
-                        print('is not supported!');
-                      }
-                      // sendMsg();
-      
-                      // connectToRedis();
-                    },
-                    child: Text("start"))
+                  onPressed: () async {
+                    if (!kIsWeb) {
+                      conn
+                          .connect('3.88.177.153', 6379)
+                          .then((Command command) {
+                        command.send_object(
+                            ["PUBLISH", "hassan", textController.text]);
+                      }).whenComplete(() {
+                        sendMsg();
+                        connectToRedis();
+                      });
+                    } else {
+                      print('is not supported!');
+                    }
+                    // sendMsg();
+
+                    // connectToRedis();
+                  },
+                  child: Icon(Icons.send_rounded, color: Colors.white),
+                  style: ElevatedButton.styleFrom(
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(20),
+                    primary: Colors.blue, // <-- Button color
+                    onPrimary: Colors.red, // <-- Splash color
+                  ),
+                )
               ],
             ),
           ),

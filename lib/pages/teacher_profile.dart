@@ -314,7 +314,7 @@ class _SignupWidgetState extends State<teacher_profile> {
                                     isLoading = false;
                                     
                                     Navigator.of(context)
-                                        .popAndPushNamed('/searchPage');
+                                        .popAndPushNamed('/home');
                                   });
                                 },
                                 label: Text('Complete'),

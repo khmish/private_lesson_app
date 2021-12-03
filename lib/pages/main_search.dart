@@ -21,8 +21,6 @@ class _SearchWidgetState extends State<SearchWidget> {
   //Bar
 
   // int _selectedIndex = 0;
- 
-
 
   late String dropDownValue1;
   late List<String> _genderList = ["", 'male', 'female'];
@@ -34,6 +32,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   late List<Leveleducation> _leveleducationList = [];
   late int _leveleducationSelectedValue = -1;
   late List<TutorSubsLvEd> _tutorsList = [];
+  late List<TutorSubsLvEd> _tutorsListSearch = [];
   late TextEditingController searchController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isSearch = false;
@@ -74,6 +73,7 @@ class _SearchWidgetState extends State<SearchWidget> {
     TutorSearch.searchForTutorsWithParams().then((value) {
       setState(() {
         _tutorsList = value;
+        _tutorsListSearch=value;
       });
     }).whenComplete(() {
       setState(() {
@@ -118,8 +118,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                       margin:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                       decoration: BoxDecoration(
-                        //color: Colors.white,
-                          color:Color(0xff212121),
+                        color: colorContainerBox,
+                        // color:Color(0xff212121),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: SingleChildScrollView(
@@ -150,6 +150,16 @@ class _SearchWidgetState extends State<SearchWidget> {
                                   EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
                               child: TextFormField(
                                 controller: searchController,
+                                onChanged: (val) {
+                                  setState(() {
+                                    _tutorsListSearch = _tutorsList;
+                                    _tutorsListSearch = _tutorsListSearch
+                                        .where((element) => element.name!
+                                            .toLowerCase()
+                                            .contains(val.toLowerCase()))
+                                        .toList();
+                                  });
+                                },
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   border: const OutlineInputBorder(),
@@ -335,7 +345,7 @@ class _SearchWidgetState extends State<SearchWidget> {
               isLoading
                   ? Center(child: LinearProgressIndicator())
                   : SearchTeacherWidget(
-                      tutorsList: _tutorsList,
+                      tutorsList: _tutorsListSearch,
                     ),
             ],
           ),

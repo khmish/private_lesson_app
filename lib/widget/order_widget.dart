@@ -178,7 +178,7 @@ class _OrderWidgetState extends State<OrderWidget> {
                               )),
                         ),
 
-                        // ********************Accept/Cancel Buttons *******************************
+                        // ********************Accept/Cancel Buttons for tutor *******************************
                         if (widget.ordersList[index].state == "new" &&
                             myuser.role == "tutor") ...[
                           Positioned(
@@ -219,6 +219,49 @@ class _OrderWidgetState extends State<OrderWidget> {
                               ),
                             ),
                           ),
+                          Positioned(
+                            top: 80,
+                            right: -20,
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              // decoration: BoxDecoration(
+                              //   color: Colors.blue,
+                              //   borderRadius: BorderRadius.circular(3),
+                              // ),
+                              child: ElevatedButton.icon(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.red),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    widget.ordersList[index].state = "canceled";
+                                    LessonAPI.updateALesson(
+                                        widget.ordersList[index]);
+                                  });
+                                },
+                                label: Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.8)),
+                                ),
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: Colors.black.withOpacity(0.8),
+                                  size: 15,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+
+                        // ********************Accept/Cancel Buttons for tutor *******************************
+                        if (widget.ordersList[index].state == "new" &&
+                            myuser.role == "student") ...[
                           Positioned(
                             top: 80,
                             right: -20,

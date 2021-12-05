@@ -16,7 +16,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MyprofileScreen extends StatefulWidget {
   late User myuser;
-  MyprofileScreen({Key? key, required this.myuser}) : super(key: key);
+  late Tutor? mytutor;
+
+  MyprofileScreen({Key? key, required this.myuser, this.mytutor})
+      : super(key: key);
 
   @override
   _MyprofileScreenState createState() => _MyprofileScreenState();
@@ -33,8 +36,9 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
   late List<dynamic> _selectedLevelEductionsList = [];
   late List<Subject> _subjectsList = [];
   late List<dynamic> _selectedSubjectsList = [];
-  late TextEditingController titleCertController = new TextEditingController();
-  late TextEditingController priceController = new TextEditingController();
+
+  late TextEditingController titleCertController;
+  late TextEditingController priceController;
 
   late List<String> _genderList = ['male', 'female'];
   String _genderSelectedValue = "male";
@@ -44,13 +48,12 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
   bool isLoading = true;
   User myuser =
       new User(id: -1, name: '', email: '', city: -1, phone: "", gender: "");
-  Tutor tutoruser = new Tutor(userId: -1, titleCert: "", price: "", type: "");
+  Tutor mytutor = new Tutor(userId: -1, titleCert: "", price: "", type: "");
 
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController();
-
     phoneController = TextEditingController();
 
     titleCertController = TextEditingController();
@@ -78,19 +81,9 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
     _citySelectedValue = myuser.city!;
     phoneController.text = myuser.phone!;
 
-    TutorAPI.getATutor(myuser).then((value) {
-      setState(() {
-        tutoruser = value;
-        isLoading = false;
-      });
-    });
-
-    titleCertController.text = tutoruser.titleCert;
-    priceController.text = tutoruser.price;
+    titleCertController.text = mytutor.titleCert;
+    priceController.text = mytutor.price;
   }
-
-// class MyprofileScreen extends StatelessWidget {
-//   MyprofileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -141,23 +134,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                         height: 60,
                       ),
 
-                      // //------------Name--------------------------
-                      // Padding(
-                      //   //------------Name--------------------------
-                      //   padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                      //   child: TextFormField(
-                      //     controller: nameController,
-                      //     obscureText: false,
-                      //     decoration: InputDecoration(
-                      //
-                      //       labelText: 'Input name',
-                      //       prefixIcon: Icon(
-                      //         Icons.text_fields,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-
                       //------------Name--------------------------
                       TextWidget.textWidget("Name",
                           length: 70,
@@ -192,95 +168,43 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                       ),
 
                       //------------Phone--------------------------
-                      // Padding(
-                      //   //------------Phone--------------------------
-                      //   padding: EdgeInsetsDirectional.fromSTEB(
-                      //       constLeft, constTop, constRight, constBottom),
-                      //   child: TextFormField(
-                      //
-                      //     keyboardType: TextInputType.number,
-                      //     controller: phoneController,
-                      //     obscureText: false,
-                      //     decoration: InputDecoration(
-                      //
-                      //       border: const OutlineInputBorder(),
-                      //       labelText: 'Phone',
-                      //       prefixIcon: Icon(
-                      //         Icons.phone_android,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-
-                      //------------Phone--------------------------
                       TextWidget.textWidget("Phone",
                           length: 14,
                           textController: phoneController,
                           icon: Icons.phone_android,
                           keyboardTp: 2),
 
-                      if (myuser.role == "tutor") ...[
+                      if (mytutor.id != -1) ...[
                         //------------title_cert--------------------------
-                        TextWidget.textWidget("Your Education",
-                            length: 70,
-                            textController: titleCertController,
-                            icon: Icons.person_outline,
-                            keyboardTp: 0),
-
-                        // Padding(
-                        //   //------------title_cert--------------------------
-                        //   padding: EdgeInsetsDirectional.fromSTEB(
-                        //       constLeft, constTop, constRight, constBottom),
-                        //   child: TextFormField(
-                        //     controller: titleCertController,
-                        //     obscureText: false,
-                        //     decoration: InputDecoration(
-                        //       border: const OutlineInputBorder(),
-                        //       labelText: 'Your Education',
-                        //       // prefixIcon: Icon(
-                        //       //   Icons.person_outline,
-                        //       // ),
-                        //     ),
-                        //     maxLength: 70,
-                        //     maxLengthEnforced: true,
-                        //     validator: (value) {
-                        //       if (value == null || value.isEmpty) {
-                        //         return 'Please enter your Education';
-                        //       }
-                        //       return null;
-                        //     },
-                        //   ),
-                        // ),
-                        Padding(
-                          //------------Price--------------------------
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              constLeft, constTop, constRight, constBottom),
-                          child: TextFormField(
-                            maxLength: 3,
-                            maxLengthEnforced: true,
-
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your Price';
-                              }
-                              return null;
-                            },
-
-                            controller: priceController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              labelText: 'price',
-                              // prefixIcon: Icon(
-                              //   Icons.alternate_email,
-                              // ),
-                            ),
-
-                            // change here
-                            //keyboardType: TextInputType.emailAddress,
-                            keyboardType: TextInputType.number,
-                          ),
+                        TextWidget.textWidget(
+                          "Your Education",
+                          length: 70,
+                          textController: titleCertController,
+                          icon: Icons.cast_for_education_outlined,
+                          keyboardTp: 0,
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Please enter your Education';
+                          //   }
+                          //   return null;
+                          // },
                         ),
+
+                        //------------Price--------------------------
+                        TextWidget.textWidget(
+                          "price",
+                          length: 3,
+                          textController: priceController,
+                          icon: Icons.price_change_outlined,
+                          keyboardTp: 2,
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Please enter your Price';
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+
                         // Padding(
                         //   //------------Subject--------------------------
                         //   padding: EdgeInsetsDirectional.fromSTEB(
@@ -330,6 +254,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                         //     ],
                         //   ),
                         // ),
+
                         // Padding(
                         //   //------------Level of Education--------------------------
                         //   padding: EdgeInsetsDirectional.fromSTEB(
@@ -390,10 +315,14 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                             myuser.gender = _genderSelectedValue;
                             myuser.city = _citySelectedValue;
                             myuser.phone = phoneController.text;
-                            if (myuser.role == "tutor") {
-                              tutoruser.titleCert = titleCertController.text;
-                              tutoruser.price = priceController.text;
+
+                            //--------update cert & price------------------
+                            if (mytutor.id != -1) {
+                              mytutor.titleCert = titleCertController.text;
+                              mytutor.price = priceController.text;
+                              TutorAPI.updateTutor(mytutor);
                             }
+
                             UserAPI.updateUser(myuser).then((user) {
                               if (myuser.id == -1) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -422,60 +351,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                           ),
                         ),
                       ),
-
-                      // Text(
-                      //   'Name: ${myuser.name}',
-                      //   textAlign: TextAlign.start,
-                      //   style: TextStyle(
-                      //       fontSize: 25.0,
-                      //       color: colorMainText,
-                      //       letterSpacing: 2.0,
-                      //       fontWeight: FontWeight.w400),
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // Text(
-                      //   'Email: ${myuser.email}',
-                      //   style: TextStyle(
-                      //       fontSize: 18.0,
-                      //       color: colorMainText,
-                      //       letterSpacing: 2.0,
-                      //       fontWeight: FontWeight.w300),
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // Text(
-                      //   'Gender: ${myuser.gender}',
-                      //   style: TextStyle(
-                      //       fontSize: 18.0,
-                      //       color: colorMainText,
-                      //       letterSpacing: 2.0,
-                      //       fontWeight: FontWeight.w300),
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // Text(
-                      //   'Phone number: ${myuser.phone}',
-                      //   style: TextStyle(
-                      //       fontSize: 18.0,
-                      //       color: colorMainText,
-                      //       letterSpacing: 2.0,
-                      //       fontWeight: FontWeight.w300),
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // Text(
-                      //   'City: ${myuser.city}',
-                      //   style: TextStyle(
-                      //       fontSize: 18.0,
-                      //       color: colorMainText,
-                      //       letterSpacing: 2.0,
-                      //       fontWeight: FontWeight.w300),
-                      // ),
                     ],
                   ),
                 ),

@@ -3,13 +3,9 @@ import 'dart:ui';
 import 'package:private_lesson_app/api/lesson_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/lesson.dart';
-import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/models/user.dart';
-import 'package:private_lesson_app/pages/home.dart';
-import 'package:private_lesson_app/pages/teacher_details.dart';
 
-import 'package:private_lesson_app/pages/homepage1.dart';
 import 'package:private_lesson_app/widget/order_detail_widget.dart';
 
 class OrderWidget extends StatefulWidget {

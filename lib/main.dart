@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:private_lesson_app/pages/home.dart';
 import 'package:private_lesson_app/pages/homeAdmin.dart';
 import 'package:private_lesson_app/pages/homeTutor.dart';
-import 'package:private_lesson_app/pages/homepage1.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/register_login/signup.dart';
 import 'package:private_lesson_app/pages/register_login/signup_teacher.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
-import 'package:private_lesson_app/pages/myprofile.dart';
 import 'package:flutter/services.dart';
 import 'package:private_lesson_app/pages/test_refresh_page/home_search.dart';
 import 'package:private_lesson_app/pages/test_refresh_page/refresh_page.dart';
@@ -50,8 +48,6 @@ void main() async {
       //************* Teacher Pages *************//
       // '/teacherProfile': (context) => teacher_profile(),
 
-      //Drawer
-      '/testRating': (context) => MyHomeTest(),
 
       '/chat': (context) => ChatWidget(),
       '/refresh': (context) => ListViewRefreshPage(),

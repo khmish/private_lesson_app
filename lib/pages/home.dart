@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/pages/orders/myorders_page.dart';
-import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:private_lesson_app/pages/main_search.dart';
 import 'package:private_lesson_app/pages/myprofile.dart';
 import 'package:private_lesson_app/widget/drawer_widget.dart';
@@ -21,14 +20,23 @@ class _MyHomeState extends State<MyHome> {
   ];
   bool isLoading = true;
   User user = new User(
-        id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
+      id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
   @override
   void initState() {
     super.initState();
     setState(() {
       isLoading = true;
     });
-    
+    startup();
+  }
+
+  startup1() {
+    checksIfLogIn().then((userVal) {
+      user = userVal;
+    });
+  }
+
+  startup() {
     checksIfLogIn().then((userVal) {
       user = userVal;
     }).whenComplete(() {
@@ -79,8 +87,9 @@ class _MyHomeState extends State<MyHome> {
               centerTitle: true,
               elevation: 4,
             ),
-            drawer: DrawerWidget.drawerWidget(context,user.id!=-1?true:false),
-            body: getBody(page, pages,user),
+            drawer: DrawerWidget.drawerWidget(
+                context, user.id != -1 ? true : false),
+            body: getBody(page, pages, user, startup1),
 
             //here 1
             //bottomNavigationBar: BottomNavigationBar(
@@ -103,7 +112,8 @@ class _MyHomeState extends State<MyHome> {
   }
 }
 
-Widget getBody(int page, var pages,User user) {
+Widget getBody(int page, var pages, User user, dynamic function1()) {
+  function1();
   switch (page) {
     case 0:
       if (pages.length == 1) {
@@ -116,6 +126,8 @@ Widget getBody(int page, var pages,User user) {
       return SearchWidget();
 
     default:
-      return MyprofileScreen(myuser: user,);
+      return MyprofileScreen(
+        myuser: user,
+      );
   }
 }

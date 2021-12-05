@@ -122,6 +122,7 @@ class UserAPI {
     User user =
         new User(id: -1, name: "", email: "", city: 0, phone: "", gender: "");
     var baseUrl = _baseUrlUsers;
+    final storage = await SharedPreferences.getInstance();
     try {
       // if (page > 0) {
       baseUrl = _baseUrlUsers;
@@ -139,7 +140,9 @@ class UserAPI {
 
       print(response.statusCode);
       if (response.statusCode == 201) {
-        dynamic body = json.decode(response.body);
+        dynamic body = json.decode(response.body)['user'];
+        dynamic token = json.decode(response.body)['data'];
+        storage.setString("token", token);
         user = User.fromJson(body);
         return user;
       } else {

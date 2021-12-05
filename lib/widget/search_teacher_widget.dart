@@ -50,8 +50,10 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetailScreen(thisuser: widget.tutorsList[index],),
-                            ),
+                          builder: (context) => DetailScreen(
+                            thisuser: widget.tutorsList[index],
+                          ),
+                        ),
                       );
                     },
                     child: Stack(
@@ -138,7 +140,8 @@ class _SearchTeacherWidgetState extends State<SearchTeacherWidget> {
                         ),
 
                         // ********************Stars *******************************
-                        StarsWidget.starsWidget(numberOfStars:(widget.tutorsList[index].rating) ),
+                        StarsWidget.starsWidget(
+                            numberOfStars: (widget.tutorsList[index].rating)),
 
                         // ********************Price *******************************
                         Positioned(

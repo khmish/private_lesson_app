@@ -1,9 +1,87 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/models/tutor.dart';
+import 'package:private_lesson_app/models/user.dart';
 
 class TutorAPI {
   static var _baseUrlTutor = 'https://privatelesson.herokuapp.com/api/tutor';
+
+  //---------------------------------- show tutor ----------------------------------//
+  static Future<Tutor> getATutor(User user) async {
+    var baseUrl = _baseUrlTutor;
+    try {
+      baseUrl = _baseUrlTutor + "/${user.id}";
+      var url = Uri.parse(baseUrl);
+      var response = await http.get(
+        url,
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        dynamic body = json.decode(response.body)['data'];
+        Tutor tutor = Tutor.fromJson(body);
+        return tutor;
+      } else {
+        return new Tutor(
+          id: -1,
+          userId: -1,
+          titleCert: "",
+          price: "",
+          type: "",
+        );
+      }
+    } catch (e) {
+      return new Tutor(
+        id: -1,
+        userId: -1,
+        titleCert: "",
+        price: "",
+        type: "",
+      );
+    }
+  }
+
+  // static Future<Tutor> tutoruser(User user) async {
+  //   var baseUrl = _baseUrlTutor + "/me";
+  //   try {
+  //     // if (page > 0) {
+  //     baseUrl = _baseUrlTutor + "/me";
+  //     // }
+  //     var url = Uri.parse(baseUrl);
+  //     var response = await http.post(
+  //       url,
+  //       headers: <String, String>{
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //         //'Authorization': 'Bearer $token',
+  //       },
+  //     );
+  //     if (response.statusCode == 200) {
+  //       dynamic tutor = json.decode(response.body);
+
+  //       return Tutor.fromJson(tutor);
+  //     } else {
+  //       return Tutor(
+  //         id: -1,
+  //         userId: -1,
+  //         titleCert: "",
+  //         price: "",
+  //         type: "",
+  //       );
+  //     }
+  //   } catch (e) {
+  //     return Tutor(
+  //       id: -1,
+  //       userId: -1,
+  //       titleCert: "",
+  //       price: "",
+  //       type: "",
+  //     );
+  //   }
+  // }
 
   static Future<List<Tutor>> getTutors() async {
     var baseUrl = _baseUrlTutor;
@@ -41,7 +119,6 @@ class TutorAPI {
   static Future<Tutor> addTutor(Tutor tutor) async {
     // Tutor tutor = new Tutor(id:-1,userId: 0, titleCert: "", price: "", type: "");
     var baseUrl = _baseUrlTutor;
-
     try {
       // if (page > 0) {
       baseUrl = _baseUrlTutor;

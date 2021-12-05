@@ -1,9 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
+import 'package:private_lesson_app/api/tutor_api.dart';
 import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/city.dart';
+import 'package:private_lesson_app/models/leveleducation.dart';
+import 'package:private_lesson_app/models/subject.dart';
+import 'package:private_lesson_app/models/tutor.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/widget/form_widget/drp_city_widget.dart';
 import 'package:private_lesson_app/widget/form_widget/drp_widget.dart';
@@ -25,6 +29,13 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
 
   late TextEditingController phoneController;
 
+  late List<Leveleducation> _levelEductionsList = [];
+  late List<dynamic> _selectedLevelEductionsList = [];
+  late List<Subject> _subjectsList = [];
+  late List<dynamic> _selectedSubjectsList = [];
+  late TextEditingController titleCertController = new TextEditingController();
+  late TextEditingController priceController = new TextEditingController();
+
   late List<String> _genderList = ['male', 'female'];
   String _genderSelectedValue = "male";
   late List<City> _cityList = [];
@@ -33,6 +44,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
   bool isLoading = true;
   User myuser =
       new User(id: -1, name: '', email: '', city: -1, phone: "", gender: "");
+  Tutor tutoruser = new Tutor(userId: -1, titleCert: "", price: "", type: "");
 
   @override
   void initState() {
@@ -40,6 +52,9 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
     nameController = TextEditingController();
 
     phoneController = TextEditingController();
+
+    titleCertController = TextEditingController();
+    priceController = TextEditingController();
 
     CityAPI.getCities().then((citiesList) {
       setState(() {
@@ -56,11 +71,22 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
         isLoading = false;
       });
     });
+
     myuser = widget.myuser;
     nameController.text = myuser.name!;
     _genderSelectedValue = myuser.gender!;
     _citySelectedValue = myuser.city!;
     phoneController.text = myuser.phone!;
+
+    TutorAPI.getATutor(myuser).then((value) {
+      setState(() {
+        tutoruser = value;
+        isLoading = false;
+      });
+    });
+
+    titleCertController.text = tutoruser.titleCert;
+    priceController.text = tutoruser.price;
   }
 
 // class MyprofileScreen extends StatelessWidget {
@@ -193,6 +219,168 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                           icon: Icons.phone_android,
                           keyboardTp: 2),
 
+                      if (myuser.role == "tutor") ...[
+                        //------------title_cert--------------------------
+                        TextWidget.textWidget("Your Education",
+                            length: 70,
+                            textController: titleCertController,
+                            icon: Icons.person_outline,
+                            keyboardTp: 0),
+
+                        // Padding(
+                        //   //------------title_cert--------------------------
+                        //   padding: EdgeInsetsDirectional.fromSTEB(
+                        //       constLeft, constTop, constRight, constBottom),
+                        //   child: TextFormField(
+                        //     controller: titleCertController,
+                        //     obscureText: false,
+                        //     decoration: InputDecoration(
+                        //       border: const OutlineInputBorder(),
+                        //       labelText: 'Your Education',
+                        //       // prefixIcon: Icon(
+                        //       //   Icons.person_outline,
+                        //       // ),
+                        //     ),
+                        //     maxLength: 70,
+                        //     maxLengthEnforced: true,
+                        //     validator: (value) {
+                        //       if (value == null || value.isEmpty) {
+                        //         return 'Please enter your Education';
+                        //       }
+                        //       return null;
+                        //     },
+                        //   ),
+                        // ),
+                        Padding(
+                          //------------Price--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+                          child: TextFormField(
+                            maxLength: 3,
+                            maxLengthEnforced: true,
+
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your Price';
+                              }
+                              return null;
+                            },
+
+                            controller: priceController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'price',
+                              // prefixIcon: Icon(
+                              //   Icons.alternate_email,
+                              // ),
+                            ),
+
+                            // change here
+                            //keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                        // Padding(
+                        //   //------------Subject--------------------------
+                        //   padding: EdgeInsetsDirectional.fromSTEB(
+                        //       constLeft, constTop, constRight, constBottom),
+                        //   child: Column(
+                        //     children: [
+                        //       SizedBox(
+                        //         height: 40,
+                        //         width: double.infinity,
+                        //         child: ElevatedButton.icon(
+                        //           onPressed: () {
+                        //             Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                 builder: (context) => SelectListWidget(
+                        //                     list: _subjectsList,
+                        //                     callback: (List<dynamic> paralist) {
+                        //                       setState(() {
+                        //                         _selectedSubjectsList =
+                        //                             paralist;
+                        //                       });
+                        //                     }),
+                        //               ),
+                        //             );
+                        //           },
+                        //           icon: Icon(Icons.subject),
+                        //           label: Text("Subjects"),
+                        //         ),
+                        //       ),
+                        //       Row(
+                        //         children: [
+                        //           for (var sub in _selectedSubjectsList)
+                        //             Container(
+                        //               margin: EdgeInsets.symmetric(
+                        //                   horizontal: 5, vertical: 2),
+                        //               child: ElevatedButton(
+                        //                 style: ButtonStyle(
+                        //                     backgroundColor:
+                        //                         MaterialStateProperty.all(
+                        //                             Colors.deepOrangeAccent)),
+                        //                 onPressed: () {},
+                        //                 child: Text(sub.name),
+                        //               ),
+                        //             ),
+                        //         ],
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                        // Padding(
+                        //   //------------Level of Education--------------------------
+                        //   padding: EdgeInsetsDirectional.fromSTEB(
+                        //       constLeft, constTop, constRight, constBottom),
+                        //   child: Column(
+                        //     children: [
+                        //       SizedBox(
+                        //         height: 40,
+                        //         width: double.infinity,
+                        //         child: ElevatedButton.icon(
+                        //           onPressed: () {
+                        //             Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                 builder: (context) => SelectListWidget(
+                        //                     list: _levelEductionsList,
+                        //                     callback: (List<dynamic> paralist) {
+                        //                       setState(() {
+                        //                         _selectedLevelEductionsList =
+                        //                             paralist;
+                        //                       });
+                        //                     }),
+                        //               ),
+                        //             );
+                        //           },
+                        //           icon: Icon(Icons.subject),
+                        //           label: Text("Level of Educations"),
+                        //         ),
+                        //       ),
+                        //       Row(
+                        //         children: [
+                        //           for (var ed in _selectedLevelEductionsList)
+                        //             Container(
+                        //               margin: EdgeInsets.symmetric(
+                        //                   horizontal: 5, vertical: 2),
+                        //               child: ElevatedButton(
+                        //                 style: ButtonStyle(
+                        //                     backgroundColor:
+                        //                         MaterialStateProperty.all(
+                        //                             Colors.deepOrangeAccent)),
+                        //                 onPressed: () {},
+                        //                 child: Text(ed.name),
+                        //               ),
+                        //             ),
+                        //         ],
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                      ],
+
                       //------------Save button--------------------------
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
@@ -202,7 +390,11 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                             myuser.gender = _genderSelectedValue;
                             myuser.city = _citySelectedValue;
                             myuser.phone = phoneController.text;
-                            UserAPI.updateUser(myuser).then((user) {                            
+                            if (myuser.role == "tutor") {
+                              tutoruser.titleCert = titleCertController.text;
+                              tutoruser.price = priceController.text;
+                            }
+                            UserAPI.updateUser(myuser).then((user) {
                               if (myuser.id == -1) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -213,7 +405,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                               } else {
                                 setState(() {
                                   myuser = user;
-                                 
                                 });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

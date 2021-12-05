@@ -45,6 +45,11 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
       });
     });
   }
+  startup1() {
+    checksIfLogIn().then((userVal) {
+      user = userVal;
+    });
+  }
 
   int page = 0;
   @override
@@ -68,7 +73,7 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
               elevation: 4,
             ),
             drawer: DrawerWidget.drawerWidget(context,user.id!=-1?true:false),
-            body: getBody(page, pages,user),
+            body: getBody(page, pages,user,startup1),
 
             //here 1
             //bottomNavigationBar: BottomNavigationBar(
@@ -91,7 +96,8 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
   }
 }
 
-Widget getBody(int page, var pages,User user) {
+Widget getBody(int page, var pages,User user, dynamic function1()) {
+  function1();
   switch (page) {
     case 0:
       if (pages.length == 1) {

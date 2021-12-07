@@ -2,6 +2,7 @@ import 'package:private_lesson_app/models/subject.dart';
 
 class TutorSubsLvEd {
   late int? id;
+  late int? tutor_id;
   late String? name;
   late String? email;
   late String? dateOfBirth;
@@ -19,7 +20,9 @@ class TutorSubsLvEd {
   late List<LevelEductions> levelEductions;
 
   TutorSubsLvEd(
-      {this.id,
+      {
+        this.id,
+        this.tutor_id,
       this.name,
       this.email,
       this.dateOfBirth,
@@ -38,6 +41,7 @@ class TutorSubsLvEd {
 
   TutorSubsLvEd.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    tutor_id = json['tutor_id'];
     name = json['name'];
     email = json['email'];
     dateOfBirth = json['dateOfBirth'];
@@ -68,6 +72,7 @@ class TutorSubsLvEd {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['tutor_id'] = this.tutor_id;
     data['name'] = this.name;
     data['email'] = this.email;
     data['dateOfBirth'] = this.dateOfBirth;

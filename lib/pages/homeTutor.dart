@@ -98,16 +98,14 @@ Widget getBody(int page, var pages,User user, dynamic function1()) {
   function1();
   switch (page) {
     case 0:
-      if (pages.length == 1) {
-        return SearchWidget();
-      }
+      
       return MyordersPage();
 
-    // case 1:
-    //   //return MyordersPage();
-    //   return SearchWidget();
+    case 1:
+      //return MyordersPage();
+      return MyprofileScreen(myuser: user);
 
     default:
-      return MyprofileScreen(myuser: user,);
+      return MyprofileScreen(myuser: user);
   }
 }

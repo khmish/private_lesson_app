@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
+import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/pages/admin/admin_control.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerWidget {
-  static Widget drawerWidget(BuildContext context, bool isLogin) {
+  static Widget drawerWidget(BuildContext context, bool isLogin, {User? user}) {
     return Drawer(
       child: Container(
         color: colorBackGround,
@@ -17,7 +18,7 @@ class DrawerWidget {
               padding: const EdgeInsets.all(16.0),
               child: CircleAvatar(
                 child: Text(
-                  'Header',
+                  '${user!.name}',
                   //style: textTheme.headline6,
                 ),
               ),
@@ -27,26 +28,29 @@ class DrawerWidget {
               thickness: 1,
             ),
             isLogin
-                ?ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Chat'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/chat');
-                }):Text(""),
+                ? ListTile(
+                    leading: Icon(Icons.label),
+                    title: Text('Chat'),
+                    onTap: () {
+                      Navigator.of(context).popAndPushNamed('/chat');
+                    })
+                : Text(""),
             isLogin
                 ? ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Teacher Signup'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singupTeacher');
-                }):Text(""),
+                    leading: Icon(Icons.label),
+                    title: Text('Teacher Signup'),
+                    onTap: () {
+                      Navigator.of(context).popAndPushNamed('/singupTeacher');
+                    })
+                : Text(""),
             isLogin
                 ? ListTile(
-                leading: Icon(Icons.label),
-                title: Text('Signup'),
-                onTap: () {
-                  Navigator.of(context).popAndPushNamed('/singup');
-                }):Text(""),
+                    leading: Icon(Icons.label),
+                    title: Text('Signup'),
+                    onTap: () {
+                      Navigator.of(context).popAndPushNamed('/singup');
+                    })
+                : Text(""),
             isLogin
                 ? ListTile(
                     leading: Icon(Icons.label),

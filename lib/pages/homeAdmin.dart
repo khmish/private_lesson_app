@@ -20,9 +20,9 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
     Icon(Icons.reorder_sharp, size: 30),
     Icon(Icons.local_police_rounded, size: 30),
     Icon(Icons.account_circle_rounded, size: 30),
-  ]; 
+  ];
   User user = new User(
-        id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
+      id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
   bool isLoading = true;
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
     setState(() {
       isLoading = true;
     });
-   
+
     checksIfLogIn().then((valUser) {
       user = valUser;
     }).whenComplete(() {
@@ -45,6 +45,7 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
       });
     });
   }
+
   startup1() {
     checksIfLogIn().then((userVal) {
       user = userVal;
@@ -72,8 +73,10 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
               centerTitle: true,
               elevation: 4,
             ),
-            drawer: DrawerWidget.drawerWidget(context,user.id!=-1?true:false),
-            body: getBody(page, pages,user,startup1),
+            drawer: DrawerWidget.drawerWidget(
+                context, user.id != -1 ? true : false,
+                user: user),
+            body: getBody(page, pages, user, startup1),
 
             //here 1
             //bottomNavigationBar: BottomNavigationBar(
@@ -96,7 +99,7 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
   }
 }
 
-Widget getBody(int page, var pages,User user, dynamic function1()) {
+Widget getBody(int page, var pages, User user, dynamic function1()) {
   function1();
   switch (page) {
     case 0:
@@ -110,6 +113,8 @@ Widget getBody(int page, var pages,User user, dynamic function1()) {
       return AdminControlWidget();
 
     default:
-      return MyprofileScreen(myuser: user,);
+      return MyprofileScreen(
+        myuser: user,
+      );
   }
 }

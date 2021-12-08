@@ -21,14 +21,14 @@ class _MyHomeTutorState extends State<MyHomeTutor> {
   ];
   bool isLoading = true;
   User user = new User(
-        id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
+      id: -1, name: "", email: "", city: -1, phone: "", gender: "", role: "");
   @override
   void initState() {
     super.initState();
     setState(() {
       isLoading = true;
     });
-    
+
     checksIfLogIn().then((valUser) {
       user = valUser;
     }).whenComplete(() {
@@ -43,6 +43,7 @@ class _MyHomeTutorState extends State<MyHomeTutor> {
       });
     });
   }
+
   startup1() {
     checksIfLogIn().then((userVal) {
       user = userVal;
@@ -70,8 +71,10 @@ class _MyHomeTutorState extends State<MyHomeTutor> {
               centerTitle: true,
               elevation: 4,
             ),
-            drawer: DrawerWidget.drawerWidget(context,user.id!=-1?true:false),
-            body: getBody(page, pages,user,startup1),
+            drawer: DrawerWidget.drawerWidget(
+                context, user.id != -1 ? true : false,
+                user: user),
+            body: getBody(page, pages, user, startup1),
 
             //here 1
             //bottomNavigationBar: BottomNavigationBar(
@@ -94,11 +97,10 @@ class _MyHomeTutorState extends State<MyHomeTutor> {
   }
 }
 
-Widget getBody(int page, var pages,User user, dynamic function1()) {
+Widget getBody(int page, var pages, User user, dynamic function1()) {
   function1();
   switch (page) {
     case 0:
-      
       return MyordersPage();
 
     case 1:

@@ -88,7 +88,8 @@ class _MyHomeState extends State<MyHome> {
               elevation: 4,
             ),
             drawer: DrawerWidget.drawerWidget(
-                context, user.id != -1 ? true : false),
+                context, user.id != -1 ? true : false,
+                user: user),
             body: getBody(page, pages, user, startup1),
 
             //here 1

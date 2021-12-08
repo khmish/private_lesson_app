@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/lesson.dart';
 
 class LessonAPI {
-  static var _baseUrlLesson = 'http://privatelesson.herokuapp.com/api/lessson';
+  static var _baseUrlLesson = base_url+'lessson';
+  // static var _baseUrlLesson = 'http://127.0.0.1:8000/api/lessson';
 
   // get Lesson*****************************************************
   static Future<List<Lesson>> getLessons(
@@ -153,6 +155,7 @@ class LessonAPI {
     try {
       baseUrl = _baseUrlLesson;
       var url = Uri.parse(baseUrl);
+      var something = jsonEncode(lesson);
       var response = await http.post(
         url,
         body: jsonEncode(lesson),

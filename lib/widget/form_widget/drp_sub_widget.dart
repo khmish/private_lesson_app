@@ -41,7 +41,7 @@ class _DrpSubWidgetState extends State<DrpSubWidget> {
           items: widget.listObject.map((itemList) {
             return DropdownMenuItem(
               child: Text(itemList.name),
-              value: itemList.id,
+              value: itemList.subject_id,
             );
           }).toList(),
           decoration: InputDecoration(

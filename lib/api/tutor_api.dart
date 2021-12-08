@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/tutor.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:private_lesson_app/models/user.dart';
 
 class TutorAPI {
-  static var _baseUrlTutor = 'https://privatelesson.herokuapp.com/api/tutor';
+  static var _baseUrlTutor = base_url+'tutor';
 
   //---------------------------------- show tutor ----------------------------------//
   static Future<TutorSubsLvEd> getATutor(String id) async {

@@ -9,6 +9,8 @@ double constLeftBtn = 20,
     constTopBtn = 40,
     constRightBtn = 20,
     constBottomBtn = 50;
+String base_url = "https://privatelesson.herokuapp.com/api/";
+// String base_url = "http://127.0.0.1:8000/api/";
 Future<User> checksIfLogIn() async {
   // bool isLogged = false;
   final storage = await SharedPreferences.getInstance();

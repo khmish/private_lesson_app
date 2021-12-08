@@ -51,7 +51,7 @@ class _ItemAdminWidgetState extends State<ItemAdminWidget> {
               '${widget.itemsList.name}',
               style: TextStyle(
                 fontSize: 20,
-                color: (colorSeText),
+                color: (colorMainText),
                 fontWeight: FontWeight.bold,
               ),
               overflow: TextOverflow.ellipsis,

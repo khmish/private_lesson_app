@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/message.dart';
+import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/widget/form_widget/text_widget.dart';
 import 'package:redis/redis.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -14,9 +17,13 @@ class ChatWidget extends StatefulWidget {
 
 class _ChatWidgetState extends State<ChatWidget> {
   TextEditingController textController = TextEditingController();
+  RedisConnection connPublish = RedisConnection();
   RedisConnection conn = RedisConnection();
   String txt = "";
   List<MessagesChat> listChat = [];
+  User myuser =
+      new User(id: -1, name: "", email: "", city: -1, phone: "", gender: "");
+  bool isLoading = false;
   ScrollController scrollController = ScrollController();
   connectToRedis() async {
     conn.connect('3.88.177.153', 6379).then((Command command) {
@@ -27,6 +34,8 @@ class _ChatWidgetState extends State<ChatWidget> {
         setState(() {
           txt = message[2].toString();
         });
+        var msg = json.decode(txt);
+        receiveMsg(msg['message'], sender: msg['sender']);
         print("message: $message");
       });
     });
@@ -37,12 +46,12 @@ class _ChatWidgetState extends State<ChatWidget> {
         curve: Curves.linear, duration: Duration(milliseconds: 500));
   }
 
-  sendMsg() {
+  sendMsg(String txt, {String sender = "me"}) {
     setState(() {
       listChat.add(new MessagesChat(
           id: listChat.length + 1,
-          message: textController.text,
-          sender: "me",
+          message: txt,
+          sender: "$sender",
           reciever: "them",
           msgTime: DateTime.now()));
       textController.text = "";
@@ -50,79 +59,117 @@ class _ChatWidgetState extends State<ChatWidget> {
     moveDown();
   }
 
+  receiveMsg(String txt, {String sender = "me"}) {
+    if (myuser.name!.toLowerCase() != sender.toLowerCase()) {
+      setState(() {
+        listChat.add(new MessagesChat(
+            id: listChat.length + 1,
+            message: txt,
+            sender: "$sender",
+            reciever: "them",
+            msgTime: DateTime.now()));
+        textController.text = "";
+      });
+      moveDown();
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (!kIsWeb) {
-      connectToRedis();
-    } else {
-      print('is not supported!');
-    }
+    setState(() {
+      isLoading = true;
+    });
+    checksIfLogIn().then((userValue) {
+      setState(() {
+        myuser = userValue;
+      });
+      if (!kIsWeb) {
+        connectToRedis();
+      } else {
+        print('is not supported!');
+      }
+    }).whenComplete(() {
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height < 500
-                      ? MediaQuery.of(context).size.height * .77
-                      : MediaQuery.of(context).size.height * .7,
-                  // width: MediaQuery.of(context).size.width * .8,
-                  child: ListView.builder(
-                    controller: scrollController,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        child: chatItem(context, listChat[index]),
-                      );
-                    },
-                    itemCount: listChat.length,
-                  ),
-                ),
-                TextWidget.textWidget("enter message",
-                    length: 250,
-                    textController: textController,
-                    icon: Icons.ac_unit),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (!kIsWeb) {
-                      conn
-                          .connect('3.88.177.153', 6379)
-                          .then((Command command) {
-                        command.send_object(
-                            ["PUBLISH", "hassan", textController.text]);
-                      }).whenComplete(() {
-                        sendMsg();
-                        connectToRedis();
-                      });
-                    } else {
-                      print('is not supported!');
-                    }
-                    // sendMsg();
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height < 500
+                            ? MediaQuery.of(context).size.height * .77
+                            : MediaQuery.of(context).size.height * .7,
+                        // width: MediaQuery.of(context).size.width * .8,
+                        child: ListView.builder(
+                          controller: scrollController,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              child: chatItem(context, listChat[index]),
+                            );
+                          },
+                          itemCount: listChat.length,
+                        ),
+                      ),
+                      TextWidget.textWidget("enter message",
+                          length: 250,
+                          textController: textController,
+                          icon: Icons.ac_unit),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (!kIsWeb) {
+                            connPublish
+                                .connect('3.88.177.153', 6379)
+                                .then((Command command) {
+                              command.send_object([
+                                "PUBLISH",
+                                "hassan",
+                                jsonEncode({
+                                  "message": textController.text,
+                                  "sender": myuser.name,
+                                })
+                              ]);
+                            }).whenComplete(() {
+                              sendMsg(textController.text,
+                                  sender: myuser.name!);
+                              // connectToRedis();
+                            });
+                          } else {
+                            print('is not supported!');
+                          }
+                          // sendMsg();
 
-                    // connectToRedis();
-                  },
-                  child: Icon(Icons.send_rounded, color: Colors.white),
-                  style: ElevatedButton.styleFrom(
-                    shape: CircleBorder(),
-                    padding: EdgeInsets.all(20),
-                    primary: Colors.blue, // <-- Button color
-                    onPrimary: Colors.red, // <-- Splash color
+                          // connectToRedis();
+                        },
+                        child: Icon(Icons.send_rounded, color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          padding: EdgeInsets.all(20),
+                          primary: Colors.blue, // <-- Button color
+                          onPrimary: Colors.red, // <-- Splash color
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

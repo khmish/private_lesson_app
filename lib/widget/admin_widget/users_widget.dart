@@ -65,7 +65,7 @@ class _UsersAdminWidgetState extends State<UsersAdminWidget> {
                     "${widget.usersList.role!.toUpperCase()}",
                     style: TextStyle(
                         fontSize: 15,
-                        color: (colorSeText),
+                        color: (colorMainText),
                         fontWeight: FontWeight.bold),
                   )),
               SizedBox(

@@ -22,7 +22,7 @@ class TutorAPI {
       );
 
       if (response.statusCode == 200) {
-        dynamic body = json.decode(response.body)['data'];
+        dynamic body = json.decode(response.body)['data'][0];
         TutorSubsLvEd tutor = TutorSubsLvEd.fromJson(body);
         return tutor;
       } else {}

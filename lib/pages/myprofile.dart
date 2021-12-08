@@ -47,8 +47,8 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
   bool isLoading = true;
   User myuser =
       new User(id: -1, name: '', email: '', city: -1, phone: "", gender: "");
-  TutorSubsLvEd mytutor =
-      TutorSubsLvEd(id: -1,tutor_id: -1, levelEductions: [], subjects: [], rating: 0);
+  TutorSubsLvEd mytutor = TutorSubsLvEd(
+      id: -1, tutor_id: -1, levelEductions: [], subjects: [], rating: 0);
 
   @override
   void initState() {
@@ -73,28 +73,25 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
         myuser = value;
         isLoading = false;
       });
+      if (myuser.role!.toLowerCase() == 'tutor') {
+        setState(() {
+          isLoading = true;
+        });
+        TutorAPI.getATutor(widget.myuser.id.toString()).then((tutor) {
+          setState(() {
+            mytutor = tutor;
+            isLoading = false;
+            titleCertController.text = mytutor.cert ?? "";
+            priceController.text = mytutor.price ?? "";
+          });
+        });
+      }
+      myuser = widget.myuser;
+      nameController.text = myuser.name!;
+      _genderSelectedValue = myuser.gender!;
+      _citySelectedValue = myuser.city!;
+      phoneController.text = myuser.phone!;
     });
-
-    // if (myuser.role!.toLowerCase() == 'tutor') {
-    //   setState(() {
-    //   isLoading = true;
-    // });
-    //   TutorAPI.getATutor(widget.myuser.id.toString()).then((tutor) {
-    //     setState(() {
-    //       mytutor = tutor;
-    //       isLoading = false;
-    //     });
-    //   });
-    // }
-
-    myuser = widget.myuser;
-    nameController.text = myuser.name!;
-    _genderSelectedValue = myuser.gender!;
-    _citySelectedValue = myuser.city!;
-    phoneController.text = myuser.phone!;
-
-    titleCertController.text = mytutor.cert??"";
-    priceController.text = mytutor.price??"";
   }
 
   @override
@@ -332,7 +329,12 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                             if (mytutor.tutor_id != -1) {
                               mytutor.cert = titleCertController.text;
                               mytutor.price = priceController.text;
-                              TutorAPI.updateTutor(new Tutor(id:mytutor.tutor_id ,userId: mytutor.id!, titleCert: mytutor.cert!, price: mytutor.price!, type: "hours"));
+                              TutorAPI.updateTutor(new Tutor(
+                                  id: mytutor.tutor_id,
+                                  userId: mytutor.id!,
+                                  titleCert: mytutor.cert!,
+                                  price: mytutor.price!,
+                                  type: "hours"));
                             }
 
                             UserAPI.updateUser(myuser).then((user) {

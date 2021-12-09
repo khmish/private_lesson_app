@@ -1,19 +1,25 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
+import 'package:private_lesson_app/api/leveleducation_api.dart';
+import 'package:private_lesson_app/api/subject_api.dart';
 import 'package:private_lesson_app/api/tutor_api.dart';
+import 'package:private_lesson_app/api/tutor_leveledu_api.dart';
+import 'package:private_lesson_app/api/tutor_subs_api.dart';
 import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/models/subject.dart';
 import 'package:private_lesson_app/models/tutor.dart';
+import 'package:private_lesson_app/models/tutor_leveleduction.dart';
+import 'package:private_lesson_app/models/tutor_subs.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/widget/form_widget/drp_city_widget.dart';
 import 'package:private_lesson_app/widget/form_widget/drp_widget.dart';
 import 'package:private_lesson_app/widget/form_widget/text_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:private_lesson_app/widget/select_list_widget.dart';
 
 class MyprofileScreen extends StatefulWidget {
   late User myuser;
@@ -62,7 +68,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
     CityAPI.getCities().then((citiesList) {
       setState(() {
         _cityList = citiesList;
-        // if (_cityList.length > 0) _citySelectedValue = _cityList[0].id;
       });
     });
     setState(() {
@@ -77,12 +82,36 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
         setState(() {
           isLoading = true;
         });
+        SubjectAPI.getSubjects().then((subsList) {
+          setState(() {
+            _subjectsList = subsList;
+          });
+        }).whenComplete(() {
+          setState(() {
+            isLoading = false;
+          });
+        });
+        LeveleducationAPI.getLeveleducations().then((levelEdList) {
+          setState(() {
+            _levelEductionsList = levelEdList;
+          });
+        }).whenComplete(() {
+          setState(() {
+            isLoading = false;
+          });
+        });
         TutorAPI.getATutor(widget.myuser.id.toString()).then((tutor) {
           setState(() {
             mytutor = tutor;
             isLoading = false;
             titleCertController.text = mytutor.cert ?? "";
             priceController.text = mytutor.price ?? "";
+            for (var sub in mytutor.subjects) {
+              _selectedSubjectsList = mytutor.subjects;
+            }
+            // for (var ed in mytutor.levelEductions) {
+            //   _selectedLevelEductionsList = mytutor.levelEductions;
+            // }
           });
         });
       }
@@ -96,49 +125,45 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Use the Todo to create the UI.
-
     return isLoading == true
         ? Center(
             child: LinearProgressIndicator(),
           )
         : Scaffold(
             backgroundColor: (colorContainerBox),
-            // appBar: AppBar(
-            //   title: Text('test profile'),
-            // ),
             body: SingleChildScrollView(
               child: Center(
-                //child: Column(
                 child: Form(
-                  // del here if som wrong
                   child: Column(
                     children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+
                       //------------Pic user--------------------------
-                      Container(
-                        width: MediaQuery.of(context).size.width > 1000
-                            ? MediaQuery.of(context).size.width * 0.6
-                            : MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: colorBackGround,
-                            image: DecorationImage(
-                                image: NetworkImage("add you image URL here "),
-                                fit: BoxFit.cover)),
-                        child: Container(
-                          width: double.infinity,
-                          height: 160,
-                          child: Container(
-                            alignment: Alignment(0.0, 2.5),
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  "https://picsum.photos/seed/305/600"
-                                  // "https://i.ibb.co/JzdX185/profile-male.png"
-                                  ),
-                              radius: 60.0,
+                      if (myuser.gender == "male") ...[
+                        Container(
+                          alignment: Alignment(0.0, 2.5),
+                          child: CircleAvatar(
+                            child: Image.network(
+                              "https://i.ibb.co/JzdX185/profile-male.png",
                             ),
+                            backgroundColor: colorPrimaryBTN,
+                            radius: 60.0,
                           ),
                         ),
-                      ),
+                      ] else ...[
+                        Container(
+                          alignment: Alignment(0.0, 2.5),
+                          child: CircleAvatar(
+                            child: Image.network(
+                              "https://i.ibb.co/6YtF8h2/profile-female.png",
+                            ),
+                            backgroundColor: colorPrimaryBTN,
+                            radius: 60.0,
+                          ),
+                        ),
+                      ],
                       SizedBox(
                         height: 60,
                       ),
@@ -157,7 +182,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                         selectedValue: (value) {
                           setState(() {
                             _genderSelectedValue = value;
-                            // print(_country);
                           });
                         },
                         title: "Gender",
@@ -171,7 +195,6 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                         selectedValue: (value) {
                           setState(() {
                             _citySelectedValue = value;
-                            // print(_country);
                           });
                         },
                       ),
@@ -183,7 +206,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                           icon: Icons.phone_android,
                           keyboardTp: 2),
 
-                      if (mytutor.id != -1) ...[
+                      if (mytutor.tutor_id != -1) ...[
                         //------------title_cert--------------------------
                         TextWidget.textWidget(
                           "Your Education",
@@ -214,118 +237,121 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                           // },
                         ),
 
-                        // Padding(
-                        //   //------------Subject--------------------------
-                        //   padding: EdgeInsetsDirectional.fromSTEB(
-                        //       constLeft, constTop, constRight, constBottom),
-                        //   child: Column(
-                        //     children: [
-                        //       SizedBox(
-                        //         height: 40,
-                        //         width: double.infinity,
-                        //         child: ElevatedButton.icon(
-                        //           onPressed: () {
-                        //             Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                 builder: (context) => SelectListWidget(
-                        //                     list: _subjectsList,
-                        //                     callback: (List<dynamic> paralist) {
-                        //                       setState(() {
-                        //                         _selectedSubjectsList =
-                        //                             paralist;
-                        //                       });
-                        //                     }),
-                        //               ),
-                        //             );
-                        //           },
-                        //           icon: Icon(Icons.subject),
-                        //           label: Text("Subjects"),
-                        //         ),
-                        //       ),
-                        //       Row(
-                        //         children: [
-                        //           for (var sub in _selectedSubjectsList)
-                        //             Container(
-                        //               margin: EdgeInsets.symmetric(
-                        //                   horizontal: 5, vertical: 2),
-                        //               child: ElevatedButton(
-                        //                 style: ButtonStyle(
-                        //                     backgroundColor:
-                        //                         MaterialStateProperty.all(
-                        //                             Colors.deepOrangeAccent)),
-                        //                 onPressed: () {},
-                        //                 child: Text(sub.name),
-                        //               ),
-                        //             ),
-                        //         ],
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        Padding(
+                          //------------Subject--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 40,
+                                width: double.infinity,
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SelectListWidget(
+                                            list: _subjectsList,
+                                            callback: (List<dynamic> paralist) {
+                                              setState(() {
+                                                _selectedSubjectsList =
+                                                    paralist;
+                                              });
+                                            }),
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(Icons.subject),
+                                  label: Text("Subjects"),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  for (var sub in _selectedSubjectsList)
+                                    Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 2),
+                                      child: ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.deepOrangeAccent)),
+                                        onPressed: () {},
+                                        child: Text(sub.name),
+                                      ),
+                                    ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
 
-                        // Padding(
-                        //   //------------Level of Education--------------------------
-                        //   padding: EdgeInsetsDirectional.fromSTEB(
-                        //       constLeft, constTop, constRight, constBottom),
-                        //   child: Column(
-                        //     children: [
-                        //       SizedBox(
-                        //         height: 40,
-                        //         width: double.infinity,
-                        //         child: ElevatedButton.icon(
-                        //           onPressed: () {
-                        //             Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                 builder: (context) => SelectListWidget(
-                        //                     list: _levelEductionsList,
-                        //                     callback: (List<dynamic> paralist) {
-                        //                       setState(() {
-                        //                         _selectedLevelEductionsList =
-                        //                             paralist;
-                        //                       });
-                        //                     }),
-                        //               ),
-                        //             );
-                        //           },
-                        //           icon: Icon(Icons.subject),
-                        //           label: Text("Level of Educations"),
-                        //         ),
-                        //       ),
-                        //       Row(
-                        //         children: [
-                        //           for (var ed in _selectedLevelEductionsList)
-                        //             Container(
-                        //               margin: EdgeInsets.symmetric(
-                        //                   horizontal: 5, vertical: 2),
-                        //               child: ElevatedButton(
-                        //                 style: ButtonStyle(
-                        //                     backgroundColor:
-                        //                         MaterialStateProperty.all(
-                        //                             Colors.deepOrangeAccent)),
-                        //                 onPressed: () {},
-                        //                 child: Text(ed.name),
-                        //               ),
-                        //             ),
-                        //         ],
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        Padding(
+                          //------------Level of Education--------------------------
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              constLeft, constTop, constRight, constBottom),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 40,
+                                width: double.infinity,
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SelectListWidget(
+                                            list: _levelEductionsList,
+                                            callback: (List<dynamic> paralist) {
+                                              setState(() {
+                                                _selectedLevelEductionsList =
+                                                    paralist;
+                                              });
+                                            }),
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(Icons.subject),
+                                  label: Text("Level of Educations"),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  for (var ed in _selectedLevelEductionsList)
+                                    Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 2),
+                                      child: ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.deepOrangeAccent)),
+                                        onPressed: () {},
+                                        child: Text(ed.name),
+                                      ),
+                                    ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
                       ],
+                      SizedBox(
+                        height: 30,
+                      ),
 
                       //------------Save button--------------------------
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
-                        child: ElevatedButton.icon(
-                          onPressed: () {
+                        child: ElevatedButton(
+                          onPressed: () async {
                             myuser.name = nameController.text;
                             myuser.gender = _genderSelectedValue;
                             myuser.city = _citySelectedValue;
                             myuser.phone = phoneController.text;
 
-                            //--------update cert & price------------------
+                            //--------update cert & price------------------------------
                             if (mytutor.tutor_id != -1) {
                               mytutor.cert = titleCertController.text;
                               mytutor.price = priceController.text;
@@ -335,6 +361,21 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                                   titleCert: mytutor.cert!,
                                   price: mytutor.price!,
                                   type: "hours"));
+
+                              //--------update level of eductions tutor------------------
+                              for (var lvlEd in _selectedLevelEductionsList) {
+                                await TutorLeveleducationAPI.updateTutor(
+                                    new TutorLeveleducation(
+                                        tutorId: mytutor.tutor_id!,
+                                        leveleducationId: lvlEd.id));
+                              }
+                              //--------update subjects tutor----------------------------
+                              for (var sub in _selectedSubjectsList) {
+                                await TutorSubsAPI.updateTutor(new TutorSubs(
+                                    tutorId:
+                                        mytutor.tutor_id!, //tutorValue.id!,
+                                    subjectId: sub.id));
+                              }
                             }
 
                             UserAPI.updateUser(myuser).then((user) {
@@ -358,12 +399,11 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                               }
                             });
                           },
-                          label: Text('Save changes'),
-                          icon: Icon(
-                            Icons.add,
-                            size: 15,
-                          ),
+                          child: Text('Save changes'),
                         ),
+                      ),
+                      SizedBox(
+                        height: 50,
                       ),
                     ],
                   ),

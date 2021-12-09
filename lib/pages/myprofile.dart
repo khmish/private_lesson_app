@@ -106,12 +106,8 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
             isLoading = false;
             titleCertController.text = mytutor.cert ?? "";
             priceController.text = mytutor.price ?? "";
-            for (var sub in mytutor.subjects) {
-              _selectedSubjectsList = mytutor.subjects;
-            }
-            // for (var ed in mytutor.levelEductions) {
-            //   _selectedLevelEductionsList = mytutor.levelEductions;
-            // }
+            _selectedSubjectsList = mytutor.subjects;
+            // _selectedLevelEductionsList = mytutor.levelEductions;
           });
         });
       }

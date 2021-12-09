@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:http/http.dart' as http;
 
 class LeveleducationAPI {
   static var _baseUrlLeveleducations =
-      'https://privatelesson.herokuapp.com/api/leveleducation';
+      base_url+'leveleducation';
 
   // get level education*****************************************************
   static Future<List<Leveleducation>> getLeveleducations() async {

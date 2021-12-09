@@ -1,14 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/lesson_api.dart';
-import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/models/lesson.dart';
 import 'package:private_lesson_app/models/subject.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
-import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/widget/form_widget/drp_sub_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailScreen extends StatefulWidget {
   // widget.tutorsList[index]
@@ -29,7 +26,7 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
     _subjectslist = widget.thisuser.subjects;
     if (_subjectslist.length > 0) {
-      _subjectSelectedValue = _subjectslist[0].id!;
+      _subjectSelectedValue = _subjectslist[0].subject_id!;
     }
   }
 

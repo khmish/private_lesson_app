@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/city.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,7 +8,7 @@ class CityAPI {
 
   //---------------------------------- URL to api ----------------------------------//
 
-  static var _baseUrlCities = 'https://privatelesson.herokuapp.com/api/city';
+  static var _baseUrlCities = base_url+'city';
   
 
   //---------------------------------- get city ----------------------------------//

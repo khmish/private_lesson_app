@@ -323,6 +323,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                             .then((value) {
                                           setState(() {
                                             _tutorsList = value;
+                                             _tutorsListSearch = _tutorsList;
                                           });
                                         }).whenComplete(() {
                                           setState(() {

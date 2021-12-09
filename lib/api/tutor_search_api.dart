@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 
 class TutorSearch {
   static var _baseUrlUsers =
-      'https://privatelesson.herokuapp.com/api/user/search';
+      base_url+'user/search';
   // 'http://192.168.100.49/privateLesson/public/api/user/search';
 
   static Future<List<TutorSubsLvEd>> searchForTutorsWithParams(

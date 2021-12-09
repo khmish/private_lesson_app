@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/register.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAPI {
-  static var _baseUrlUsers = 'https://privatelesson.herokuapp.com/api/user';
+  static var _baseUrlUsers = base_url+'user';
 
   static Future<List<User>> getUsers() async {
     var baseUrl = _baseUrlUsers;

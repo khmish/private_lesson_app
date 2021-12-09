@@ -13,20 +13,60 @@ class DrawerWidget {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
+            //------------user pic--------------------------
+            if (user!.gender == "male") ...[
+              Container(
+                color: colorContainerBox,
+                padding: const EdgeInsets.all(6.0),
+                //alignment: Alignment.bottomLeft,
+                child: CircleAvatar(
+                  child: Image.network(
+                    "https://i.ibb.co/JzdX185/profile-male.png",
+                  ),
+                  backgroundColor: colorPrimaryBTN,
+                  radius: 30.0,
+                ),
+              ),
+            ] else if (user.gender == "female") ...[
+              Container(
+                color: colorContainerBox,
+                padding: const EdgeInsets.all(6.0),
+                //alignment: Alignment.bottomLeft,
+                child: CircleAvatar(
+                  child: Image.network(
+                    "https://i.ibb.co/6YtF8h2/profile-female.png",
+                  ),
+                  backgroundColor: colorPrimaryBTN,
+                  radius: 30.0,
+                ),
+              ),
+            ] else ...[
+              Container(
+                color: colorContainerBox,
+                padding: const EdgeInsets.all(6.0),
+                //alignment: Alignment.bottomLeft,
+                child: CircleAvatar(
+                  backgroundColor: colorPrimaryBTN,
+                  radius: 30.0,
+                ),
+              ),
+            ],
+
+            //------------user name--------------------------
             Container(
               color: colorContainerBox,
-              padding: const EdgeInsets.all(16.0),
-              child: CircleAvatar(
-                child: Text(
-                  '${user!.name}',
-                  //style: textTheme.headline6,
-                ),
+              padding: const EdgeInsets.all(6.0),
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                '${user.name}',
               ),
             ),
             Divider(
               height: 1,
               thickness: 1,
             ),
+
+            //------------drawer list--------------------------
             isLogin
                 ? ListTile(
                     leading: Icon(Icons.label),

@@ -23,7 +23,7 @@ class StarsWidget {
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Text("${numberOfStars.toStringAsFixed(1)}"),
+              //Text("${numberOfStars.toStringAsFixed(1)}"),
               ...[
                 for (int i = 0; i < tempNumberOfStars; i++)
                   Icon(
@@ -36,7 +36,6 @@ class StarsWidget {
                     Icons.star_half_rounded,
                     size: 28,
                     color: Colors.amber,
-                    
                   ),
                 for (int i = 0; i < tempNumberOfEmptyStars; i++)
                   Icon(

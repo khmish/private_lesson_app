@@ -82,7 +82,7 @@ class _MyHomeAdminState extends State<MyHomeAdmin> {
             //bottomNavigationBar: BottomNavigationBar(
 
             bottomNavigationBar: CurvedNavigationBar(
-              backgroundColor: colorBackGround,
+              backgroundColor: colorContainerBox,
 
               // buttonBackgroundColor: colorContainerBox,
               index: page,

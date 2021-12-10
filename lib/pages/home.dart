@@ -96,7 +96,7 @@ class _MyHomeState extends State<MyHome> {
             //bottomNavigationBar: BottomNavigationBar(
 
             bottomNavigationBar: CurvedNavigationBar(
-              backgroundColor: colorBackGround,
+              backgroundColor: colorContainerBox,
 
               // buttonBackgroundColor: colorContainerBox,
               index: page,

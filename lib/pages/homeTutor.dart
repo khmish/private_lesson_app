@@ -80,7 +80,7 @@ class _MyHomeTutorState extends State<MyHomeTutor> {
             //bottomNavigationBar: BottomNavigationBar(
 
             bottomNavigationBar: CurvedNavigationBar(
-              backgroundColor: colorBackGround,
+              backgroundColor: colorContainerBox,
 
               // buttonBackgroundColor: colorContainerBox,
               index: page,

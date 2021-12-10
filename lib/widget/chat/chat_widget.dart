@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
+import 'package:private_lesson_app/models/lesson.dart';
 import 'package:private_lesson_app/models/message.dart';
 import 'package:private_lesson_app/models/user.dart';
 import 'package:private_lesson_app/widget/form_widget/text_widget.dart';
@@ -9,7 +10,8 @@ import 'package:redis/redis.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ChatWidget extends StatefulWidget {
-  ChatWidget({Key? key}) : super(key: key);
+  Lesson? lesson;
+  ChatWidget({Key? key, this.lesson}) : super(key: key);
 
   @override
   _ChatWidgetState createState() => _ChatWidgetState();
@@ -19,6 +21,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   TextEditingController textController = TextEditingController();
   RedisConnection connPublish = RedisConnection();
   RedisConnection conn = RedisConnection();
+  String room = "";
   String txt = "";
   List<MessagesChat> listChat = [];
   User myuser =
@@ -28,7 +31,10 @@ class _ChatWidgetState extends State<ChatWidget> {
   connectToRedis() async {
     conn.connect('3.88.177.153', 6379).then((Command command) {
       PubSub pubsub = PubSub(command);
-      pubsub.subscribe(["hassan"]);
+      room="lesson${widget.lesson!.studentId}/${widget.lesson!.teacherId}/${widget.lesson!.subjectId}";
+      pubsub.subscribe([
+        room
+      ]);
       // command.send_object(["PUBLISH","hassan","banana"]);
       pubsub.getStream().listen((message) {
         setState(() {
@@ -77,6 +83,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   void initState() {
     // TODO: implement initState
+    
     super.initState();
     setState(() {
       isLoading = true;
@@ -139,7 +146,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 .then((Command command) {
                               command.send_object([
                                 "PUBLISH",
-                                "hassan",
+                                room,
                                 jsonEncode({
                                   "message": textController.text,
                                   "sender": myuser.name,

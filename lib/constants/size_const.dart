@@ -28,6 +28,16 @@ Future<bool> checksIfHasToken() async {
   }
   return false;
 }
+//******************************* summer inverted mode********************* */
+Color colorContainerBox = Color(0xFFe8dab2);
+Color colorBackGround = Color(0xFFdd6e42);
+Color colorMainText = Color(0xFF253237);
+Color colorHeaderText = Colors.black;
+Color colorInputTextBox = Colors.black45;
+Color colorPrimaryBTN = Color(0xFF4f5d75);
+Color colorSecondaryBTN = Color(0xFF68768F);
+Color colorPrimaryText = Color(0xFFe8dab2);
+Color colorSeText = Color(0xFFbfc0c0);
 
 //******************************* summer mode********************* */
 // Color colorContainerBox = Color(0xFFdd6e42);
@@ -40,16 +50,16 @@ Future<bool> checksIfHasToken() async {
 // Color colorPrimaryText = Color(0xFFe8dab2);
 // Color colorSeText = Color(0xFFbfc0c0);
 
-//******************************* summer inverted mode********************* */
-Color colorContainerBox = Color(0xFFe8dab2);
-Color colorBackGround = Color(0xFFdd6e42);
-Color colorMainText = Color(0xFF253237);
-Color colorHeaderText = Colors.black;
-Color colorInputTextBox = Colors.black45;
-Color colorPrimaryBTN = Color(0xFF4f5d75);
-Color colorSecondaryBTN = Color(0xFF68768F);
-Color colorPrimaryText = Color(0xFFe8dab2);
-Color colorSeText = Color(0xFFbfc0c0);
+//******************************* blue mode********************* */
+// Color colorContainerBox = Color(0xFF73bbf7);
+// Color colorBackGround = Color(0xFFebf5fe);
+// Color colorMainText = Color(0xFF253237);
+// Color colorHeaderText = Colors.black;
+// Color colorInputTextBox = Colors.black45;
+// Color colorPrimaryBTN = Color(0xFF2196f3);
+// Color colorSecondaryBTN = Colors.blueGrey;
+// Color colorPrimaryText = Color(0xFFe8dab2);
+// Color colorSeText = Color(0xFFbfc0c0);
 
 
 // ****************************** dark mode*******************

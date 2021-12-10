@@ -1,10 +1,8 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/city_api.dart';
 import 'package:private_lesson_app/api/leveleducation_api.dart';
 import 'package:private_lesson_app/api/subject_api.dart';
 import 'package:private_lesson_app/api/tutor_api.dart';
-import 'package:private_lesson_app/api/tutor_leveledu_api.dart';
 import 'package:private_lesson_app/api/tutor_subs_api.dart';
 import 'package:private_lesson_app/api/user_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
@@ -12,7 +10,6 @@ import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/models/leveleducation.dart';
 import 'package:private_lesson_app/models/subject.dart';
 import 'package:private_lesson_app/models/tutor.dart';
-import 'package:private_lesson_app/models/tutor_leveleduction.dart';
 import 'package:private_lesson_app/models/tutor_subs.dart';
 import 'package:private_lesson_app/models/tutor_subs_lvl_ed.dart';
 import 'package:private_lesson_app/models/user.dart';
@@ -55,7 +52,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
       new User(id: -1, name: '', email: '', city: -1, phone: "", gender: "");
   TutorSubsLvEd mytutor = TutorSubsLvEd(
       id: -1, tutor_id: -1, levelEductions: [], subjects: [], rating: 0);
-
+  List<TutorSubs> list = <TutorSubs>[];
   @override
   void initState() {
     super.initState();
@@ -107,7 +104,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
             titleCertController.text = mytutor.cert ?? "";
             priceController.text = mytutor.price ?? "";
             _selectedSubjectsList = mytutor.subjects;
-            // _selectedLevelEductionsList = mytutor.levelEductions;
+            _selectedLevelEductionsList = mytutor.levelEductions;
           });
         });
       }
@@ -358,19 +355,15 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                                   price: mytutor.price!,
                                   type: "hours"));
 
-                              //--------update level of eductions tutor------------------
-                              for (var lvlEd in _selectedLevelEductionsList) {
-                                await TutorLeveleducationAPI.updateTutor(
-                                    new TutorLeveleducation(
-                                        tutorId: mytutor.tutor_id!,
-                                        leveleducationId: lvlEd.id));
-                              }
                               //--------update subjects tutor----------------------------
-                              for (var sub in _selectedSubjectsList) {
-                                await TutorSubsAPI.updateTutor(new TutorSubs(
-                                    tutorId:
-                                        mytutor.tutor_id!, //tutorValue.id!,
-                                    subjectId: sub.id));
+                              for (var i = 0;
+                                  i < _selectedSubjectsList.length;
+                                  i++) {
+                                await TutorSubsAPI.addTutorSubs(new TutorSubs(
+                                    tutorId: mytutor.tutor_id!,
+                                    subjectId:
+                                        _selectedSubjectsList[i].subject_id ??
+                                            _selectedSubjectsList[i].id));
                               }
                             }
 

@@ -127,6 +127,7 @@ class LevelEductions {
   int? tutorId;
   int? leveleducationId;
   String? leveleducation;
+  String? name;
 
   LevelEductions(
       {this.id, this.tutorId, this.leveleducationId, this.leveleducation});
@@ -136,6 +137,7 @@ class LevelEductions {
     tutorId = json['tutor_id'];
     leveleducationId = json['leveleducation_id'];
     leveleducation = json['leveleducation'];
+    name = json['leveleducation'];
   }
 
   Map<String, dynamic> toJson() {

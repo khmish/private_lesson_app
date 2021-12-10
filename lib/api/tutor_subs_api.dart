@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/tutor_subs.dart';
+import 'package:private_lesson_app/models/tutor_subs_insert.dart';
 
 class TutorSubsAPI {
   static var _baseUrlTutorSubs =
@@ -54,6 +55,34 @@ class TutorSubsAPI {
         headers: <String, String>{
           'Accept': 'application/json',
           'Content-Type': 'application/json; charset=UTF-8',
+          // 'Authorization': 'Bearer $token',
+        },
+      );
+      //
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+  static Future<bool> addTutorSubsList(List<TutorSubs> tutorSubs) async {
+    var baseUrl = _baseUrlTutorSubs;
+
+    try {
+      TutorSubInsert insert=new TutorSubInsert(tutorSubList: tutorSubs );
+      // if (page > 0) {
+      baseUrl = _baseUrlTutorSubs+"/storeArray";
+      // }
+      var url = Uri.parse(baseUrl);
+      var response = await http.post(
+        url,
+        body: jsonEncode(insert),
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
           // 'Authorization': 'Bearer $token',
         },
       );

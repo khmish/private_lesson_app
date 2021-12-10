@@ -97,8 +97,7 @@ class TutorAPI {
 
   static Future<Tutor> updateTutor(Tutor tutor) async {
     var baseUrl = _baseUrlTutor;
-    Tutor tutor =
-        new Tutor(id: -1, userId: 0, titleCert: "", price: "", type: "");
+    
 
     try {
       // if (page > 0) {

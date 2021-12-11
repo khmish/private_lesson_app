@@ -14,7 +14,8 @@ class TextWidget {
       //------------Email--------------------------
       padding: EdgeInsetsDirectional.fromSTEB(
           constLeft, constTop, constRight, constBottom),
-      child: TextFormField(
+      child: 
+      TextFormField(
         //add here
         maxLength: length,
         maxLengthEnforced: true,
@@ -53,6 +54,7 @@ class TextWidget {
         ),
         keyboardType: keyboardTp==0?TextInputType.text:keyboardTp==1?TextInputType.emailAddress:TextInputType.number,
       ),
+    
     );
   }
 }

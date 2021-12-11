@@ -133,11 +133,10 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                           DrpCityWidget(
                             title: "City",
                             listObject: _cityList,
-                            defaultValue:  _citySelectedValue,
+                            defaultValue: _citySelectedValue,
                             selectedValue: (value) {
                               setState(() {
                                 _citySelectedValue = value;
-                                // print(_country);
                               });
                             },
                           ),
@@ -154,7 +153,7 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                               width: double.infinity,
                               child: ElevatedButton.icon(
                                 onPressed: () {
-                                  // if (_formKey.currentState!.validate()) {
+                                  if (_formKey.currentState!.validate()) {
                                     setState(() {
                                       isLoading = true;
                                     });
@@ -190,7 +189,7 @@ class _SignupWidgetState extends State<SignupTeacherWidget> {
                                         isLoading = false;
                                       });
                                     });
-                                  // }
+                                  }
 
                                   // setState(() {
                                   //   isLoading = true;

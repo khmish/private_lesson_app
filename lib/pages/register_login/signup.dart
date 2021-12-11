@@ -101,8 +101,6 @@ class _SignupWidgetState extends State<SignupWidget> {
                             icon: Icons.person_outline,
                             keyboardTp: 0),
 
-
-
                         //------------Email--------------------------
                         TextWidget.textWidget("Email",
                             length: 70,
@@ -112,14 +110,10 @@ class _SignupWidgetState extends State<SignupWidget> {
                         //------------Gender--------------------------
                         DrpWidget(
                           listObject: _genderList,
+                          defalutValue: _genderSelectedValue,
                           selectedValue: (value) {
                             setState(() {
-                              if (value.isNotEmpty) {
-                                _genderSelectedValue = value;
-                              } else {
-                                _genderSelectedValue = "male";
-                              }
-                              // print(_country);
+                              _genderSelectedValue = value;
                             });
                           },
                           title: "Gender",
@@ -138,13 +132,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                         DrpCityWidget(
                           title: "City",
                           listObject: _cityList,
-                          defaultValue:  _citySelectedValue,
-                            selectedValue: (value) {
-                              setState(() {
-                                _citySelectedValue = value;
-                                // print(_country);
-                              });
-                            },
+                          defaultValue: _citySelectedValue,
+                          selectedValue: (value) {
+                            setState(() {
+                              _citySelectedValue = value;
+                              // print(_country);
+                            });
+                          },
                         ),
 
                         Padding(

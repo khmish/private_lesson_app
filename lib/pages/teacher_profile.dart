@@ -75,8 +75,7 @@ class _SignupWidgetState extends State<teacher_profile> {
       //key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: true,
-          backgroundColor: (colorContainerBox),
-
+        backgroundColor: (colorContainerBox),
         title: Text(
           'Private Lesson',
         ),
@@ -84,6 +83,7 @@ class _SignupWidgetState extends State<teacher_profile> {
         centerTitle: true,
         elevation: 4,
       ),
+      backgroundColor: (colorBackGround),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -98,6 +98,7 @@ class _SignupWidgetState extends State<teacher_profile> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       shape: BoxShape.rectangle,
+                      color: (colorContainerBox),
                       border: Border.all(
                         color: Color(0xFFA6A4A4),
                         width: 1,
@@ -285,37 +286,44 @@ class _SignupWidgetState extends State<teacher_profile> {
                               width: double.infinity,
                               child: ElevatedButton.icon(
                                 onPressed: () {
-                                  isLoading = true;
-                                  Tutor tutor = new Tutor(
-                                      userId: widget.teacher.id!,
-                                      titleCert: titleCertController.text,
-                                      price: priceController.text,
-                                      type: "hours");
-                                  TutorAPI.addTutor(tutor).then((tutorValue) async {
-                                    if (tutorValue.id != -1) {
-                                      //************************************add level of eductions to tutor**************** */
-                                      for (var lvlEd
-                                          in _selectedLevelEductionsList) {
-                                        await TutorLeveleducationAPI
-                                            .addTutorleveleducation(
-                                                new TutorLeveleducation(
-                                                    tutorId: tutorValue.id!,
-                                                    leveleducationId:
-                                                        lvlEd.id));
+                                  //isLoading = true;
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    Tutor tutor = new Tutor(
+                                        userId: widget.teacher.id!,
+                                        titleCert: titleCertController.text,
+                                        price: priceController.text,
+                                        type: "hours");
+                                    TutorAPI.addTutor(tutor)
+                                        .then((tutorValue) async {
+                                      if (tutorValue.id != -1) {
+                                        //************************************add level of eductions to tutor**************** */
+                                        for (var lvlEd
+                                            in _selectedLevelEductionsList) {
+                                          await TutorLeveleducationAPI
+                                              .addTutorleveleducation(
+                                                  new TutorLeveleducation(
+                                                      tutorId: tutorValue.id!,
+                                                      leveleducationId:
+                                                          lvlEd.id));
+                                        }
+                                        //************************************add subject to tutor********************************* */
+                                        for (var sub in _selectedSubjectsList) {
+                                          await TutorSubsAPI.addTutorSubs(
+                                              new TutorSubs(
+                                                  tutorId: tutorValue.id!,
+                                                  subjectId: sub.id));
+                                        }
                                       }
-                                      //************************************add subject to tutor********************************* */
-                                      for (var sub in _selectedSubjectsList) {
-                                        await TutorSubsAPI.addTutorSubs(new TutorSubs(
-                                            tutorId: tutorValue.id!,
-                                            subjectId: sub.id));
-                                      }
-                                    }
-                                  }).whenComplete(() {
-                                    isLoading = false;
-                                    
-                                    Navigator.of(context)
-                                        .popAndPushNamed('/home');
-                                  });
+                                    }).whenComplete(() {
+                                      isLoading = false;
+
+                                      Navigator.of(context)
+                                          .popAndPushNamed('/home');
+                                    });
+                                  }
                                 },
                                 label: Text('Complete'),
                                 icon: Icon(

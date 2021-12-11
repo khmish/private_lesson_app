@@ -181,7 +181,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                             SizedBox(
                               height: 60,
                             ),
-//------------Name--------------------------
+                            //------------Name--------------------------
                             TextWidget.textWidget("Name",
                                 length: 70,
                                 textController: nameController,
@@ -261,6 +261,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                                   children: [
                                     SizedBox(
                                       height: 40,
+                                      width: double.infinity,
                                       child: ElevatedButton.icon(
                                         onPressed: () {
                                           Navigator.push(
@@ -285,6 +286,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                                     ),
                                     Row(
                                       children: [
+                                        //if (mytutor.subjects.length > 4)
                                         for (var sub in _selectedSubjectsList)
                                           Container(
                                             margin: EdgeInsets.symmetric(

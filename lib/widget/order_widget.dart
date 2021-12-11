@@ -21,6 +21,8 @@ class _OrderWidgetState extends State<OrderWidget> {
   User myuser =
       new User(id: -1, name: '', email: '', city: -1, phone: '', gender: '');
 
+  bool isLoadingAcceptBTN = false;
+  bool isLoadingCancelBTN = false;
   @override
   void initState() {
     super.initState();
@@ -39,7 +41,7 @@ class _OrderWidgetState extends State<OrderWidget> {
         child: SafeArea(
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * .6,
+            height: MediaQuery.of(context).size.height * .8,
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: MediaQuery.of(context).size.width > 1000
@@ -193,30 +195,42 @@ class _OrderWidgetState extends State<OrderWidget> {
                               //   color: Colors.blue,
                               //   borderRadius: BorderRadius.circular(3),
                               // ),
-                              child: ElevatedButton.icon(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.blue),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    widget.ordersList[index].state = "accepted";
-                                    LessonAPI.updateALesson(
-                                        widget.ordersList[index]);
-                                  });
-                                },
-                                label: Text(
-                                  'Accept',
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.8)),
-                                ),
-                                icon: Icon(
-                                  Icons.done,
-                                  color: Colors.black.withOpacity(0.8),
-                                  size: 15,
-                                ),
-                              ),
+                              child: isLoadingAcceptBTN
+                                  ? CircularProgressIndicator()
+                                  : ElevatedButton.icon(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.blue),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          isLoadingAcceptBTN = true;
+                                          widget.ordersList[index].state =
+                                              "accepted";
+                                        });
+                                        LessonAPI.updateALesson(
+                                                widget.ordersList[index])
+                                            .then((value) {
+                                          if (value.id != -1) {
+                                            setState(() {
+                                              isLoadingAcceptBTN = false;
+                                            });
+                                          }
+                                        });
+                                      },
+                                      label: Text(
+                                        'Accept',
+                                        style: TextStyle(
+                                            color:
+                                                Colors.black.withOpacity(0.8)),
+                                      ),
+                                      icon: Icon(
+                                        Icons.done,
+                                        color: Colors.black.withOpacity(0.8),
+                                        size: 15,
+                                      ),
+                                    ),
                             ),
                           ),
                           Positioned(
@@ -231,30 +245,42 @@ class _OrderWidgetState extends State<OrderWidget> {
                               //   color: Colors.blue,
                               //   borderRadius: BorderRadius.circular(3),
                               // ),
-                              child: ElevatedButton.icon(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.red),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    widget.ordersList[index].state = "canceled";
-                                    LessonAPI.updateALesson(
-                                        widget.ordersList[index]);
-                                  });
-                                },
-                                label: Text(
-                                  'Cancel',
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.8)),
-                                ),
-                                icon: Icon(
-                                  Icons.clear,
-                                  color: Colors.black.withOpacity(0.8),
-                                  size: 15,
-                                ),
-                              ),
+                              child: isLoadingCancelBTN
+                                  ? CircularProgressIndicator()
+                                  : ElevatedButton.icon(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.red),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          widget.ordersList[index].state =
+                                              "canceled";
+                                          isLoadingCancelBTN = true;
+                                        });
+                                        LessonAPI.updateALesson(
+                                                widget.ordersList[index])
+                                            .then((value) {
+                                          if (value.id != -1) {
+                                            setState(() {
+                                              isLoadingCancelBTN = false;
+                                            });
+                                          }
+                                        });
+                                      },
+                                      label: Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                            color:
+                                                Colors.black.withOpacity(0.8)),
+                                      ),
+                                      icon: Icon(
+                                        Icons.clear,
+                                        color: Colors.black.withOpacity(0.8),
+                                        size: 15,
+                                      ),
+                                    ),
                             ),
                           ),
                         ],
@@ -274,30 +300,42 @@ class _OrderWidgetState extends State<OrderWidget> {
                               //   color: Colors.blue,
                               //   borderRadius: BorderRadius.circular(3),
                               // ),
-                              child: ElevatedButton.icon(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.red),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    widget.ordersList[index].state = "canceled";
-                                    LessonAPI.updateALesson(
-                                        widget.ordersList[index]);
-                                  });
-                                },
-                                label: Text(
-                                  'Cancel',
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.8)),
-                                ),
-                                icon: Icon(
-                                  Icons.clear,
-                                  color: Colors.black.withOpacity(0.8),
-                                  size: 15,
-                                ),
-                              ),
+                              child: isLoadingCancelBTN
+                                  ? CircularProgressIndicator()
+                                  : ElevatedButton.icon(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.red),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          widget.ordersList[index].state =
+                                              "canceled";
+                                          isLoadingCancelBTN = true;
+                                        });
+                                        LessonAPI.updateALesson(
+                                                widget.ordersList[index])
+                                            .then((value) {
+                                          if (value.id != -1) {
+                                            setState(() {
+                                              isLoadingCancelBTN = false;
+                                            });
+                                          }
+                                        });
+                                      },
+                                      label: Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                            color:
+                                                Colors.black.withOpacity(0.8)),
+                                      ),
+                                      icon: Icon(
+                                        Icons.clear,
+                                        color: Colors.black.withOpacity(0.8),
+                                        size: 15,
+                                      ),
+                                    ),
                             ),
                           ),
                         ]

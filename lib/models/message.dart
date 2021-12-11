@@ -7,11 +7,14 @@ class MessagesChat {
 
   String sender;
   DateTime? msgTime = DateTime.now();
+  int? pos;
 
   MessagesChat(
       {required this.id,
       required this.message,
       required this.sender,
       required this.reciever,
-      this.msgTime});
+      this.msgTime,
+      this.pos
+      });
 }

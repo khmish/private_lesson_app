@@ -31,15 +31,13 @@ class _ChatWidgetState extends State<ChatWidget> {
   connectToRedis() async {
     conn.connect('3.88.177.153', 6379).then((Command command) {
       PubSub pubsub = PubSub(command);
-        room="general";
+      room = "general";
 
-      if(widget.lesson!=null){
-
-        room="lesson${widget.lesson!.studentId}/${widget.lesson!.teacherId}/${widget.lesson!.subjectId}";
+      if (widget.lesson != null) {
+        room =
+            "lesson${widget.lesson!.studentId}/${widget.lesson!.teacherId}/${widget.lesson!.subjectId}";
       }
-      pubsub.subscribe([
-        room
-      ]);
+      pubsub.subscribe([room]);
       // command.send_object(["PUBLISH","hassan","banana"]);
       pubsub.getStream().listen((message) {
         setState(() {
@@ -64,7 +62,9 @@ class _ChatWidgetState extends State<ChatWidget> {
           message: txt,
           sender: "$sender",
           reciever: "them",
-          msgTime: DateTime.now()));
+          msgTime: DateTime.now(),
+          pos: 0
+          ));
       textController.text = "";
     });
     moveDown();
@@ -78,7 +78,9 @@ class _ChatWidgetState extends State<ChatWidget> {
             message: txt,
             sender: "$sender",
             reciever: "them",
-            msgTime: DateTime.now()));
+            msgTime: DateTime.now(),
+            pos: 1
+            ));
         textController.text = "";
       });
       moveDown();
@@ -88,7 +90,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   void initState() {
     // TODO: implement initState
-    
+
     super.initState();
     setState(() {
       isLoading = true;
@@ -188,30 +190,113 @@ class _ChatWidgetState extends State<ChatWidget> {
 
 Widget chatItem(BuildContext context, MessagesChat chatDetail) {
   return Container(
-    height: 70,
-    decoration: BoxDecoration(
-      color: (colorContainerBox),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    // alignment: Alignment.centerLeft,
-    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-    child: Row(
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        CircleAvatar(
-          backgroundColor: (colorMainText),
-          child: Text("${chatDetail.sender.substring(0, 2).toUpperCase()}"),
-        ),
-        Column(
-          children: [
-            Text("${chatDetail.message}"),
-            Text("${chatDetail.msgTime}"),
-          ],
-        ),
-        Icon(Icons.fiber_new),
-      ],
-    ),
-  );
+      height: 100,
+
+      // alignment: Alignment.centerLeft,
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Stack(
+        fit: StackFit.loose,
+        overflow: Overflow.visible,
+        children: [
+          chatDetail.pos==0? Positioned(
+            left: 0,
+            // right: 0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.blueAccent.shade100,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              width: 200,
+              height: 80,
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "${chatDetail.message}",
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
+              ),
+            ),
+          ):
+          Positioned(
+            // left: 0,
+            right: 0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.greenAccent.shade100,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              width: 200,
+              height: 80,
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "${chatDetail.message}",
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
+              ),
+            ),
+          ),
+          chatDetail.pos==0?Positioned(
+            top: -10,
+            child: Container(
+              child: CircleAvatar(
+                backgroundColor: (colorMainText),
+                child:
+                    Text("${chatDetail.sender.substring(0, 2).toUpperCase()}"),
+              ),
+            ),
+          ):Positioned(
+            top: -10,
+            right: 0,
+            child: Container(
+              child: CircleAvatar(
+                backgroundColor: (colorMainText),
+                child:
+                    Text("${chatDetail.sender.substring(0, 2).toUpperCase()}"),
+              ),
+            ),
+          ),
+          chatDetail.pos==0?Positioned(
+            bottom: -10,
+            
+            child: Text("${chatDetail.msgTime.toString().split(" ")[1].split(".")[0]}"),
+          ):Positioned(
+            bottom: -10,
+            right: 0,
+            child: Text("${chatDetail.msgTime.toString().split(" ")[1].split(".")[0]}"),
+          )
+        ],
+      ));
 }
+// Widget chatItem(BuildContext context, MessagesChat chatDetail) {
+//   return Container(
+//     height: 70,
+//     decoration: BoxDecoration(
+//       color: (colorContainerBox),
+//       borderRadius: BorderRadius.circular(10),
+//     ),
+//     // alignment: Alignment.centerLeft,
+//     margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+//     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+//     child: Row(
+//       // crossAxisAlignment: CrossAxisAlignment.start,
+//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//       children: [
+//         CircleAvatar(
+//           backgroundColor: (colorMainText),
+//           child: Text("${chatDetail.sender.substring(0, 2).toUpperCase()}"),
+//         ),
+//         Column(
+//           children: [
+//             Text("${chatDetail.message}"),
+//             Text("${chatDetail.msgTime}"),
+//           ],
+//         ),
+//         Icon(Icons.fiber_new),
+//       ],
+//     ),
+//   );
+// }

@@ -31,7 +31,12 @@ class _ChatWidgetState extends State<ChatWidget> {
   connectToRedis() async {
     conn.connect('3.88.177.153', 6379).then((Command command) {
       PubSub pubsub = PubSub(command);
-      room="lesson${widget.lesson!.studentId}/${widget.lesson!.teacherId}/${widget.lesson!.subjectId}";
+        room="general";
+
+      if(widget.lesson!=null){
+
+        room="lesson${widget.lesson!.studentId}/${widget.lesson!.teacherId}/${widget.lesson!.subjectId}";
+      }
       pubsub.subscribe([
         room
       ]);

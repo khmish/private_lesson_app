@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:private_lesson_app/constants/size_const.dart';
-import 'package:private_lesson_app/models/city.dart';
 import 'package:http/http.dart' as http;
 import 'package:private_lesson_app/models/review.dart';
 
@@ -17,7 +16,12 @@ class ReviewAPI {
       baseUrl = _baseUrlRating;
       var url = Uri.parse(baseUrl);
       var response = await http.post(
+        
         url,
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
         body: jsonEncode(review),
       );
 
@@ -56,6 +60,6 @@ class ReviewAPI {
       
       
     }
-    return new Review(id: -1,stars: -1,studentId: -1,teacherId: -1);
+    return new Review(id: -1,stars: "",studentId: -1,teacherId: -1);
   }
 }

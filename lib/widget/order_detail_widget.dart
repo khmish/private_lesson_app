@@ -29,13 +29,12 @@ class _OrderDetailState extends State<OrderDetail> {
     // TODO: implement initState
     super.initState();
     ReviewAPI.getARate(new Review(
-            stars: rate,
             teacherId: widget.lesson.teacherId,
             studentId: widget.lesson.studentId))
         .then((value) {
       if (value.id != -1) {
         setState(() {
-          rate = value.stars;
+          rate = int.parse(value.stars!);
         });
       }
     });
@@ -112,12 +111,13 @@ class _OrderDetailState extends State<OrderDetail> {
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          ReviewAPI.addRate(new Review(stars: rate, teacherId:widget.lesson.teacherId, studentId: widget.lesson.studentId))
+                                          ReviewAPI.addRate(new Review(stars: rate.toString(), teacherId:widget.lesson.teacherId, studentId: widget.lesson.studentId))
                                               .then((value) {
                                             if (value) {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 SnackBar(
+                                                  
                                                   backgroundColor: Colors.greenAccent,
                                                   content: Text(
                                                       "thank you!!"),

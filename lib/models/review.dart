@@ -1,10 +1,10 @@
 class Review {
   late int? id;
-  late int stars;
+  late String? stars;
   late int teacherId;
   late int studentId;
 
-  Review({this.id, required this.stars, required this.teacherId, required this.studentId});
+  Review({this.id,  this.stars, required this.teacherId, required this.studentId});
 
   Review.fromJson(Map<String, dynamic> json) {
     id = json['id'];

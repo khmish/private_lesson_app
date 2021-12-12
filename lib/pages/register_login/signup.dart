@@ -197,7 +197,29 @@ class _SignupWidgetState extends State<SignupWidget> {
                               ),
                             ),
                           ),
-                        )
+                        ),
+
+                        //-------------back to login page------------------------
+                        Container(
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                              Text("Have an account?"),
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .popAndPushNamed("/login");
+                                },
+                                child: Text(
+                                  'Sign in',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline,
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ]))
                       ],
                     ),
                   ),

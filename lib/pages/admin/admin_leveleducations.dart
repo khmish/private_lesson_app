@@ -113,7 +113,7 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
                                               leveleducationNameController
                                                   .text);
                                         },
-                                        label: Text('submit'),
+                                        label: Text('Save'),
                                         icon: Icon(
                                           Icons.add,
                                           size: 15,
@@ -228,7 +228,7 @@ class _LeveleducationAdminWidgetState extends State<LeveleducationAdminWidget> {
                                   Navigator.pop(context, false);
                                 });
                               },
-                              label: Text('submit'),
+                              label: Text('Save'),
                               icon: Icon(
                                 Icons.add,
                                 size: 15,

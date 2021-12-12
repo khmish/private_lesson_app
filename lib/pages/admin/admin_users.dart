@@ -427,7 +427,7 @@ class _UserAdminWidgetState extends State<UserAdminWidget> {
                                   Navigator.pop(context, false);
                                 });
                               },
-                              label: Text('submit'),
+                              label: Text('Save'),
                               icon: Icon(
                                 Icons.add,
                                 size: 15,

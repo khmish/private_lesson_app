@@ -112,6 +112,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: colorContainerBox,
       body: isLoading
           ? Center(
               child: CircularProgressIndicator(),
@@ -125,9 +126,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                         height: 20,
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height < 500
-                            ? MediaQuery.of(context).size.height * .77
-                            : MediaQuery.of(context).size.height * .7,
+                        height: MediaQuery.of(context).size.height -100,
                         // width: MediaQuery.of(context).size.width * .8,
                         child: ListView.builder(
                           controller: scrollController,
@@ -140,9 +139,11 @@ class _ChatWidgetState extends State<ChatWidget> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.all(10),
+                        
+                        margin: EdgeInsets.symmetric(horizontal: 3 ,vertical: 10),
                         child: ListTile(
                             leading: Container(
+                              color: Colors.white,
                               width: MediaQuery.of(context).size.width * .7,
                               child: TextField(
                                 controller: textController,

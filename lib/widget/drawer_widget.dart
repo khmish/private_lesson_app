@@ -67,30 +67,32 @@ class DrawerWidget {
             ),
 
             //------------drawer list--------------------------
+            // isLogin
+            //     ? ListTile(
+            //         leading: Icon(Icons.label),
+            //         title: Text('Chat'),
+            //         onTap: () {
+            //           Navigator.of(context).popAndPushNamed('/chat');
+            //         })
+            //     : Text(""),
             isLogin
-                ? ListTile(
-                    leading: Icon(Icons.label),
-                    title: Text('Chat'),
-                    onTap: () {
-                      Navigator.of(context).popAndPushNamed('/chat');
-                    })
-                : Text(""),
-            isLogin
-                ? ListTile(
+                ? Text("")
+                : ListTile(
                     leading: Icon(Icons.label),
                     title: Text('Teacher Signup'),
                     onTap: () {
                       Navigator.of(context).popAndPushNamed('/singupTeacher');
-                    })
-                : Text(""),
+                    }),
+
             isLogin
-                ? ListTile(
+                ? Text("")
+                : ListTile(
                     leading: Icon(Icons.label),
                     title: Text('Signup'),
                     onTap: () {
                       Navigator.of(context).popAndPushNamed('/singup');
-                    })
-                : Text(""),
+                    }),
+
             isLogin
                 ? ListTile(
                     leading: Icon(Icons.label),

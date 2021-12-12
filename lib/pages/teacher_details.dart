@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:private_lesson_app/api/lesson_api.dart';
@@ -46,7 +45,13 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(''),
+          title: Text(
+            'Teacher Details',
+            style: TextStyle(color: colorMainText),
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 4,
           backgroundColor: (colorContainerBox),
         ),
         backgroundColor: (colorContainerBox),
@@ -369,95 +374,120 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                               ]),
                         ),
-                        Container(
-                          alignment: Alignment.topLeft,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom:
-                                  BorderSide(width: 2.0, color: Colors.black12),
+                        if (mytutor.subjects.isEmpty) ...[
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                    width: 2.0, color: Colors.black12),
+                              ),
+                            ),
+                            child: Text(
+                              '     unavailable\n',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: colorInputTextBox,
+                                  letterSpacing: 2.0,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
-                          child: DrpSubWidget(
-                            defaultValue: _subjectSelectedValue,
-                            listObject: _subjectslist,
-                            selectedValue: (sub) {
-                              setState(() {
-                                _subjectSelectedValue = sub;
-                              });
-                            },
-                            title: "Choose a subject",
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-
-                        //------------Reservation Button--------------------------
-                        Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 30),
-                            child: ElevatedButton(
-                              onPressed: () {
+                        ] else ...[
+                          Container(
+                            alignment: Alignment.topLeft,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                    width: 2.0, color: Colors.black12),
+                              ),
+                            ),
+                            child: DrpSubWidget(
+                              defaultValue: _subjectSelectedValue,
+                              listObject: _subjectslist,
+                              selectedValue: (sub) {
                                 setState(() {
-                                  isLoading = true;
-                                });
-                                print("subject =" +
-                                    _subjectSelectedValue.toString());
-                                checksIfLogIn().then((value) {
-                                  if (value.id! > 0 &&
-                                      widget.thisuser.id! > 0 &&
-                                      _subjectSelectedValue > 0) {
-                                    LessonAPI.addLesson(new Lesson(
-                                            studentId: value.id!,
-                                            teacherId: widget.thisuser.id!,
-                                            subjectId: _subjectSelectedValue,
-                                            state: "new",
-                                            dateExecution:
-                                                DateTime.now().toString()))
-                                        .then((value) {
-                                      if (value.id != null && value.id! > 0) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            backgroundColor: Colors.green,
-                                            content: Text(
-                                                "you are successfully registered for a lesson!!"),
-                                          ),
-                                        );
-                                        Navigator.pop(context, false);
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            backgroundColor: Colors.red,
-                                            content: Text("error!!"),
-                                          ),
-                                        );
-                                      }
-                                    });
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        backgroundColor: Colors.red,
-                                        content: Text(
-                                            "register first to get the service!!"),
-                                      ),
-                                    );
-                                    Navigator.of(context).pushNamed("/login");
-                                  }
-                                }).whenComplete(() {
-                                  setState(() {
-                                    isLoading = false;
-                                  });
+                                  _subjectSelectedValue = sub;
                                 });
                               },
-                              child: Text(
-                                "Request",
-                                style: TextStyle(
-                                    letterSpacing: 2.0,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                            )),
+                              title: "Choose a subject",
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+
+                          //------------Reservation Button--------------------------
+                          Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 30),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  print("subject =" +
+                                      _subjectSelectedValue.toString());
+                                  checksIfLogIn().then((value) {
+                                    if (value.id! > 0 &&
+                                        widget.thisuser.id! > 0 &&
+                                        _subjectSelectedValue > 0) {
+                                      LessonAPI.addLesson(new Lesson(
+                                              studentId: value.id!,
+                                              teacherId: widget.thisuser.id!,
+                                              subjectId: _subjectSelectedValue,
+                                              state: "new",
+                                              dateExecution:
+                                                  DateTime.now().toString()))
+                                          .then((value) {
+                                        if (value.id != null && value.id! > 0) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              backgroundColor: Colors.green,
+                                              content: Text(
+                                                  "you are successfully registered for a lesson!!"),
+                                            ),
+                                          );
+                                          Navigator.pop(context, false);
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              backgroundColor: Colors.red,
+                                              content: Text("error!!"),
+                                            ),
+                                          );
+                                        }
+                                      });
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.red,
+                                          content: Text(
+                                              "register first to get the service!!"),
+                                        ),
+                                      );
+                                      Navigator.of(context).pushNamed("/login");
+                                    }
+                                  }).whenComplete(() {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                  });
+                                },
+                                child: Text(
+                                  "Request",
+                                  style: TextStyle(
+                                      letterSpacing: 2.0,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              )),
+                        ],
                         SizedBox(
                           height: 15,
                         ),

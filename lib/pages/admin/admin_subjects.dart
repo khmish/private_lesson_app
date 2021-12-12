@@ -185,7 +185,7 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                                             }
                                           });
                                         },
-                                        label: Text('submit'),
+                                        label: Text('Save'),
                                         icon: Icon(
                                           Icons.add,
                                           size: 15,
@@ -278,7 +278,7 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                               controller: subjectNameController,
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: 'Input level education name',
+                                labelText: 'Input subject name',
                                 prefixIcon: Icon(
                                   Icons.text_fields,
                                 ),
@@ -298,7 +298,7 @@ class _SubjectAdminWidgetState extends State<SubjectAdminWidget> {
                                   Navigator.pop(context, false);
                                 });
                               },
-                              label: Text('submit'),
+                              label: Text('Save'),
                               icon: Icon(
                                 Icons.add,
                                 size: 15,

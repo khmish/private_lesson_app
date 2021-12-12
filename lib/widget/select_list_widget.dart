@@ -29,9 +29,14 @@ class _SelectListWidgetState extends State<SelectListWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("List"),
-          backgroundColor: (colorContainerBox),
-
+        title: Text(
+          "List",
+          style: TextStyle(color: colorMainText),
+        ),
+        actions: [],
+        centerTitle: true,
+        elevation: 4,
+        backgroundColor: (colorContainerBox),
       ),
       body: Column(
         children: [

@@ -4,7 +4,6 @@ import 'package:private_lesson_app/models/city.dart';
 import 'package:private_lesson_app/widget/admin_widget/cities_widget.dart';
 import 'package:private_lesson_app/widget/slidable_widget.dart';
 
-
 class CityAdminWidget extends StatefulWidget {
   CityAdminWidget({Key? key}) : super(key: key);
 
@@ -104,7 +103,6 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                       ),
                                     ),
                                     Padding(
-
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 10, 0),
                                       child: TextFormField(
@@ -281,7 +279,7 @@ class _CityAdminWidgetState extends State<CityAdminWidget> {
                                   Navigator.pop(context, false);
                                 });
                               },
-                              label: Text('submit'),
+                              label: Text('Save'),
                               icon: Icon(
                                 Icons.add,
                                 size: 15,

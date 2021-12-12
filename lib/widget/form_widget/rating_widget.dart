@@ -25,24 +25,24 @@ class _RatingInputWidgetState extends State<RatingInputWidget> {
   Widget build(BuildContext context) {
     return FittedBox(
       child: Container(
-        // width: 320,
+        // width: 330,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        decoration: BoxDecoration(
-          color: (colorInputTextBox),
-          borderRadius: BorderRadius.circular(10),
-        ),
+        // decoration: BoxDecoration(
+        //   // color: (colorInputTextBox),
+        //   borderRadius: BorderRadius.circular(10),
+        // ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "${widget.rating}",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Colors.green
-              ),
-            ),
+            // Text(
+            //   "${widget.rating}",
+            //   style: TextStyle(
+            //     fontWeight: FontWeight.bold,
+            //     fontSize: 30,
+            //     // color: Colors.green
+            //   ),
+            // ),
             Row(
               textBaseline: TextBaseline.alphabetic,
               children: [
@@ -56,7 +56,9 @@ class _RatingInputWidgetState extends State<RatingInputWidget> {
                   },
                   icon: Icon(
                     Icons.star_rounded,
-                    color: (widget.rating >= 1) ? Colors.amber : Colors.black,
+                    size: 30,
+                    
+                    color: (widget.rating >= 1) ? Colors.amber.shade900 : Colors.black,
                   ),
                 ),
                 SizedBox(
@@ -72,7 +74,8 @@ class _RatingInputWidgetState extends State<RatingInputWidget> {
                   },
                   icon: Icon(
                     Icons.star_rounded,
-                    color: widget.rating >= 2 ? Colors.amber : Colors.black,
+                    size: 30,
+                    color: widget.rating >= 2 ? Colors.amber.shade900 : Colors.black,
                   ),
                 ),
                 SizedBox(
@@ -88,7 +91,8 @@ class _RatingInputWidgetState extends State<RatingInputWidget> {
                   },
                   icon: Icon(
                     Icons.star_rounded,
-                    color: widget.rating >= 3 ? Colors.amber : Colors.black,
+                    size: 30,
+                    color: widget.rating >= 3 ? Colors.amber.shade900 : Colors.black,
                   ),
                 ),
                 SizedBox(
@@ -104,7 +108,8 @@ class _RatingInputWidgetState extends State<RatingInputWidget> {
                   },
                   icon: Icon(
                     Icons.star_rounded,
-                    color: widget.rating >= 4 ? Colors.amber : Colors.black,
+                    size: 30,
+                    color: widget.rating >= 4 ? Colors.amber.shade900 : Colors.black,
                   ),
                 ),
                 SizedBox(
@@ -120,7 +125,8 @@ class _RatingInputWidgetState extends State<RatingInputWidget> {
                   },
                   icon: Icon(
                     Icons.star_rounded,
-                    color: widget.rating >= 5 ? Colors.amber : Colors.black,
+                    size: 30,
+                    color: widget.rating >= 5 ? Colors.amber.shade900 : Colors.black,
                   ),
                 ),
                 

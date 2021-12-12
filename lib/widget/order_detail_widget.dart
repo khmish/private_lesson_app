@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:private_lesson_app/api/review_api.dart';
 import 'package:private_lesson_app/constants/size_const.dart';
 import 'package:private_lesson_app/models/lesson.dart';
+import 'package:private_lesson_app/models/review.dart';
 import 'package:private_lesson_app/widget/chat/chat_widget.dart';
 import 'package:private_lesson_app/widget/form_widget/text_widget.dart';
 
@@ -21,15 +23,22 @@ class _OrderDetailState extends State<OrderDetail> {
   // TextEditingController state = TextEditingController();
   // TextEditingController price = TextEditingController();
   TextEditingController rating = TextEditingController();
+  int rate = 0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // studentname.text = widget.lesson.student!.name ?? "";
-    // teachername.text = widget.lesson.teacher!.name ?? "";
-    // subject.text = widget.lesson.subject!.name;
-    // state.text = widget.lesson.state!.toString();
-    // price.text = widget.lesson.price!.toString();
+    ReviewAPI.getARate(new Review(
+            stars: rate,
+            teacherId: widget.lesson.teacherId,
+            studentId: widget.lesson.studentId))
+        .then((value) {
+      if (value.id != -1) {
+        setState(() {
+          rate = value.stars;
+        });
+      }
+    });
   }
 
   @override
@@ -77,7 +86,69 @@ class _OrderDetailState extends State<OrderDetail> {
                       SizedBox(
                         height: 30,
                       ),
-
+                      // *******************Rating **********************
+                      RatingInputWidget(
+                          selectedValue: (paraRate) {
+                            if (rate != paraRate) {
+                              setState(() {
+                                rate = paraRate;
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text(
+                                        'Thank you for your feedback'),
+                                    content: Text(
+                                        'Your are rating ${widget.lesson.teacher!.name} $rate star/s'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            rate = 0;
+                                          });
+                                          Navigator.pop(context, 'Cancel');
+                                        },
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          ReviewAPI.addRate(new Review(stars: rate, teacherId:widget.lesson.teacherId, studentId: widget.lesson.studentId))
+                                              .then((value) {
+                                            if (value) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  backgroundColor: Colors.greenAccent,
+                                                  content: Text(
+                                                      "thank you!!"),
+                                                ),
+                                              );
+                                            }
+                                            if (!value) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  backgroundColor: Colors.red,
+                                                  content: Text(
+                                                      "you already rated!!"),
+                                                ),
+                                              );
+                                            }
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
+                            }
+                          },
+                          rating: rate),
+                      SizedBox(
+                        height: 30,
+                      ),
                       //------------order number--------------------------
                       Container(
                         child: Row(

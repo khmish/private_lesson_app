@@ -112,6 +112,17 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Start Chatting',
+          style: TextStyle(color: colorMainText),
+        ),
+        actions: [],
+        centerTitle: true,
+        elevation: 4,
+        backgroundColor: (colorContainerBox),
+      ),
+      backgroundColor: (colorContainerBox),
       body: isLoading
           ? Center(
               child: CircularProgressIndicator(),
@@ -146,7 +157,6 @@ class _ChatWidgetState extends State<ChatWidget> {
                               width: MediaQuery.of(context).size.width * .7,
                               child: TextField(
                                 controller: textController,
-                                
                                 style: TextStyle(
                                   color: colorInputTextBox,
                                 ),

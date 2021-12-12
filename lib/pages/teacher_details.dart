@@ -45,7 +45,10 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Teacher Details'),
+          title: Text(
+            'Teacher Details',
+            style: TextStyle(color: colorMainText),
+          ),
           actions: [],
           centerTitle: true,
           elevation: 4,

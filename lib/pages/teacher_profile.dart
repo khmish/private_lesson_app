@@ -78,6 +78,7 @@ class _SignupWidgetState extends State<teacher_profile> {
         backgroundColor: (colorContainerBox),
         title: Text(
           'Private Lesson',
+          style: TextStyle(color: colorMainText),
         ),
         actions: [],
         centerTitle: true,

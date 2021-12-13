@@ -118,6 +118,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int subLength=_selectedSubjectsList.length>4?4:_selectedSubjectsList.length;
     return isLoading == true
         ? Center(
             child: LinearProgressIndicator(),
@@ -179,7 +180,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 60,
+                              height: 30,
                             ),
                             //------------Name--------------------------
                             TextWidget.textWidget("Name",
@@ -287,7 +288,8 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                                     Row(
                                       children: [
                                         //if (mytutor.subjects.length > 4)
-                                        for (var sub in _selectedSubjectsList)
+                                        for (int i = 0;
+                                            i <subLength ;i++)
                                           Container(
                                             margin: EdgeInsets.symmetric(
                                                 horizontal: 5, vertical: 2),
@@ -298,7 +300,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                                                           Colors
                                                               .deepOrangeAccent)),
                                               onPressed: () {},
-                                              child: Text(sub.name),
+                                              child: Text(_selectedSubjectsList[i].name),
                                             ),
                                           ),
                                       ],
@@ -307,66 +309,66 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                                 ),
                               ),
 
-                              Padding(
-                                //------------Level of Education--------------------------
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    constLeft,
-                                    constTop,
-                                    constRight,
-                                    constBottom),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 40,
-                                      width: double.infinity,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SelectListWidget(
-                                                      list: _levelEductionsList,
-                                                      callback: (List<dynamic>
-                                                          paralist) {
-                                                        setState(() {
-                                                          _selectedLevelEductionsList =
-                                                              paralist;
-                                                        });
-                                                      }),
-                                            ),
-                                          );
-                                        },
-                                        icon: Icon(Icons.subject),
-                                        label: Text("Level of Educations"),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        for (var ed
-                                            in _selectedLevelEductionsList)
-                                          Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 5, vertical: 2),
-                                            child: ElevatedButton(
-                                              style: ButtonStyle(
-                                                  backgroundColor:
-                                                      MaterialStateProperty.all(
-                                                          Colors
-                                                              .deepOrangeAccent)),
-                                              onPressed: () {},
-                                              child: Text(ed.name),
-                                            ),
-                                          ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
+                              // Padding(
+                              //   //------------Level of Education--------------------------
+                              //   padding: EdgeInsetsDirectional.fromSTEB(
+                              //       constLeft,
+                              //       constTop,
+                              //       constRight,
+                              //       constBottom),
+                              //   child: Column(
+                              //     children: [
+                              //       SizedBox(
+                              //         height: 40,
+                              //         width: double.infinity,
+                              //         child: ElevatedButton.icon(
+                              //           onPressed: () {
+                              //             Navigator.push(
+                              //               context,
+                              //               MaterialPageRoute(
+                              //                 builder: (context) =>
+                              //                     SelectListWidget(
+                              //                         list: _levelEductionsList,
+                              //                         callback: (List<dynamic>
+                              //                             paralist) {
+                              //                           setState(() {
+                              //                             _selectedLevelEductionsList =
+                              //                                 paralist;
+                              //                           });
+                              //                         }),
+                              //               ),
+                              //             );
+                              //           },
+                              //           icon: Icon(Icons.subject),
+                              //           label: Text("Level of Educations"),
+                              //         ),
+                              //       ),
+                              //       Row(
+                              //         children: [
+                              //           for (var ed
+                              //               in _selectedLevelEductionsList)
+                              //             Container(
+                              //               margin: EdgeInsets.symmetric(
+                              //                   horizontal: 5, vertical: 2),
+                              //               child: ElevatedButton(
+                              //                 style: ButtonStyle(
+                              //                     backgroundColor:
+                              //                         MaterialStateProperty.all(
+                              //                             Colors
+                              //                                 .deepOrangeAccent)),
+                              //                 onPressed: () {},
+                              //                 child: Text(ed.name),
+                              //               ),
+                              //             ),
+                              //         ],
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
                             ],
-                            SizedBox(
-                              height: 30,
-                            ),
+                            // SizedBox(
+                            //   height: 30,
+                            // ),
 
                             //------------Save button--------------------------
                             Padding(

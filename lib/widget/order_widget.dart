@@ -285,7 +285,7 @@ class _OrderWidgetState extends State<OrderWidget> {
                           ),
                         ],
 
-                        // ********************Accept/Cancel Buttons for tutor *******************************
+                        // ********************Cancel Buttons for student *******************************
                         if (widget.ordersList[index].state == "new" &&
                             myuser.role == "student") ...[
                           Positioned(

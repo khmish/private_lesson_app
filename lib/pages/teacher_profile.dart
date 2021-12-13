@@ -116,7 +116,7 @@ class _SignupWidgetState extends State<teacher_profile> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: Text(
-                              'Teacher Profile',
+                              'Teacher Profile 2',
                             ),
                           ),
                           Padding(

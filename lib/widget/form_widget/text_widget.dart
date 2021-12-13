@@ -23,7 +23,7 @@ class TextWidget {
         //
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter your username';
+            return 'This input is required';
           }
           return null;
         },
